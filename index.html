@@ -77,8 +77,6 @@ body {
  
 .sidebar-divider { border: none; border-top: 1px solid #1a1a1a; margin: 8px 0; }
  
-/* Tutor subject buttons */
-.subject-wrap { padding: 0 0 8px; }
 .subject-btn {
   display: flex;
   align-items: center;
@@ -143,7 +141,6 @@ body {
   min-width: 0;
 }
  
-/* Header */
 .header {
   display: flex;
   align-items: center;
@@ -193,10 +190,7 @@ body {
 }
 #page-radar::-webkit-scrollbar { display: none; }
  
-/* radar hero */
-.radar-hero {
-  margin-bottom: 28px;
-}
+.radar-hero { margin-bottom: 28px; }
  
 .radar-live {
   display: flex;
@@ -227,7 +221,6 @@ body {
  
 .radar-title span { color: #888; }
  
-/* Ask bar */
 .ask-bar {
   display: flex;
   gap: 8px;
@@ -284,12 +277,7 @@ body {
 }
 .ask-chip:hover { color: #aaa; border-color: #333; }
  
-/* AI answer */
-#ai-box {
-  display: none;
-  margin-bottom: 24px;
-  max-width: 580px;
-}
+#ai-box { display: none; margin-bottom: 24px; max-width: 580px; }
  
 .ai-box-inner {
   background: #0a0a0a;
@@ -308,21 +296,8 @@ body {
   border-bottom: 1px solid #1a1a1a;
 }
  
-.ai-box-label {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #555;
-  text-transform: uppercase;
-}
- 
-.ai-box-close {
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
-}
+.ai-box-label { font-size: 9px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+.ai-box-close { background: none; border: none; color: #333; cursor: pointer; font-size: 16px; line-height: 1; }
  
 .ai-box-body {
   padding: 16px;
@@ -333,18 +308,12 @@ body {
   min-height: 48px;
 }
  
-/* Typing */
 .typing-dots { display:flex; gap:5px; padding:4px 0; }
-.tdot {
-  width:5px; height:5px;
-  background:#333; border-radius:50%;
-  animation: bounce 1.2s infinite;
-}
+.tdot { width:5px; height:5px; background:#333; border-radius:50%; animation: bounce 1.2s infinite; }
 .tdot:nth-child(2){animation-delay:.2s}
 .tdot:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
  
-/* News grid */
 .news-grid-header {
   display: flex;
   align-items: center;
@@ -354,17 +323,9 @@ body {
   border-top: 1px solid #1a1a1a;
 }
  
-.news-grid-title {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #444;
-  text-transform: uppercase;
-}
+.news-grid-title { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; }
  
-.filter-tabs {
-  display: flex;
-  gap: 4px;
-}
+.filter-tabs { display: flex; gap: 4px; }
  
 .filter-tab {
   padding: 4px 10px;
@@ -381,7 +342,6 @@ body {
 .filter-tab:hover { color: #888; border-color: #333; }
 .filter-tab.active { color: #fff; border-color: #fff; background: #111; }
  
-/* News cards */
 .news-card {
   background: #0a0a0a;
   border: 1px solid #1a1a1a;
@@ -402,45 +362,17 @@ body {
 }
 .news-card:hover { background: #0f0f0f; }
 .news-card:hover::before { background: #fff; }
-.news-card.c-hot::before { background: #555; }
  
-.card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
- 
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
 .card-tags { display: flex; gap: 5px; }
- 
-.ctag {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  padding: 2px 7px;
-  border-radius: 1px;
-  text-transform: uppercase;
-}
+.ctag { font-size: 9px; letter-spacing: 1.5px; padding: 2px 7px; border-radius: 1px; text-transform: uppercase; }
 .ct-hot { background: #1a1000; color: #887030; border: 1px solid #2a2000; }
 .ct-policy { background: #0a100a; color: #3a6a3a; border: 1px solid #1a2a1a; }
 .ct-tip { background: #0a0a18; color: #3a3a8a; border: 1px solid #1a1a2a; }
 .ct-suneung { background: #150a0a; color: #8a4a4a; border: 1px solid #2a1515; }
- 
 .card-date { font-size: 10px; color: #2a2a2a; }
- 
-.card-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #ccc;
-  line-height: 1.5;
-  margin-bottom: 7px;
-}
- 
-.card-summary {
-  font-size: 12.5px;
-  color: #444;
-  line-height: 1.7;
-  margin-bottom: 10px;
-}
+.card-title { font-size: 14px; font-weight: 500; color: #ccc; line-height: 1.5; margin-bottom: 7px; }
+.card-summary { font-size: 12.5px; color: #444; line-height: 1.7; margin-bottom: 10px; }
  
 .card-ai-summary {
   display: none;
@@ -455,217 +387,65 @@ body {
   margin-bottom: 10px;
 }
  
-.card-ai-label {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: #333;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
- 
-.card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
- 
+.card-ai-label { font-size: 9px; letter-spacing: 1.5px; color: #333; text-transform: uppercase; margin-bottom: 6px; }
+.card-bottom { display: flex; align-items: center; justify-content: space-between; }
 .card-impact { font-size: 11px; color: #2a2a2a; }
- 
-.expand-btn {
-  font-size: 10px;
-  color: #444;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-  letter-spacing: 1px;
-  transition: color 0.15s;
-}
+.expand-btn { font-size: 10px; color: #444; background: none; border: none; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; transition: color 0.15s; }
 .expand-btn:hover { color: #aaa; }
  
-/* D-Day strip */
-.dday-strip {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
- 
-.dday-card {
-  background: #0a0a0a;
-  border: 1px solid #1a1a1a;
-  border-radius: 2px;
-  padding: 12px 16px;
-  flex: 1;
-  min-width: 140px;
-}
- 
-.dday-label {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #333;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
- 
+.dday-strip { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.dday-card { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 2px; padding: 12px 16px; flex: 1; min-width: 140px; }
+.dday-label { font-size: 9px; letter-spacing: 2px; color: #333; text-transform: uppercase; margin-bottom: 6px; }
 .dday-name { font-size: 12px; color: #888; margin-bottom: 4px; }
+.dday-num { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
  
-.dday-num {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.5px;
-}
- 
-/* Trending */
-.trending-strip {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
- 
-.trend-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border: 1px solid #1a1a1a;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
+.trending-strip { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; }
+.trend-chip { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid #1a1a1a; border-radius: 2px; cursor: pointer; transition: all 0.15s; }
 .trend-chip:hover { border-color: #333; }
 .trend-rank { font-size: 9px; color: #333; }
 .trend-text { font-size: 11px; color: #555; letter-spacing: 0.5px; }
 .trend-up { font-size: 9px; color: #666; }
  
 /* ── PAGE: TUTOR ── */
-#page-tutor {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+#page-tutor { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
  
 #canvas-area { display:none; padding: 0 28px; flex-shrink:0; }
 canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius:2px; margin:10px 0; }
  
-#chat-box {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px 28px;
-  scrollbar-width: none;
-}
+#chat-box { flex: 1; overflow-y: auto; padding: 20px 28px; scrollbar-width: none; }
 #chat-box::-webkit-scrollbar { display:none; }
  
-.welcome {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-  gap: 10px;
-  animation: fadeUp 0.4s ease;
-}
- 
+.welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 10px; animation: fadeUp 0.4s ease; }
 .welcome-icon { font-size: 32px; }
 .welcome-title { font-size: 12px; letter-spacing: 3px; color: #444; }
- 
 .welcome-chips { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:8px; }
-.w-chip {
-  padding: 6px 13px;
-  border: 1px solid #1e1e1e;
-  border-radius: 2px;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: 'Noto Sans KR', sans-serif;
-}
+.w-chip { padding: 6px 13px; border: 1px solid #1e1e1e; border-radius: 2px; font-size: 11px; letter-spacing: 0.5px; color: #333; cursor: pointer; transition: all 0.15s; font-family: 'Noto Sans KR', sans-serif; }
 .w-chip:hover { color: #aaa; border-color: #444; }
  
 .message-wrap { display:flex; margin:12px 0; animation:fadeUp 0.2s ease; }
 .message-wrap.user { justify-content:flex-end; }
 .message-wrap.ai { justify-content:flex-start; }
- 
-.bubble {
-  max-width: 75%;
-  padding: 12px 16px;
-  border-radius: 2px;
-  font-size: 14px;
-  line-height: 1.75;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
+.bubble { max-width: 75%; padding: 12px 16px; border-radius: 2px; font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
 .user .bubble { background:#151515; color:#888; border:1px solid #1e1e1e; }
 .ai .bubble { background:#0f0f0f; color:#e0e0e0; border:1px solid #1a1a1a; border-left:2px solid #2a2a2a; }
- 
 .sender { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-bottom:5px; }
 .message-wrap.user .sender { text-align:right; }
  
-.msg-tag {
-  display: inline-block;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  padding: 2px 7px;
-  border-radius: 1px;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-}
+.msg-tag { display: inline-block; font-size: 9px; letter-spacing: 1.5px; padding: 2px 7px; border-radius: 1px; margin-bottom: 6px; text-transform: uppercase; }
 .tag-hint { background:#1a1500; color:#887030; border:1px solid #2a2000; }
 .tag-explain { background:#0a120a; color:#3a6a3a; border:1px solid #1a2a1a; }
 .tag-answer { background:#150a0a; color:#8a3a3a; border:1px solid #2a1010; }
  
 .typing-wrap { display:flex; padding:6px 0; }
-.typing-bubble {
-  background:#0f0f0f;
-  border:1px solid #1a1a1a;
-  border-left:2px solid #2a2a2a;
-  padding:12px 16px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
+.typing-bubble { background:#0f0f0f; border:1px solid #1a1a1a; border-left:2px solid #2a2a2a; padding:12px 16px; display:flex; align-items:center; gap:5px; }
  
-#tutor-input-area {
-  display: flex;
-  gap: 10px;
-  border-top: 1px solid #1e1e1e;
-  padding: 18px 28px;
-  flex-shrink: 0;
-}
+#tutor-input-area { display: flex; gap: 10px; border-top: 1px solid #1e1e1e; padding: 18px 28px; flex-shrink: 0; }
  
-#user-input {
-  flex: 1;
-  padding: 12px 16px;
-  background: #0a0a0a;
-  border: 1px solid #1e1e1e;
-  color: #e0e0e0;
-  border-radius: 2px;
-  font-size: 14px;
-  outline: none;
-  font-family: 'Noto Sans KR', sans-serif;
-  transition: border-color 0.15s;
-}
+#user-input { flex: 1; padding: 12px 16px; background: #0a0a0a; border: 1px solid #1e1e1e; color: #e0e0e0; border-radius: 2px; font-size: 14px; outline: none; font-family: 'Noto Sans KR', sans-serif; transition: border-color 0.15s; }
 #user-input:focus { border-color: #2a2a2a; }
 #user-input::placeholder { color: #1e1e1e; }
  
-.send-btn {
-  padding: 12px 22px;
-  background: #ffffff;
-  color: #000;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  font-family: 'Noto Sans KR', sans-serif;
-  transition: background 0.15s;
-}
+.send-btn { padding: 12px 22px; background: #ffffff; color: #000; border: none; border-radius: 2px; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 2px; font-family: 'Noto Sans KR', sans-serif; transition: background 0.15s; }
 .send-btn:hover { background: #ccc; }
  
 @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
@@ -678,7 +458,6 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
 </head>
 <body>
  
-<!-- Sidebar -->
 <div class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-text">VERBALIS</div>
@@ -693,16 +472,14 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
     <span class="n-icon">📚</span> AI 과외
   </button>
  
-  <!-- Tutor controls (shown only on tutor page) -->
   <div id="tutor-controls" style="display:none">
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">과목</div>
-    <div class="subject-wrap">
-      <button class="subject-btn active" onclick="setSubject('수학','📐',this)"><span>📐</span> 수학</button>
-      <button class="subject-btn" onclick="setSubject('물리','⚡',this)"><span>⚡</span> 물리</button>
-      <button class="subject-btn" onclick="setSubject('화학','🧪',this)"><span>🧪</span> 화학</button>
-      <button class="subject-btn" onclick="setSubject('생물','🧬',this)"><span>🧬</span> 생물</button>
-    </div>
+    <button class="subject-btn active" onclick="setSubject('수학','📐',this)"><span>📐</span> 수학</button>
+    <button class="subject-btn" onclick="setSubject('물리','⚡',this)"><span>⚡</span> 물리</button>
+    <button class="subject-btn" onclick="setSubject('화학','🧪',this)"><span>🧪</span> 화학</button>
+    <button class="subject-btn" onclick="setSubject('생물','🧬',this)"><span>🧬</span> 생물</button>
+    <div class="sidebar-divider"></div>
     <div class="sidebar-section">학년</div>
     <div class="level-wrap">
       <select class="level-select" id="level-select" onchange="setLevel(this.value)">
@@ -720,10 +497,7 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
   </div>
 </div>
  
-<!-- Main -->
 <div class="main">
- 
-  <!-- Header -->
   <div class="header">
     <div>
       <div class="header-title" id="header-title">교육 레이더</div>
@@ -732,10 +506,8 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
  
-  <!-- PAGE: RADAR -->
+  <!-- RADAR -->
   <div id="page-radar">
- 
-    <!-- Hero -->
     <div class="radar-hero">
       <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
       <div class="radar-title">교육 변화,<br><span>설명회 없이</span> 바로 이해</div>
@@ -752,61 +524,33 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
       </div>
     </div>
  
-    <!-- AI Answer Box -->
     <div id="ai-box">
       <div class="ai-box-inner">
         <div class="ai-box-header">
           <div class="ai-box-label">AI 분석</div>
           <button class="ai-box-close" onclick="document.getElementById('ai-box').style.display='none'">×</button>
         </div>
-        <div class="ai-box-body" id="ai-box-body">
-          <div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>
-        </div>
+        <div class="ai-box-body" id="ai-box-body"></div>
       </div>
     </div>
  
-    <!-- D-Day -->
     <div class="dday-strip">
-      <div class="dday-card">
-        <div class="dday-label">수능까지</div>
-        <div class="dday-name">2026 수능</div>
-        <div class="dday-num" id="dd1">—</div>
-      </div>
-      <div class="dday-card">
-        <div class="dday-label">수시 원서</div>
-        <div class="dday-name">2026 수시</div>
-        <div class="dday-num" id="dd2">—</div>
-      </div>
-      <div class="dday-card">
-        <div class="dday-label">정시 원서</div>
-        <div class="dday-name">2027 정시</div>
-        <div class="dday-num" id="dd3">—</div>
-      </div>
+      <div class="dday-card"><div class="dday-label">수능까지</div><div class="dday-name">2026 수능</div><div class="dday-num" id="dd1">—</div></div>
+      <div class="dday-card"><div class="dday-label">수시 원서</div><div class="dday-name">2026 수시</div><div class="dday-num" id="dd2">—</div></div>
+      <div class="dday-card"><div class="dday-label">정시 원서</div><div class="dday-name">2027 정시</div><div class="dday-num" id="dd3">—</div></div>
     </div>
  
-    <!-- Trending -->
-    <div class="news-grid-header" style="margin-bottom:12px">
+    <div class="news-grid-header" style="margin-bottom:12px;border-top:none">
       <div class="news-grid-title">🔥 지금 뜨는 키워드</div>
     </div>
     <div class="trending-strip">
-      <div class="trend-chip" onclick="setRadarInput('의대 정원 확대 어떻게 돼?')">
-        <span class="trend-rank">01</span><span class="trend-text">의대 정원 확대</span><span class="trend-up">▲</span>
-      </div>
-      <div class="trend-chip" onclick="setRadarInput('2028 수능 개편 설명해줘')">
-        <span class="trend-rank">02</span><span class="trend-text">2028 수능 개편</span><span class="trend-up">NEW</span>
-      </div>
-      <div class="trend-chip" onclick="setRadarInput('고교학점제 어떻게 달라져?')">
-        <span class="trend-rank">03</span><span class="trend-text">고교학점제</span><span class="trend-up">▲</span>
-      </div>
-      <div class="trend-chip" onclick="setRadarInput('킬러문항 폐지 어떻게 됐어?')">
-        <span class="trend-rank">04</span><span class="trend-text">킬러문항 폐지</span>
-      </div>
-      <div class="trend-chip" onclick="setRadarInput('내신 절대평가 바뀌는 거 설명해줘')">
-        <span class="trend-rank">05</span><span class="trend-text">내신 절대평가</span><span class="trend-up">▲</span>
-      </div>
+      <div class="trend-chip" onclick="setRadarInput('의대 정원 확대 어떻게 돼?')"><span class="trend-rank">01</span><span class="trend-text">의대 정원 확대</span><span class="trend-up">▲</span></div>
+      <div class="trend-chip" onclick="setRadarInput('2028 수능 개편 설명해줘')"><span class="trend-rank">02</span><span class="trend-text">2028 수능 개편</span><span class="trend-up">NEW</span></div>
+      <div class="trend-chip" onclick="setRadarInput('고교학점제 어떻게 달라져?')"><span class="trend-rank">03</span><span class="trend-text">고교학점제</span><span class="trend-up">▲</span></div>
+      <div class="trend-chip" onclick="setRadarInput('킬러문항 폐지 어떻게 됐어?')"><span class="trend-rank">04</span><span class="trend-text">킬러문항 폐지</span></div>
+      <div class="trend-chip" onclick="setRadarInput('내신 절대평가 바뀌는 거 설명해줘')"><span class="trend-rank">05</span><span class="trend-text">내신 절대평가</span><span class="trend-up">▲</span></div>
     </div>
  
-    <!-- News Feed -->
     <div class="news-grid-header">
       <div class="news-grid-title">최신 교육 뉴스</div>
       <div class="filter-tabs">
@@ -817,14 +561,11 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
       </div>
     </div>
     <div id="news-feed"></div>
- 
   </div>
  
-  <!-- PAGE: TUTOR -->
+  <!-- TUTOR -->
   <div id="page-tutor" style="display:none">
-    <div id="canvas-area">
-      <canvas id="mathCanvas" height="180"></canvas>
-    </div>
+    <div id="canvas-area"><canvas id="mathCanvas" height="180"></canvas></div>
     <div id="chat-box">
       <div class="welcome" id="welcome">
         <div class="welcome-icon" id="welcome-icon">📐</div>
@@ -837,21 +578,31 @@ canvas { width:100%; background:#0f0f0f; border:1px solid #1e1e1e; border-radius
       <button class="send-btn" onclick="sendTutor()">SEND</button>
     </div>
   </div>
- 
 </div>
  
 <script>
-const GROQ_KEY = "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";
+// ── API 호출 — Vercel Function 통해서 (키 노출 없음) ──
+async function callAI(messages, temperature = 0.7) {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      temperature,
+      messages
+    })
+  });
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
  
 // ── Page switch ──
 function showPage(page, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
- 
   document.getElementById('page-radar').style.display = page === 'radar' ? 'block' : 'none';
   document.getElementById('page-tutor').style.display = page === 'tutor' ? 'flex' : 'none';
   document.getElementById('tutor-controls').style.display = page === 'tutor' ? 'block' : 'none';
- 
   if (page === 'radar') {
     document.getElementById('header-title').textContent = '교육 레이더';
     document.getElementById('header-sub').textContent = '실시간 교육 변화 감지';
@@ -870,65 +621,27 @@ document.getElementById('dd1').textContent = dday('2026-11-19');
 document.getElementById('dd2').textContent = dday('2026-09-05');
 document.getElementById('dd3').textContent = dday('2027-01-03');
  
-// ── News Data ──
+// ── News ──
 const newsData = [
-  {
-    id:1, cat:'수능/입시', tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']], date:'2026.03.20',
-    title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',
-    summary:'교육부가 2028 수능 개편안을 확정 발표. 사회·과학 영역이 통합되고 선택과목 구조가 대폭 축소됩니다.',
-    ai:'✅ 핵심 요약\n• 사회/과학 → 통합사회, 통합과학으로 묶임\n• 현재 중3이 첫 적용 대상\n• 수학 선택과목(기하, 경제수학) 유지\n\n👨‍👩‍👧 학부모: 현재 중2~3 자녀라면 지금 공부법 바꿔야 해요.',
-    impact:'⚡ 영향도 매우 높음', ask:'2028 수능 개편안 자세히 설명해줘'
-  },
-  {
-    id:2, cat:'수능/입시', tags:[['ct-policy','📋 정책']], date:'2026.03.18',
-    title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',
-    summary:'의대 정원이 기존 3,058명 → 5,058명으로 확대 확정. 이과 상위권 수험생 입시 전략에 큰 변화 예상.',
-    ai:'✅ 핵심 요약\n• 이과 최상위권 의대 쏠림 심화 예상\n• 서울대 공대 등 커트라인 하락 가능성\n• 재학생보다 재수생에게 유리한 구조\n\n📊 수험생: 경쟁률 상승 예상, 준비 기간 더 필요',
-    impact:'⚡ 영향도 매우 높음', ask:'의대 정원 확대가 입시에 미치는 영향 분석해줘'
-  },
-  {
-    id:3, cat:'정책', tags:[['ct-policy','📋 정책']], date:'2026.03.15',
-    title:'고교학점제 전면 시행 — 2025년 입학생부터 적용',
-    summary:'고등학생이 원하는 과목을 선택해 이수하는 고교학점제가 2025년 입학생부터 전면 적용됩니다.',
-    ai:'✅ 핵심 요약\n• 192학점 이수 시 졸업\n• 원하는 과목 직접 선택 가능\n• 미이수 시 보충 의무\n\n👨‍👩‍👧 학부모: 진로를 중학교 때부터 탐색해두면 유리해요.',
-    impact:'⚠️ 영향도 높음', ask:'고교학점제 전면 시행 내용 자세히 알려줘'
-  },
-  {
-    id:4, cat:'수능/입시', tags:[['ct-tip','💡 분석']], date:'2026.03.12',
-    title:'킬러문항 폐지 2년 후 — 수능 난이도 실제로 어떻게 바뀌었나',
-    summary:'킬러문항 폐지 후 초고난도 문제가 준킬러 여러 개로 대체됐습니다. 상위권 변별력은 유지되고 있습니다.',
-    ai:'✅ 핵심 요약\n• 초고난도 1~2문제 → 준킬러 3~5문제로 대체\n• 1등급 컷은 오히려 오른 과목도 있음\n\n📚 공부법: 킬러보다 준킬러 대비가 더 중요해졌어요.',
-    impact:'📌 참고', ask:'킬러문항 폐지 이후 수능 변화 설명해줘'
-  },
-  {
-    id:5, cat:'정책', tags:[['ct-policy','📋 정책']], date:'2026.03.10',
-    title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작',
-    summary:'교육부가 AI 디지털 교과서를 전국에 단계적 도입. 2026년 초3~4, 중1, 고1 수학/영어/정보 우선 도입.',
-    ai:'✅ 핵심 요약\n• 2026년: 초3~4, 중1, 고1 수학/영어 우선\n• 2028년: 전 학년 전 과목 확대\n\n👨‍👩‍👧 학부모: 종이 교과서 병행. 디지털 활용 능력이 더 중요해져요.',
-    impact:'⚠️ 영향도 높음', ask:'AI 교과서 도입 어떻게 달라지는 거야?'
-  },
-  {
-    id:6, cat:'팁', tags:[['ct-tip','💡 팁']], date:'2026.03.08',
-    title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심',
-    summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부가 됐습니다. 2026 주요 대학 평가기준 정리.',
-    ai:'✅ 핵심 요약\n• 자기소개서 완전 폐지 (적용 중)\n• 세특 기재 과목당 최대 500자\n• 교사 추천서도 폐지\n\n📝 수험생: 수업 중 활동을 적극적으로 세특에 남기세요.',
-    impact:'⚠️ 영향도 높음', ask:'2026 학생부종합전형 달라진 점 알려줘'
-  }
+  { id:1, cat:'수능/입시', tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']], date:'2026.03.20', title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소', summary:'교육부가 2028 수능 개편안을 확정 발표. 사회·과학 영역이 통합되고 선택과목 구조가 대폭 축소됩니다.', ai:'✅ 핵심 요약\n• 사회/과학 → 통합사회, 통합과학으로 묶임\n• 현재 중3이 첫 적용 대상\n• 수학 선택과목(기하, 경제수학) 유지\n\n👨‍👩‍👧 학부모: 현재 중2~3 자녀라면 지금 공부법 바꿔야 해요.', impact:'⚡ 영향도 매우 높음' },
+  { id:2, cat:'수능/입시', tags:[['ct-policy','📋 정책']], date:'2026.03.18', title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나', summary:'의대 정원이 기존 3,058명 → 5,058명으로 확대 확정. 이과 상위권 수험생 입시 전략에 큰 변화 예상.', ai:'✅ 핵심 요약\n• 이과 최상위권 의대 쏠림 심화 예상\n• 서울대 공대 등 커트라인 하락 가능성\n• 재학생보다 재수생에게 유리한 구조', impact:'⚡ 영향도 매우 높음' },
+  { id:3, cat:'정책', tags:[['ct-policy','📋 정책']], date:'2026.03.15', title:'고교학점제 전면 시행 — 2025년 입학생부터 적용', summary:'고등학생이 원하는 과목을 선택해 이수하는 고교학점제가 2025년 입학생부터 전면 적용됩니다.', ai:'✅ 핵심 요약\n• 192학점 이수 시 졸업\n• 원하는 과목 직접 선택 가능\n• 미이수 시 보충 의무', impact:'⚠️ 영향도 높음' },
+  { id:4, cat:'수능/입시', tags:[['ct-tip','💡 분석']], date:'2026.03.12', title:'킬러문항 폐지 2년 후 — 수능 난이도 실제로 어떻게 바뀌었나', summary:'킬러문항 폐지 후 초고난도 문제가 준킬러 여러 개로 대체됐습니다. 상위권 변별력은 유지되고 있습니다.', ai:'✅ 핵심 요약\n• 초고난도 1~2문제 → 준킬러 3~5문제로 대체\n• 1등급 컷은 오히려 오른 과목도 있음\n\n📚 공부법: 킬러보다 준킬러 대비가 더 중요해졌어요.', impact:'📌 참고' },
+  { id:5, cat:'정책', tags:[['ct-policy','📋 정책']], date:'2026.03.10', title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작', summary:'교육부가 AI 디지털 교과서를 전국에 단계적 도입. 2026년 초3~4, 중1, 고1 수학/영어/정보 우선 도입.', ai:'✅ 핵심 요약\n• 2026년: 초3~4, 중1, 고1 수학/영어 우선\n• 2028년: 전 학년 전 과목 확대', impact:'⚠️ 영향도 높음' },
+  { id:6, cat:'팁', tags:[['ct-tip','💡 팁']], date:'2026.03.08', title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심', summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부가 됐습니다. 2026 주요 대학 평가기준 정리.', ai:'✅ 핵심 요약\n• 자기소개서 완전 폐지\n• 세특 기재 과목당 최대 500자\n• 교사 추천서도 폐지', impact:'⚠️ 영향도 높음' }
 ];
  
 function renderNews(filter) {
   const filtered = filter === '전체' ? newsData : newsData.filter(n => n.cat === filter);
   document.getElementById('news-feed').innerHTML = filtered.map(n => `
-    <div class="news-card c-hot">
+    <div class="news-card">
       <div class="card-top">
         <div class="card-tags">${n.tags.map(([cls,label]) => `<span class="ctag ${cls}">${label}</span>`).join('')}</div>
         <div class="card-date">${n.date}</div>
       </div>
       <div class="card-title">${n.title}</div>
       <div class="card-summary">${n.summary}</div>
-      <div class="card-ai-summary" id="ais-${n.id}">
-        <div class="card-ai-label">AI 요약</div>${n.ai}
-      </div>
+      <div class="card-ai-summary" id="ais-${n.id}"><div class="card-ai-label">AI 요약</div>${n.ai}</div>
       <div class="card-bottom">
         <div class="card-impact">${n.impact}</div>
         <button class="expand-btn" id="exb-${n.id}" onclick="toggleAI(${n.id})">AI 요약 보기 ▾</button>
@@ -965,20 +678,11 @@ async function radarAsk() {
   body.innerHTML = '<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   box.scrollIntoView({ behavior:'smooth', block:'nearest' });
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
-      body: JSON.stringify({
-        model:'llama-3.3-70b-versatile',
-        temperature: 0.6,
-        messages:[
-          { role:'system', content:`너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 설명해줘. 핵심을 bullet point로 정리하고, 학부모/수험생 입장 나눠서 설명해줘. 300자 내외로 간결하게.` },
-          { role:'user', content: q }
-        ]
-      })
-    });
-    const data = await res.json();
-    body.textContent = data.choices[0].message.content;
+    const reply = await callAI([
+      { role:'system', content:'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 설명해줘. 핵심을 bullet point로 정리하고, 학부모/수험생 입장 나눠서 설명해줘. 300자 내외로 간결하게.' },
+      { role:'user', content: q }
+    ], 0.6);
+    body.textContent = reply;
   } catch(e) {
     body.textContent = '잠깐 연결이 끊겼어요. 다시 시도해주세요.';
   }
@@ -1110,20 +814,10 @@ async function sendTutor() {
   showTutorTyping();
   tutorHistory.push({ role:'user', content:msg });
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
-      body: JSON.stringify({
-        model:'llama-3.3-70b-versatile',
-        temperature:0.7,
-        messages:[
-          { role:'system', content:`너는 Verbalis야. 한국 ${currentSubject} 과외 선생님. 학생 수준: ${currentLevel}. 현재 틀린 횟수: ${wrongCount}번.\n규칙: 1)친근하게 2)문제는 힌트 먼저 3)3번 틀리면 정답 4)그래프 필요하면 [GRAPH:수식] 추가 5)답변 앞에 [힌트][설명][정답] 중 하나 붙이기` },
-          ...tutorHistory
-        ]
-      })
-    });
-    const data = await res.json();
-    const reply = data.choices[0].message.content;
+    const reply = await callAI([
+      { role:'system', content:`너는 Verbalis야. 한국 ${currentSubject} 과외 선생님. 학생 수준: ${currentLevel}. 현재 틀린 횟수: ${wrongCount}번.\n규칙: 1)친근하게 2)문제는 힌트 먼저 3)3번 틀리면 정답 4)그래프 필요하면 [GRAPH:수식] 추가 5)답변 앞에 [힌트][설명][정답] 중 하나 붙이기` },
+      ...tutorHistory
+    ]);
     tutorHistory.push({ role:'assistant', content:reply });
     localStorage.setItem('verbalis_v4', JSON.stringify(tutorHistory));
     document.getElementById('typing-el')?.remove();
@@ -1154,3 +848,4 @@ if(tutorHistory.length > 0) {
 </script>
 </body>
 </html>
+ 
