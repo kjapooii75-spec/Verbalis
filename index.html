@@ -5,7 +5,6 @@
     <title>Verbalis</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             background: #050505;
             color: #e0e0e0;
@@ -16,31 +15,30 @@
             height: 100vh;
             padding: 30px 20px;
         }
-
         .header {
             width: 100%;
             max-width: 700px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid #1e1e1e;
         }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 6px;
-            color: #ffffff;
+        .logo { font-size: 18px; font-weight: 700; letter-spacing: 6px; color: #ffffff; }
+        .status { font-size: 11px; color: #444; letter-spacing: 2px; }
+        #canvas-area {
+            width: 100%;
+            max-width: 700px;
+            display: none;
+            margin-bottom: 15px;
         }
-
-        .status {
-            font-size: 11px;
-            color: #444;
-            letter-spacing: 2px;
+        canvas {
+            width: 100%;
+            background: #0f0f0f;
+            border: 1px solid #1e1e1e;
+            border-radius: 4px;
         }
-
         #chat-box {
             width: 100%;
             max-width: 700px;
@@ -50,17 +48,10 @@
             margin-bottom: 20px;
             scrollbar-width: none;
         }
-
         #chat-box::-webkit-scrollbar { display: none; }
-
-        .message-wrap {
-            display: flex;
-            margin: 16px 0;
-        }
-
+        .message-wrap { display: flex; margin: 16px 0; }
         .message-wrap.user { justify-content: flex-end; }
         .message-wrap.ai { justify-content: flex-start; }
-
         .bubble {
             max-width: 75%;
             padding: 12px 16px;
@@ -68,27 +59,9 @@
             font-size: 14px;
             line-height: 1.6;
         }
-
-        .user .bubble {
-            background: #151515;
-            color: #999;
-            border: 1px solid #1e1e1e;
-        }
-
-        .ai .bubble {
-            background: #0f0f0f;
-            color: #e0e0e0;
-            border: 1px solid #1a1a1a;
-            border-left: 2px solid #333;
-        }
-
-        .sender {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: #333;
-            margin-bottom: 6px;
-        }
-
+        .user .bubble { background: #151515; color: #999; border: 1px solid #1e1e1e; }
+        .ai .bubble { background: #0f0f0f; color: #e0e0e0; border: 1px solid #1a1a1a; border-left: 2px solid #333; }
+        .sender { font-size: 10px; letter-spacing: 2px; color: #333; margin-bottom: 6px; }
         #input-area {
             width: 100%;
             max-width: 700px;
@@ -97,7 +70,6 @@
             border-top: 1px solid #1e1e1e;
             padding-top: 20px;
         }
-
         input {
             flex: 1;
             padding: 14px 16px;
@@ -107,12 +79,9 @@
             border-radius: 2px;
             font-size: 14px;
             outline: none;
-            transition: border 0.2s;
         }
-
         input:focus { border-color: #333; }
         input::placeholder { color: #2a2a2a; }
-
         button {
             padding: 14px 24px;
             background: #ffffff;
@@ -123,17 +92,9 @@
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 2px;
-            transition: background 0.2s;
         }
-
         button:hover { background: #cccccc; }
-
-        .typing {
-            color: #333;
-            font-size: 12px;
-            letter-spacing: 2px;
-            padding: 8px 0;
-        }
+        .typing { color: #333; font-size: 12px; letter-spacing: 2px; padding: 8px 0; }
     </style>
 </head>
 <body>
@@ -141,44 +102,77 @@
         <div class="logo">VERBALIS</div>
         <div class="status">ONLINE</div>
     </div>
+    <div id="canvas-area">
+        <canvas id="mathCanvas" height="200"></canvas>
+    </div>
     <div id="chat-box"></div>
     <div id="input-area">
-        <input type="text" id="user-input" placeholder="입력..." />
+        <input type="text" id="user-input" placeholder="수학 문제를 입력해봐..." />
         <button onclick="sendMessage()">SEND</button>
     </div>
 
     <script>
-        const API_KEY = "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";
+        const API_KEY = "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";
 
-        // 대화 기록 localStorage에 저장
-        let conversationHistory = JSON.parse(localStorage.getItem('verbalis_history')) || [
+        const conversationHistory = JSON.parse(localStorage.getItem('verbalis_history')) || [
             {
                 role: "system",
-                content: "너는 Verbalis야. 수학 튜터야. 절대 바로 답 알려주지 마. 힌트 먼저 줘. 학생이 틀리면 다음 힌트. 3번 틀리면 그때 답 알려줘. 짧고 직설적으로."
+                content: "너는 Verbalis야. 수학 튜터야. 절대 바로 답 알려주지 마. 힌트 먼저 줘. 학생이 틀리면 다음 힌트. 3번 틀리면 그때 답 알려줘. 짧고 직설적으로. 그래프나 그림이 필요하면 답변 끝에 [GRAPH:함수식] 형태로 추가해. 예: [GRAPH:x^2+2x+1]"
             }
         ];
 
         const chatBox = document.getElementById('chat-box');
+        const canvasArea = document.getElementById('canvas-area');
+        const canvas = document.getElementById('mathCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // 저장된 대화 불러오기
+        function drawGraph(expression) {
+            canvas.width = canvas.offsetWidth;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const scale = 30;
+
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, cy); ctx.lineTo(w, cy);
+            ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
+            ctx.stroke();
+
+            ctx.strokeStyle = '#4af';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            let started = false;
+            for (let px = 0; px < w; px++) {
+                const x = (px - cx) / scale;
+                let y;
+                try {
+                    const expr = expression
+                        .replace(/\^/g, '**')
+                        .replace(/x/g, `(${x})`);
+                    y = eval(expr);
+                } catch(e) { continue; }
+                
+                const py = cy - y * scale;
+                if (!started) { ctx.moveTo(px, py); started = true; }
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+            canvasArea.style.display = 'block';
+        }
+
         function loadHistory() {
             conversationHistory.forEach(msg => {
                 if (msg.role === 'user') {
-                    chatBox.innerHTML += `
-                        <div class="message-wrap user">
-                            <div>
-                                <div class="sender">YOU</div>
-                                <div class="bubble">${msg.content}</div>
-                            </div>
-                        </div>`;
+                    chatBox.innerHTML += `<div class="message-wrap user"><div><div class="sender">YOU</div><div class="bubble">${msg.content}</div></div></div>`;
                 } else if (msg.role === 'assistant') {
-                    chatBox.innerHTML += `
-                        <div class="message-wrap ai">
-                            <div>
-                                <div class="sender">VERBALIS</div>
-                                <div class="bubble">${msg.content}</div>
-                            </div>
-                        </div>`;
+                    const clean = msg.content.replace(/\[GRAPH:[^\]]+\]/g, '');
+                    chatBox.innerHTML += `<div class="message-wrap ai"><div><div class="sender">VERBALIS</div><div class="bubble">${clean}</div></div></div>`;
                 }
             });
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -191,15 +185,8 @@
             const message = input.value.trim();
             if (!message) return;
 
-            chatBox.innerHTML += `
-                <div class="message-wrap user">
-                    <div>
-                        <div class="sender">YOU</div>
-                        <div class="bubble">${message}</div>
-                    </div>
-                </div>`;
+            chatBox.innerHTML += `<div class="message-wrap user"><div><div class="sender">YOU</div><div class="bubble">${message}</div></div></div>`;
             input.value = '';
-
             chatBox.innerHTML += `<div class="typing" id="typing">VERBALIS IS THINKING...</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -221,19 +208,15 @@
             const reply = data.choices[0].message.content;
 
             conversationHistory.push({ role: "assistant", content: reply });
-            
-            // localStorage에 저장
             localStorage.setItem('verbalis_history', JSON.stringify(conversationHistory));
 
             document.getElementById('typing')?.remove();
 
-            chatBox.innerHTML += `
-                <div class="message-wrap ai">
-                    <div>
-                        <div class="sender">VERBALIS</div>
-                        <div class="bubble">${reply}</div>
-                    </div>
-                </div>`;
+            const graphMatch = reply.match(/\[GRAPH:([^\]]+)\]/);
+            if (graphMatch) drawGraph(graphMatch[1]);
+
+            const cleanReply = reply.replace(/\[GRAPH:[^\]]+\]/g, '');
+            chatBox.innerHTML += `<div class="message-wrap ai"><div><div class="sender">VERBALIS</div><div class="bubble">${cleanReply}</div></div></div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
