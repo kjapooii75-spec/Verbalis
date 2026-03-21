@@ -815,7 +815,7 @@ async function sendTutor() {
   tutorHistory.push({ role:'user', content:msg });
   try {
     const reply = await callAI([
-      { role:'system', content:`너는 Verbalis야. 한국 ${currentSubject} 과외 선생님. 학생 수준: ${currentLevel}. 현재 틀린 횟수: ${wrongCount}번.\n규칙: 1)친근하게 2)문제는 힌트 먼저 3)3번 틀리면 정답 4)그래프 필요하면 [GRAPH:수식] 추가 5)답변 앞에 [힌트][설명][정답] 중 하나 붙이기` },
+      { role:'system', content:`너는 Verbalis야. 반드시 한국어로만 답변해. 영어나 한자 절대 사용하지 마. 학생 수준: ${currentLevel}. 현재 틀린 횟수: ${wrongCount}번.\n규칙: 1)친근하게 2)문제는 힌트 먼저 3)3번 틀리면 정답 4)그래프 필요하면 [GRAPH:수식] 추가 5)답변 앞에 [힌트][설명][정답] 중 하나 붙이기` },
       ...tutorHistory
     ]);
     tutorHistory.push({ role:'assistant', content:reply });
