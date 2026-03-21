@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Verbalis</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }s
         body {
             background: #050505;
             color: #e0e0e0;
@@ -117,7 +117,7 @@
         const conversationHistory = JSON.parse(localStorage.getItem('verbalis_history')) || [
             {
                 role: "system",
-                content: "너는 Verbalis야. 수학 튜터야. 절대 바로 답 알려주지 마. 힌트 먼저 줘. 학생이 틀리면 다음 힌트. 3번 틀리면 그때 답 알려줘. 짧고 직설적으로. 그래프나 그림이 필요하면 답변 끝에 [GRAPH:함수식] 형태로 추가해. 예: [GRAPH:x^2+2x+1]"
+                content: "너는 Verbalis야. 수학 튜터야. 그래프 필요하면 답변 끝에 [GRAPH:함수식] 써. 힌트 먼저 줘."
             }
         ];
 
