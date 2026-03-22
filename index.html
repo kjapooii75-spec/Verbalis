@@ -253,9 +253,9 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
  
 <script>
 // ── Claude API 호출 함수 (Groq 대체) ──────────────────────────────
+const API_KEY = "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";
+
 async function callClaude(messages, systemPrompt) {
-  const body = {
-    model: 'claude-sonnet-4-20250514',
     max_tokens: 1000,
     system: systemPrompt || '',
     messages: messages
