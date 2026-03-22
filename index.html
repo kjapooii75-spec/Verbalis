@@ -252,7 +252,26 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 </div>
 
 <script>
-const API_KEY = "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";
+// ── Claude API 호출 함수 (Groq 대체) ──────────────────────────────
+async function callClaude(messages, systemPrompt) {
+  const body = {
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1000,
+    system: systemPrompt || '',
+    messages: messages
+  };
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
+  return data.content.find(b => b.type === 'text')?.text || '';
+}
+// ─────────────────────────────────────────────────────────────────
 
 function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 
@@ -286,24 +305,6 @@ function initGraphs(container) {
       new Chart(canvas, { type:'line', data:{ datasets:[{data:pts,borderColor:'#4a9eff',borderWidth:2,pointRadius:0,tension:0.2,fill:false}] }, options:{ animation:{duration:800}, responsive:true, maintainAspectRatio:true, aspectRatio:1.5, plugins:{legend:{display:false}}, scales:{ x:{type:'linear',min:-10,max:10,grid:{color:'#1a1a1a'},ticks:{color:'#555',maxTicksLimit:6}}, y:{grid:{color:'#1a1a1a'},ticks:{color:'#555',maxTicksLimit:6}} } } });
     } catch(e) { el.innerHTML='<span style="color:#555">그래프 오류</span>'; }
   });
-}
-
-async function callGroq(messages, retries=2) {
-  for (let i=0;i<=retries;i++) {
-    try {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':`Bearer ${API_KEY}`},
-        body:JSON.stringify({model:'llama-3.1-8b-instant', messages})
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error?.message||`HTTP ${res.status}`);
-      return data.choices[0].message.content;
-    } catch(e) {
-      if (i<retries) await new Promise(r=>setTimeout(r,1500));
-      else throw e;
-    }
-  }
 }
 
 function showPage(page, btn) {
@@ -355,12 +356,12 @@ async function radarAsk() {
   body.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
   try {
-    const reply = await callGroq([
-      {role:'system',content:'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'},
-      {role:'user',content:q}
-    ]);
+    const reply = await callClaude(
+      [{role:'user', content:q}],
+      '너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'
+    );
     body.textContent=reply;
-  } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.'; }
+  } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요. ('+e.message+')'; }
 }
 
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
@@ -430,7 +431,10 @@ async function sendTutor() {
   appendMsg('user',msg); input.value=''; showTyping();
   tutorHistory.push({role:'user',content:msg});
   try {
-    const reply=await callGroq([{role:'system',content:buildSystemPrompt()},...tutorHistory.slice(-20)]);
+    const reply = await callClaude(
+      tutorHistory.slice(-20),
+      buildSystemPrompt()
+    );
     tutorHistory.push({role:'assistant',content:reply});
     localStorage.setItem('verbalis_v5',JSON.stringify(tutorHistory));
     document.getElementById('typing-el')?.remove();
@@ -444,7 +448,7 @@ async function sendTutor() {
     const errId='err-'+Date.now();
     const box=document.getElementById('chat-box');
     const wrap=document.createElement('div'); wrap.className='message-wrap ai error'; wrap.id=errId;
-    wrap.innerHTML=`<div><div class="sender">선생님</div><div class="bubble">연결이 끊겼어. 다시 보내볼게!<br><button class="retry-btn" onclick="retryLast('${errId}')">다시 보내기</button></div></div>`;
+    wrap.innerHTML=`<div><div class="sender">선생님</div><div class="bubble">연결이 끊겼어. 다시 보내볼게!<br><small style="color:#555">${e.message}</small><br><button class="retry-btn" onclick="retryLast('${errId}')">다시 보내기</button></div></div>`;
     box.appendChild(wrap); box.scrollTop=box.scrollHeight;
   }
 }
