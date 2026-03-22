@@ -13,7 +13,7 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica Neue',sans-serif; display:flex; height:100vh; overflow:hidden; }
- 
+
 /* SIDEBAR */
 .sidebar { width:200px; background:#080808; border-right:1px solid #1a1a1a; display:flex; flex-direction:column; flex-shrink:0; }
 .sidebar-logo { padding:24px 18px 20px; border-bottom:1px solid #1a1a1a; }
@@ -32,7 +32,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .sidebar-bottom { margin-top:auto; padding:12px; border-top:1px solid #1a1a1a; }
 .clear-btn { width:100%; padding:8px; background:none; border:1px solid #1a1a1a; border-radius:2px; color:#333; font-size:10px; letter-spacing:1px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
 .clear-btn:hover { color:#666; border-color:#333; }
- 
+
 /* MAIN */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
 .header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid #1e1e1e; flex-shrink:0; }
@@ -41,7 +41,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .status { display:flex; align-items:center; gap:6px; font-size:9px; color:#2a2a2a; letter-spacing:2px; }
 .status-dot { width:5px; height:5px; background:#2a2a2a; border-radius:50%; animation:pulse 2s infinite; }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
- 
+
 /* RADAR */
 #page-radar { flex:1; overflow-y:auto; padding:28px; scrollbar-width:none; }
 #page-radar::-webkit-scrollbar{display:none;}
@@ -105,7 +105,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .card-impact{font-size:11px;color:#2a2a2a;}
 .expand-btn{font-size:10px;color:#444;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
 .expand-btn:hover{color:#aaa;}
- 
+
 /* TUTOR */
 #page-tutor{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 #chat-box{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:none;}
@@ -144,7 +144,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 </style>
 </head>
 <body>
- 
+
 <div class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-text">VERBALIS</div>
@@ -176,7 +176,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     <button class="clear-btn" onclick="clearTutor()">대화 초기화</button>
   </div>
 </div>
- 
+
 <div class="main">
   <div class="header">
     <div>
@@ -185,7 +185,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
- 
+
   <div id="page-radar">
     <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
     <div class="radar-title">교육 변화,<br><span>설명회 없이</span> 바로 이해</div>
@@ -235,7 +235,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
     <div id="news-feed"></div>
   </div>
- 
+
   <div id="page-tutor" style="display:none">
     <div id="chat-box">
       <div class="welcome" id="welcome">
@@ -250,31 +250,37 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
   </div>
 </div>
- 
+
 <script>
-// ── Claude API 호출 함수 (Groq 대체) ──────────────────────────────
+// ── Groq API 호출 함수 ──────────────────────────────
 const API_KEY = "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";
 
 async function callClaude(messages, systemPrompt) {
-    max_tokens: 1000,
-    system: systemPrompt || '',
-    messages: messages
-  };
- 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const groqMessages = systemPrompt
+    ? [{role:'system', content: systemPrompt}, ...messages]
+    : messages;
+
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'llama-3.1-8b-instant',
+      max_tokens: 1000,
+      messages: groqMessages
+    })
   });
- 
+
   const data = await res.json();
   if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
-  return data.content.find(b => b.type === 'text')?.text || '';
+  return data.choices[0].message.content;
 }
-// ─────────────────────────────────────────────────────────────────
- 
+// ────────────────────────────────────────────────────
+
 function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
- 
+
 function renderContent(text) {
   if (!text) return '';
   const ph = [];
@@ -286,11 +292,11 @@ function renderContent(text) {
   ph.forEach((p,i) => { out = out.split('\uE000'+i+'\uE000').join(p); });
   return out.replace(/\n/g,'<br>');
 }
- 
+
 function renderGraph(expr) {
   return `<div class="graph-in-bubble graph-placeholder" data-graph="${escapeHtml(expr).replace(/"/g,'&quot;')}"></div>`;
 }
- 
+
 function initGraphs(container) {
   (container||document).querySelectorAll('.graph-placeholder:not(.inited)').forEach(el => {
     const expr = el.getAttribute('data-graph');
@@ -306,7 +312,7 @@ function initGraphs(container) {
     } catch(e) { el.innerHTML='<span style="color:#555">그래프 오류</span>'; }
   });
 }
- 
+
 function showPage(page, btn) {
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -316,12 +322,12 @@ function showPage(page, btn) {
   if (page==='radar') { document.getElementById('header-title').textContent='교육 레이더'; document.getElementById('header-sub').textContent='실시간 교육 변화 감지'; }
   else { document.getElementById('header-title').textContent=`${currentIcon} ${currentSubject} 과외`; document.getElementById('header-sub').textContent=currentLevel; }
 }
- 
+
 function dday(d) { const diff=Math.ceil((new Date(d)-new Date())/86400000); return diff>0?`D-${diff}`:diff===0?'D-Day':`D+${Math.abs(diff)}`; }
 document.getElementById('dd1').textContent=dday('2026-11-19');
 document.getElementById('dd2').textContent=dday('2026-09-05');
 document.getElementById('dd3').textContent=dday('2027-01-03');
- 
+
 const newsData=[
   {id:1,cat:'수능/입시',tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']],date:'2026.03.20',title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',summary:'교육부가 2028 수능 개편안을 확정 발표. 사회·과학이 통합되고 선택과목 구조가 대폭 축소됩니다.',ai:'✅ 핵심 요약\n• 사회/과학 → 통합사회, 통합과학으로 묶임\n• 현재 중3이 첫 적용 대상\n\n👨‍👩‍👧 학부모: 지금 공부법 바꿔야 해요.',impact:'⚡ 영향도 매우 높음'},
   {id:2,cat:'수능/입시',tags:[['ct-policy','📋 정책']],date:'2026.03.18',title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',summary:'의대 정원이 3,058명 → 5,058명으로 확대 확정. 이과 상위권 수험생 입시 전략에 큰 변화 예상.',ai:'✅ 핵심 요약\n• 이과 최상위권 의대 쏠림 심화\n• 서울대 공대 등 커트라인 하락 가능성',impact:'⚡ 영향도 매우 높음'},
@@ -330,7 +336,7 @@ const newsData=[
   {id:5,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.10',title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작',summary:'AI 디지털 교과서 전국 도입. 2026년 초3~4, 중1, 고1 수학/영어 우선 도입.',ai:'✅ 핵심 요약\n• 2026년: 초3~4, 중1, 고1 수학/영어 우선\n• 2028년: 전 학년 전 과목 확대',impact:'⚠️ 영향도 높음'},
   {id:6,cat:'팁',tags:[['ct-tip','💡 팁']],date:'2026.03.08',title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심',summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부. 2026 주요 대학 평가기준 정리.',ai:'✅ 핵심 요약\n• 자기소개서 완전 폐지\n• 세특 기재 과목당 최대 500자',impact:'⚠️ 영향도 높음'}
 ];
- 
+
 function renderNews(filter) {
   const filtered = filter==='전체'?newsData:newsData.filter(n=>n.cat===filter);
   document.getElementById('news-feed').innerHTML = filtered.map(n=>`
@@ -342,12 +348,12 @@ function renderNews(filter) {
       <div class="card-bottom"><div class="card-impact">${n.impact}</div><button class="expand-btn" id="exb-${n.id}" onclick="toggleAI(${n.id})">AI 요약 보기 ▾</button></div>
     </div>`).join('');
 }
- 
+
 function toggleAI(id) { const el=document.getElementById(`ais-${id}`),btn=document.getElementById(`exb-${id}`),open=el.style.display==='block'; el.style.display=open?'none':'block'; btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴'; }
 function filterNews(f,btn) { document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderNews(f); }
- 
+
 function setRadarInput(text) { document.getElementById('radar-input').value=text; radarAsk(); }
- 
+
 async function radarAsk() {
   const q=document.getElementById('radar-input').value.trim();
   if(!q) return;
@@ -363,19 +369,19 @@ async function radarAsk() {
     body.textContent=reply;
   } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요. ('+e.message+')'; }
 }
- 
+
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
- 
+
 let currentSubject='수학',currentIcon='📐',currentLevel='고등학생',wrongCount=0;
 let tutorHistory=JSON.parse(localStorage.getItem('verbalis_v5'))||[];
- 
+
 const subjectData={
   '수학':{icon:'📐',chips:['이차방정식 풀기','미적분 기초','확률과 통계','수능 수학 공부법'],asks:['이차방정식 푸는 법 알려줘','미적분 기초 개념 설명해줘','확률 문제 어떻게 풀어?','수능 수학 공부 어떻게 해?']},
   '물리':{icon:'⚡',chips:['뉴턴의 법칙','운동에너지','전기회로 기초','파동과 빛'],asks:['뉴턴의 운동 법칙 설명해줘','운동에너지랑 위치에너지 차이?','전기회로 기초 알려줘','파동과 빛 개념 설명해줘']},
   '화학':{icon:'🧪',chips:['주기율표 보는 법','산화환원 반응','몰 계산','화학 결합'],asks:['주기율표 어떻게 읽어?','산화환원 반응 쉽게 설명해줘','몰 계산하는 법 알려줘','공유결합 이온결합 차이?']},
   '생물':{icon:'🧬',chips:['세포 구조','DNA와 유전','광합성 과정','진화론'],asks:['세포 구조 설명해줘','DNA 복제 과정 알려줘','광합성 어떻게 일어나?','진화론 핵심 개념 뭐야?']}
 };
- 
+
 function buildSystemPrompt() {
   return `넌 ${currentSubject} 과외 선생님이야. 학생 수준은 ${currentLevel}이야.
 말투: 친근하고 편하게. 반드시 한국어로만 답해. 절대 영어나 한자 쓰지 마.
@@ -383,12 +389,12 @@ function buildSystemPrompt() {
 수식: 반드시 LaTeX로 써. 인라인은 \\( 수식 \\), 줄 단위는 \\[ 수식 \\].
 그래프: [GRAPH:y=수식] 형식으로 그려줘. 예: [GRAPH:y=x**2]`;
 }
- 
+
 function renderWelcomeChips() {
   const d=subjectData[currentSubject];
   document.getElementById('welcome-chips').innerHTML=d.chips.map((c,i)=>`<div class="w-chip" onclick="quickAsk('${d.asks[i]}')">${c}</div>`).join('');
 }
- 
+
 function setSubject(subject,icon,btn) {
   currentSubject=subject; currentIcon=subjectData[subject].icon;
   document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
@@ -397,17 +403,17 @@ function setSubject(subject,icon,btn) {
   document.getElementById('header-title').textContent=`${currentIcon} ${subject} 과외`;
   renderWelcomeChips();
 }
- 
+
 function setLevel(level) { currentLevel=level; document.getElementById('header-sub').textContent=level; }
 function quickAsk(text) { document.getElementById('user-input').value=text; sendTutor(); }
- 
+
 function clearTutor() {
   if(!confirm('대화를 초기화할까요?')) return;
   tutorHistory=[]; localStorage.removeItem('verbalis_v5'); wrongCount=0;
   document.getElementById('chat-box').innerHTML=`<div class="welcome" id="welcome"><div class="welcome-icon" id="welcome-icon">${currentIcon}</div><div class="welcome-title" id="welcome-title">${currentSubject} 선생님 — 무엇이든 물어봐</div><div class="welcome-chips" id="welcome-chips"></div></div>`;
   renderWelcomeChips();
 }
- 
+
 function appendMsg(role, content) {
   document.getElementById('welcome')?.remove();
   const box=document.getElementById('chat-box');
@@ -417,14 +423,14 @@ function appendMsg(role, content) {
   box.appendChild(wrap); box.scrollTop=box.scrollHeight;
   setTimeout(()=>initGraphs(box),50);
 }
- 
+
 function showTyping() {
   const box=document.getElementById('chat-box');
   const el=document.createElement('div'); el.id='typing-el'; el.className='typing-wrap';
   el.innerHTML=`<div class="typing-bubble"><div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;
   box.appendChild(el); box.scrollTop=box.scrollHeight;
 }
- 
+
 async function sendTutor() {
   const input=document.getElementById('user-input');
   const msg=input.value.trim(); if(!msg) return;
@@ -452,15 +458,15 @@ async function sendTutor() {
     box.appendChild(wrap); box.scrollTop=box.scrollHeight;
   }
 }
- 
+
 function retryLast(errId) {
   document.getElementById(errId)?.remove();
   const last=tutorHistory[tutorHistory.length-1];
   if(last&&last.role==='user') { const msg=last.content; tutorHistory.pop(); document.getElementById('user-input').value=msg; sendTutor(); }
 }
- 
+
 document.getElementById('user-input').addEventListener('keypress',e=>{if(e.key==='Enter')sendTutor();});
- 
+
 renderNews('전체'); renderWelcomeChips();
 if(tutorHistory.length>0) { tutorHistory.forEach(m=>{ if(m.role==='user') appendMsg('user',m.content); else if(m.role==='assistant') appendMsg('ai',m.content); }); }
 </script>
