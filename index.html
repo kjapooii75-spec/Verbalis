@@ -301,7 +301,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 
 <script>
 // ── API 키 (여기서 교체하세요) ──
-const API_KEY = "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";
+const API_KEY = "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";
 
 // ══════════════════════════════════════════
 //  SVG 시각화 엔진
@@ -1362,7 +1362,17 @@ function appendMsg(role, content) {
   const wrap = document.createElement('div');
   wrap.className = `message-wrap ${role}`;
   if (role === 'user') {
-    wrap.innerHTML = `<div><div class="sender" style="text-align:right">나</div><div class="bubble">${escapeHtml(content)}</div></div>`;
+    // 사용자가 그래프 요청하면 바로 그려주기
+    const graphMatch = content.match(/y\s*=\s*([^\s,　。\n]+)/i);
+    const drawReq = content.includes('그려') || content.includes('그래프') || content.includes('그림');
+    let graphHtml = '';
+    if (graphMatch && drawReq) {
+      const expr = graphMatch[1].replace(/\^/g,'**');
+      const id = 'ug' + Date.now();
+      graphHtml = `<div class="graph-wrap"><div class="graph-label">그래프 — y=${graphMatch[1]}</div><canvas id="${id}"></canvas></div>`;
+      setTimeout(() => drawGraph(id, graphMatch[1]), 200);
+    }
+    wrap.innerHTML = `<div><div class="sender" style="text-align:right">나</div><div class="bubble">${escapeHtml(content)}${graphHtml}</div></div>`;
   } else {
     const vizHtml = autoViz(content);
     wrap.innerHTML = `<div><div class="sender">선생님</div><div class="bubble">${vizHtml}${renderContent(content)}</div></div>`;
