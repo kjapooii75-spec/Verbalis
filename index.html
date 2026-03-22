@@ -12,43 +12,87 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica Neue',sans-serif; display:flex; height:100vh; overflow:hidden; }
+
+/* ── 테마 변수 ── */
+:root {
+  --bg: #050505;
+  --bg2: #080808;
+  --bg3: #0a0a0a;
+  --bg4: #0f0f0f;
+  --border: #1a1a1a;
+  --border2: #1e1e1e;
+  --text: #e0e0e0;
+  --text2: #ccc;
+  --text3: #888;
+  --text4: #444;
+  --text5: #333;
+  --text6: #2a2a2a;
+  --accent: #fff;
+  --accent-inv: #000;
+  --bubble-user: #151515;
+  --bubble-ai: #0f0f0f;
+}
+
+body.light {
+  --bg: #fafafa;
+  --bg2: #f4f4f4;
+  --bg3: #efefef;
+  --bg4: #e8e8e8;
+  --border: #e0e0e0;
+  --border2: #d8d8d8;
+  --text: #111;
+  --text2: #222;
+  --text3: #555;
+  --text4: #888;
+  --text5: #aaa;
+  --text6: #bbb;
+  --accent: #111;
+  --accent-inv: #fff;
+  --bubble-user: #f0f0f0;
+  --bubble-ai: #f8f8f8;
+}
+
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helvetica Neue',sans-serif; display:flex; height:100vh; overflow:hidden; transition:background 0.2s, color 0.2s; }
+
+/* 테마 토글 버튼 */
+.theme-toggle { background:none; border:1px solid var(--border); border-radius:2px; color:var(--text4); font-size:11px; padding:4px 10px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; letter-spacing:1px; transition:all 0.15s; }
+.theme-toggle:hover { color:var(--text3); border-color:var(--text5); }
 
 /* SIDEBAR */
-.sidebar { width:200px; background:#080808; border-right:1px solid #1a1a1a; display:flex; flex-direction:column; flex-shrink:0; }
-.sidebar-logo { padding:24px 18px 20px; border-bottom:1px solid #1a1a1a; }
-.logo-text { font-size:16px; font-weight:700; letter-spacing:5px; color:#fff; }
-.logo-sub { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-top:4px; }
-.sidebar-section { font-size:9px; letter-spacing:2px; color:#2a2a2a; padding:16px 18px 8px; text-transform:uppercase; }
-.nav-btn { display:flex; align-items:center; gap:10px; padding:10px 18px; font-size:12px; color:#444; cursor:pointer; background:none; border:none; width:100%; text-align:left; letter-spacing:1px; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
-.nav-btn:hover { color:#aaa; background:#0f0f0f; }
-.nav-btn.active { color:#fff; background:#111; border-left:2px solid #fff; }
-.sidebar-divider { border:none; border-top:1px solid #1a1a1a; margin:8px 0; }
+.sidebar { width:200px; background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; }
+.sidebar-logo { padding:24px 18px 20px; border-bottom:1px solid var(--border); }
+.logo-text { font-size:16px; font-weight:700; letter-spacing:5px; color:var(--accent); }
+.logo-sub { font-size:9px; letter-spacing:2px; color:var(--text6); margin-top:4px; }
+.sidebar-section { font-size:9px; letter-spacing:2px; color:var(--text6); padding:16px 18px 8px; text-transform:uppercase; }
+.nav-btn { display:flex; align-items:center; gap:10px; padding:10px 18px; font-size:12px; color:var(--text4); cursor:pointer; background:none; border:none; width:100%; text-align:left; letter-spacing:1px; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
+.nav-btn:hover { color:var(--text3); background:var(--bg4); }
+.nav-btn.active { color:var(--accent); background:var(--bg3); border-left:2px solid var(--accent); }
+.sidebar-divider { border:none; border-top:1px solid var(--border); margin:8px 0; }
 
-.progress-section { padding:16px 18px; border-top:1px solid #1a1a1a; margin-top:auto; }
-.progress-label { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-bottom:10px; text-transform:uppercase; }
+.progress-section { padding:16px 18px; border-top:1px solid var(--border); margin-top:auto; }
+.progress-label { font-size:9px; letter-spacing:2px; color:var(--text6); margin-bottom:10px; text-transform:uppercase; }
 .unit-progress-list { display:flex; flex-direction:column; gap:6px; }
 .unit-prog-item { display:flex; align-items:center; justify-content:space-between; }
-.unit-prog-name { font-size:10px; color:#333; letter-spacing:0.5px; }
-.unit-prog-name.done { color:#666; }
-.unit-prog-name.current { color:#aaa; }
-.unit-prog-dot { width:5px; height:5px; border-radius:50%; background:#1a1a1a; flex-shrink:0; }
-.unit-prog-dot.done { background:#555; }
-.unit-prog-dot.current { background:#fff; }
-.overall-bar { height:1px; background:#1a1a1a; margin-top:12px; }
-.overall-fill { height:100%; background:#333; transition:width 0.5s; }
+.unit-prog-name { font-size:10px; color:var(--text5); letter-spacing:0.5px; }
+.unit-prog-name.done { color:var(--text4); }
+.unit-prog-name.current { color:var(--text3); }
+.unit-prog-dot { width:5px; height:5px; border-radius:50%; background:var(--border); flex-shrink:0; }
+.unit-prog-dot.done { background:var(--text4); }
+.unit-prog-dot.current { background:var(--accent); }
+.overall-bar { height:1px; background:var(--border); margin-top:12px; }
+.overall-fill { height:100%; background:var(--text5); transition:width 0.5s; }
 
-.sidebar-bottom { padding:12px; border-top:1px solid #1a1a1a; }
-.clear-btn { width:100%; padding:8px; background:none; border:1px solid #1a1a1a; border-radius:2px; color:#333; font-size:10px; letter-spacing:1px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
-.clear-btn:hover { color:#666; border-color:#333; }
+.sidebar-bottom { padding:12px; border-top:1px solid var(--border); display:flex; flex-direction:column; gap:6px; }
+.clear-btn { width:100%; padding:8px; background:none; border:1px solid var(--border); border-radius:2px; color:var(--text5); font-size:10px; letter-spacing:1px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
+.clear-btn:hover { color:var(--text3); border-color:var(--text5); }
 
 /* MAIN */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
-.header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid #1e1e1e; flex-shrink:0; }
-.header-title { font-size:12px; font-weight:500; letter-spacing:3px; color:#fff; }
-.header-sub { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-top:3px; }
-.status { display:flex; align-items:center; gap:6px; font-size:9px; color:#2a2a2a; letter-spacing:2px; }
-.status-dot { width:5px; height:5px; background:#2a2a2a; border-radius:50%; animation:pulse 2s infinite; }
+.header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid var(--border2); flex-shrink:0; }
+.header-title { font-size:12px; font-weight:500; letter-spacing:3px; color:var(--accent); }
+.header-sub { font-size:9px; letter-spacing:2px; color:var(--text6); margin-top:3px; }
+.status { display:flex; align-items:center; gap:6px; font-size:9px; color:var(--text6); letter-spacing:2px; }
+.status-dot { width:5px; height:5px; background:var(--text6); border-radius:50%; animation:pulse 2s infinite; }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
 /* RADAR PAGE */
@@ -121,17 +165,17 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 #chat-box::-webkit-scrollbar{display:none;}
 .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:10px;animation:fadeUp 0.4s ease;}
 .welcome-icon{font-size:32px;}
-.welcome-title{font-size:12px;letter-spacing:3px;color:#444;}
+.welcome-title{font-size:12px;letter-spacing:3px;color:var(--text4);}
 .welcome-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;}
-.w-chip{padding:6px 13px;border:1px solid #1e1e1e;border-radius:2px;font-size:11px;letter-spacing:0.5px;color:#333;cursor:pointer;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;}
-.w-chip:hover{color:#aaa;border-color:#444;}
+.w-chip{padding:6px 13px;border:1px solid var(--border2);border-radius:2px;font-size:11px;letter-spacing:0.5px;color:var(--text5);cursor:pointer;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;}
+.w-chip:hover{color:var(--text3);border-color:var(--text4);}
 .message-wrap{display:flex;margin:12px 0;animation:fadeUp 0.2s ease;}
 .message-wrap.user{justify-content:flex-end;}
 .message-wrap.ai{justify-content:flex-start;}
 .bubble{max-width:78%;padding:12px 16px;border-radius:2px;font-size:14px;line-height:1.75;word-break:break-word;}
-.user .bubble{background:#151515;color:#888;border:1px solid #1e1e1e;}
-.ai .bubble{background:#0f0f0f;color:#e0e0e0;border:1px solid #1a1a1a;border-left:2px solid #333;}
-.sender{font-size:9px;letter-spacing:2px;color:#2a2a2a;margin-bottom:5px;}
+.user .bubble{background:var(--bubble-user);color:var(--text3);border:1px solid var(--border2);}
+.ai .bubble{background:var(--bubble-ai);color:var(--text);border:1px solid var(--border);border-left:2px solid var(--text5);}
+.sender{font-size:9px;letter-spacing:2px;color:var(--text6);margin-bottom:5px;}
 .message-wrap.user .sender{text-align:right;}
 
 /* 문제 카드 */
@@ -182,12 +226,12 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .typing-wrap{display:flex;padding:6px 0;}
 .typing-bubble{background:#0f0f0f;border:1px solid #1a1a1a;border-left:2px solid #333;padding:12px 16px;display:flex;align-items:center;gap:5px;}
 
-#tutor-input-area{display:flex;gap:10px;border-top:1px solid #1e1e1e;padding:18px 28px;flex-shrink:0;}
-#user-input{flex:1;padding:12px 16px;background:#0a0a0a;border:1px solid #1e1e1e;color:#e0e0e0;border-radius:2px;font-size:14px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
-#user-input:focus{border-color:#2a2a2a;}
-#user-input::placeholder{color:#1e1e1e;}
-.send-btn{padding:12px 22px;background:#ffffff;color:#000;border:none;border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;}
-.send-btn:hover{background:#ccc;}
+#tutor-input-area{display:flex;gap:10px;border-top:1px solid var(--border2);padding:18px 28px;flex-shrink:0;}
+#user-input{flex:1;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:2px;font-size:14px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
+#user-input:focus{border-color:var(--text5);}
+#user-input::placeholder{color:var(--border2);}
+.send-btn{padding:12px 22px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:opacity 0.15s;}
+.send-btn:hover{opacity:0.8;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes drawLine{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
@@ -224,7 +268,10 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
       <div class="header-title" id="header-title">교육 레이더</div>
       <div class="header-sub" id="header-sub">실시간 교육 변화 감지</div>
     </div>
-    <div class="status"><div class="status-dot"></div>ONLINE</div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀ 라이트</button>
+      <div class="status"><div class="status-dot"></div>ONLINE</div>
+    </div>
   </div>
 
   <!-- RADAR -->
@@ -1525,7 +1572,23 @@ async function radarAsk() {
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
 document.getElementById('user-input').addEventListener('keypress',e=>{if(e.key==='Enter')sendTutor();});
 
-// ── 초기 실행 ──
+// ── 테마 토글 ──
+let isLight = localStorage.getItem('vb_theme') === 'light';
+function applyTheme() {
+  if (isLight) {
+    document.body.classList.add('light');
+    document.getElementById('theme-btn').textContent = '🌙 다크';
+  } else {
+    document.body.classList.remove('light');
+    document.getElementById('theme-btn').textContent = '☀ 라이트';
+  }
+  localStorage.setItem('vb_theme', isLight ? 'light' : 'dark');
+}
+function toggleTheme() {
+  isLight = !isLight;
+  applyTheme();
+}
+applyTheme();
 renderNews('전체');
 updateProgressUI();
 
