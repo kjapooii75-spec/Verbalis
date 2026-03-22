@@ -24,12 +24,22 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .nav-btn:hover { color:#aaa; background:#0f0f0f; }
 .nav-btn.active { color:#fff; background:#111; border-left:2px solid #fff; }
 .sidebar-divider { border:none; border-top:1px solid #1a1a1a; margin:8px 0; }
-.subject-btn { display:flex; align-items:center; gap:8px; padding:8px 18px; font-size:12px; color:#333; cursor:pointer; background:none; border:none; width:100%; text-align:left; letter-spacing:1px; transition:all 0.15s; font-family:'Noto Sans KR',sans-serif; }
-.subject-btn:hover { color:#888; }
-.subject-btn.active { color:#ccc; }
-.level-wrap { padding:0 12px 8px; }
-.level-select { width:100%; padding:8px 10px; background:#0f0f0f; border:1px solid #1e1e1e; border-radius:2px; color:#666; font-size:11px; font-family:'Noto Sans KR',sans-serif; cursor:pointer; outline:none; appearance:none; }
-.sidebar-bottom { margin-top:auto; padding:12px; border-top:1px solid #1a1a1a; }
+
+/* 진도 표시 - 심플하게 */
+.progress-section { padding:16px 18px; border-top:1px solid #1a1a1a; margin-top:auto; }
+.progress-label { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-bottom:10px; text-transform:uppercase; }
+.unit-progress-list { display:flex; flex-direction:column; gap:6px; }
+.unit-prog-item { display:flex; align-items:center; justify-content:space-between; }
+.unit-prog-name { font-size:10px; color:#333; letter-spacing:0.5px; }
+.unit-prog-name.done { color:#666; }
+.unit-prog-name.current { color:#aaa; }
+.unit-prog-dot { width:5px; height:5px; border-radius:50%; background:#1a1a1a; flex-shrink:0; }
+.unit-prog-dot.done { background:#555; }
+.unit-prog-dot.current { background:#fff; }
+.overall-bar { height:1px; background:#1a1a1a; margin-top:12px; }
+.overall-fill { height:100%; background:#333; transition:width 0.5s; }
+
+.sidebar-bottom { padding:12px; border-top:1px solid #1a1a1a; }
 .clear-btn { width:100%; padding:8px; background:none; border:1px solid #1a1a1a; border-radius:2px; color:#333; font-size:10px; letter-spacing:1px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
 .clear-btn:hover { color:#666; border-color:#333; }
 
@@ -42,8 +52,8 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .status-dot { width:5px; height:5px; background:#2a2a2a; border-radius:50%; animation:pulse 2s infinite; }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-/* RADAR */
-#page-radar { flex:1; overflow-y:auto; padding:28px; scrollbar-width:none; }
+/* RADAR PAGE */
+#page-radar { flex:1; overflow-y:auto; padding:28px; scrollbar-width:none; display:block; }
 #page-radar::-webkit-scrollbar{display:none;}
 .radar-live { display:flex; align-items:center; gap:6px; font-size:9px; letter-spacing:2px; color:#444; text-transform:uppercase; margin-bottom:12px; }
 .live-dot { width:5px; height:5px; background:#fff; border-radius:50%; animation:pulse 1.5s infinite; }
@@ -106,8 +116,8 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .expand-btn{font-size:10px;color:#444;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
 .expand-btn:hover{color:#aaa;}
 
-/* TUTOR */
-#page-tutor{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+/* TUTOR PAGE */
+#page-tutor{flex:1;display:none;flex-direction:column;overflow:hidden;}
 #chat-box{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:none;}
 #chat-box::-webkit-scrollbar{display:none;}
 .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:10px;animation:fadeUp 0.4s ease;}
@@ -124,21 +134,32 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .ai .bubble{background:#0f0f0f;color:#e0e0e0;border:1px solid #1a1a1a;border-left:2px solid #333;}
 .sender{font-size:9px;letter-spacing:2px;color:#2a2a2a;margin-bottom:5px;}
 .message-wrap.user .sender{text-align:right;}
+
+/* 문제 카드 */
+.problem-card{background:#0d0d08;border:1px solid #252510;border-left:2px solid #444420;padding:12px 16px;margin:10px 0;border-radius:2px;}
+.problem-label{font-size:9px;letter-spacing:2px;color:#555530;margin-bottom:6px;text-transform:uppercase;}
+.problem-body{font-size:13px;color:#888860;line-height:1.8;}
+
+/* 단계 카드 */
+.step-card{background:#0a0a0a;border:1px solid #1a1a1a;border-left:2px solid #2a2a2a;padding:10px 14px;margin:8px 0;border-radius:2px;}
+.step-num{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:4px;text-transform:uppercase;}
+.step-body{font-size:13px;color:#888;line-height:1.75;}
+
 .math-inline{display:inline;}
-.math-block{display:block;margin:12px 0;padding:12px;background:#0a0a0a;border-radius:4px;overflow-x:auto;}
-.graph-in-bubble{margin:10px 0;max-width:260px;min-height:140px;background:#0a0a0a;border-radius:4px;padding:8px;}
-.graph-placeholder{display:flex;align-items:center;justify-content:center;}
-.retry-btn{margin-top:8px;padding:6px 12px;font-size:11px;background:#333;color:#fff;border:none;border-radius:2px;cursor:pointer;}
-.retry-btn:hover{background:#444;}
-.error .bubble{border-left-color:#8b2635!important;color:#c44;}
+.math-block{display:block;margin:10px 0;padding:12px;background:#0a0a0a;border-radius:2px;overflow-x:auto;border-left:2px solid #2a2a2a;}
+.graph-wrap{margin:10px 0;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:2px;padding:12px;}
+.graph-label{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:8px;text-transform:uppercase;}
+
 .typing-wrap{display:flex;padding:6px 0;}
 .typing-bubble{background:#0f0f0f;border:1px solid #1a1a1a;border-left:2px solid #333;padding:12px 16px;display:flex;align-items:center;gap:5px;}
+
 #tutor-input-area{display:flex;gap:10px;border-top:1px solid #1e1e1e;padding:18px 28px;flex-shrink:0;}
 #user-input{flex:1;padding:12px 16px;background:#0a0a0a;border:1px solid #1e1e1e;color:#e0e0e0;border-radius:2px;font-size:14px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
 #user-input:focus{border-color:#2a2a2a;}
 #user-input::placeholder{color:#1e1e1e;}
 .send-btn{padding:12px 22px;background:#ffffff;color:#000;border:none;border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;}
 .send-btn:hover{background:#ccc;}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(max-width:600px){.sidebar{display:none;}.header,#page-radar,#chat-box,#tutor-input-area{padding-left:16px;padding-right:16px;}}
 </style>
@@ -150,28 +171,18 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     <div class="logo-text">VERBALIS</div>
     <div class="logo-sub">교육 AI 플랫폼</div>
   </div>
+
   <div class="sidebar-section">메뉴</div>
   <button class="nav-btn active" id="nav-radar" onclick="showPage('radar',this)"><span>📡</span> 교육 레이더</button>
-  <button class="nav-btn" id="nav-tutor" onclick="showPage('tutor',this)"><span>📚</span> AI 과외</button>
-  <div id="tutor-controls" style="display:none">
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section">과목</div>
-    <button class="subject-btn active" onclick="setSubject('수학','📐',this)"><span>📐</span> 수학</button>
-    <button class="subject-btn" onclick="setSubject('물리','⚡',this)"><span>⚡</span> 물리</button>
-    <button class="subject-btn" onclick="setSubject('화학','🧪',this)"><span>🧪</span> 화학</button>
-    <button class="subject-btn" onclick="setSubject('생물','🧬',this)"><span>🧬</span> 생물</button>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section">학년</div>
-    <div class="level-wrap">
-      <select class="level-select" id="level-select" onchange="setLevel(this.value)">
-        <option value="초등학생">초등학생</option>
-        <option value="중학생">중학생</option>
-        <option value="고등학생" selected>고등학생</option>
-        <option value="수능 수험생">수능 수험생</option>
-        <option value="대학생">대학생</option>
-      </select>
-    </div>
+  <button class="nav-btn" id="nav-tutor" onclick="showPage('tutor',this)"><span>📚</span> 고1 수학 과외</button>
+
+  <!-- 진도 (과외 탭일 때만 의미있음) -->
+  <div class="progress-section" id="progress-section" style="display:none">
+    <div class="progress-label">진도</div>
+    <div class="unit-progress-list" id="unit-prog-list"></div>
+    <div class="overall-bar"><div class="overall-fill" id="overall-fill" style="width:0%"></div></div>
   </div>
+
   <div class="sidebar-bottom">
     <button class="clear-btn" onclick="clearTutor()">대화 초기화</button>
   </div>
@@ -186,6 +197,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
 
+  <!-- RADAR -->
   <div id="page-radar">
     <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
     <div class="radar-title">교육 변화,<br><span>설명회 없이</span> 바로 이해</div>
@@ -236,93 +248,339 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     <div id="news-feed"></div>
   </div>
 
-  <div id="page-tutor" style="display:none">
+  <!-- TUTOR -->
+  <div id="page-tutor">
     <div id="chat-box">
       <div class="welcome" id="welcome">
-        <div class="welcome-icon" id="welcome-icon">📐</div>
-        <div class="welcome-title" id="welcome-title">수학 선생님 — 무엇이든 물어봐</div>
-        <div class="welcome-chips" id="welcome-chips"></div>
+        <div class="welcome-icon">📐</div>
+        <div class="welcome-title">고1 수학 선생님 — 안녕!</div>
+        <div class="welcome-chips">
+          <div class="w-chip" onclick="startTutor()">지금 바로 시작하기</div>
+          <div class="w-chip" onclick="quickAsk('이차방정식 모르겠어')">이차방정식 모르겠어</div>
+          <div class="w-chip" onclick="quickAsk('인수분해 처음부터 알려줘')">인수분해 처음부터</div>
+          <div class="w-chip" onclick="quickAsk('지금 어디까지 했어?')">지금 어디까지 했어?</div>
+        </div>
       </div>
     </div>
     <div id="tutor-input-area">
-      <input type="text" id="user-input" placeholder="모르는 문제나 개념을 입력해봐..." />
+      <input type="text" id="user-input" placeholder="뭐든 물어봐..." />
       <button class="send-btn" onclick="sendTutor()">SEND</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── Groq API 호출 함수 ──────────────────────────────
 const API_KEY = "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";
 
-async function callClaude(messages, systemPrompt) {
-  const groqMessages = systemPrompt
-    ? [{role:'system', content: systemPrompt}, ...messages]
-    : messages;
+// ── 단원 정의 ──
+const CURRICULUM = [
+  { id:'다항식',     name:'다항식',           steps:['개념','예제','유형','심화'] },
+  { id:'방정식',     name:'방정식과 부등식',   steps:['개념','예제','유형','심화'] },
+  { id:'경우의수',   name:'경우의 수',         steps:['개념','예제','유형','심화'] },
+  { id:'행렬',       name:'행렬',             steps:['개념','예제','유형','심화'] },
+  { id:'도형',       name:'도형의 방정식',     steps:['개념','예제','유형','심화'] },
+  { id:'집합',       name:'집합과 명제',       steps:['개념','예제','유형','심화'] },
+  { id:'함수',       name:'함수와 그래프',     steps:['개념','예제','유형','심화'] },
+];
 
+let progress = JSON.parse(localStorage.getItem('vb_prog_v2') || '{}');
+let tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v2') || '[]');
+let wrongCount = 0;
+
+function saveAll() {
+  localStorage.setItem('vb_prog_v2', JSON.stringify(progress));
+  localStorage.setItem('vb_hist_v2', JSON.stringify(tutorHistory.slice(-40)));
+}
+
+// 현재 진행중인 단원/단계
+function getCurrentStatus() {
+  for (const unit of CURRICULUM) {
+    for (const step of unit.steps) {
+      if (!progress[unit.id]?.[step]) return { unit, step };
+    }
+  }
+  return null; // 전부 완료
+}
+
+function markDone(unitId, step) {
+  if (!progress[unitId]) progress[unitId] = {};
+  if (progress[unitId][step]) return false;
+  progress[unitId][step] = true;
+  saveAll();
+  updateProgressUI();
+  return true;
+}
+
+// ── 진도 UI ──
+function updateProgressUI() {
+  const list = document.getElementById('unit-prog-list');
+  if (!list) return;
+  const current = getCurrentStatus();
+  list.innerHTML = CURRICULUM.map(unit => {
+    const doneSteps = unit.steps.filter(s => progress[unit.id]?.[s]).length;
+    const isDone = doneSteps === unit.steps.length;
+    const isCurrent = current?.unit.id === unit.id;
+    return `<div class="unit-prog-item">
+      <div class="unit-prog-name ${isDone?'done':isCurrent?'current':''}">${unit.name}</div>
+      <div class="unit-prog-dot ${isDone?'done':isCurrent?'current':''}"></div>
+    </div>`;
+  }).join('');
+
+  const totalDone = CURRICULUM.reduce((acc, u) => acc + u.steps.filter(s => progress[u.id]?.[s]).length, 0);
+  const totalMax = CURRICULUM.reduce((acc, u) => acc + u.steps.length, 0);
+  document.getElementById('overall-fill').style.width = (totalDone/totalMax*100)+'%';
+}
+
+// ── 시스템 프롬프트 ──
+function buildSystem() {
+  const current = getCurrentStatus();
+  const progSummary = CURRICULUM.map(u => {
+    const done = u.steps.filter(s => progress[u.id]?.[s]);
+    const notDone = u.steps.filter(s => !progress[u.id]?.[s]);
+    if (done.length === 0) return `${u.name}: 미시작`;
+    if (notDone.length === 0) return `${u.name}: ✓ 완료`;
+    return `${u.name}: ${done.join(',')} 완료 / ${notDone.join(',')} 남음`;
+  }).join('\n');
+
+  const currentInfo = current
+    ? `지금 해야 할 것: [${current.unit.name}] - ${current.step} 단계`
+    : '모든 단원 완료!';
+
+  return `너는 고1 수학 AI 과외선생님이야. 2022 개정 교육과정 기준.
+
+현재 진도 상황:
+${progSummary}
+
+${currentInfo}
+틀린 횟수: ${wrongCount}번 (3번 틀리면 정답 알려줘)
+
+핵심 규칙:
+1. 반드시 한국어로만. 친근하고 자연스럽게.
+2. 진도를 AI가 이끌어줘. 개념 설명 끝나면 "예제 풀어볼까?" 예제 끝나면 "유형 문제 도전해볼까?" 이런 식으로.
+3. 한 단원 끝나면 자연스럽게 "다음은 [다음단원] 가볼까?" 라고 넘어가줘.
+4. 수식은 LaTeX: 인라인 \\( \\), 블록 \\[ \\]
+5. 단계별 설명할 때: [STEP:번호:내용] 형식
+6. 문제 낼 때: [PROBLEM:문제내용] 형식
+7. 그래프 필요하면: [GRAPH:y=수식]
+8. 진도 완료 체크: [DONE:단원ID:단계] 형식으로 반드시 표시해줘
+   단원ID는 다항식/방정식/경우의수/행렬/도형/집합/함수 중 하나
+   단계는 개념/예제/유형/심화 중 하나
+   예: [DONE:다항식:개념]
+9. 막히면 힌트 먼저. 격려 잊지 마.`;
+}
+
+// ── API ──
+async function callGroq(messages) {
   const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
-      max_tokens: 1000,
-      messages: groqMessages
-    })
+    headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${API_KEY}` },
+    body: JSON.stringify({ model:'llama-3.1-8b-instant', max_tokens:1500, messages })
   });
-
   const data = await res.json();
   if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
   return data.choices[0].message.content;
 }
-// ────────────────────────────────────────────────────
 
+// ── 렌더링 ──
 function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 
 function renderContent(text) {
   if (!text) return '';
   const ph = [];
-  let out = text
-    .replace(/\[GRAPH:([^\]]+)\]/g, (_,e) => { ph.push(renderGraph(e.trim())); return '\uE000'+(ph.length-1)+'\uE000'; })
-    .replace(/\\\[([\s\S]*?)\\\]/g, (_,m) => { try { const s=document.createElement('span'); s.className='math-block'; katex.render(m.trim(),s,{displayMode:true,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml('\\['+m+'\\]'));} return '\uE000'+(ph.length-1)+'\uE000'; })
-    .replace(/\\\(([\s\S]*?)\\\)/g, (_,m) => { try { const s=document.createElement('span'); s.className='math-inline'; katex.render(m.trim(),s,{displayMode:false,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml('\\('+m+'\\)'));} return '\uE000'+(ph.length-1)+'\uE000'; });
-  out = escapeHtml(out);
-  ph.forEach((p,i) => { out = out.split('\uE000'+i+'\uE000').join(p); });
+
+  // DONE 태그 처리 (숨김)
+  text = text.replace(/\[DONE:([^:]+):([^\]]+)\]/g, (_, unitId, step) => {
+    const wasNew = markDone(unitId.trim(), step.trim());
+    if (wasNew) {
+      const unit = CURRICULUM.find(u => u.id === unitId.trim());
+      showToast(`✓ ${unit?.name || unitId} — ${step} 완료`);
+      updateHeaderSub();
+    }
+    return '';
+  });
+
+  // STEP 카드
+  text = text.replace(/\[STEP:(\d+):([^\]]+)\]/g, (_, num, content) => {
+    ph.push(`<div class="step-card"><div class="step-num">STEP ${num}</div><div class="step-body">${escapeHtml(content)}</div></div>`);
+    return `\uE000${ph.length-1}\uE000`;
+  });
+
+  // PROBLEM 카드
+  text = text.replace(/\[PROBLEM:([^\]]+)\]/g, (_, content) => {
+    ph.push(`<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">${escapeHtml(content)}</div></div>`);
+    return `\uE000${ph.length-1}\uE000`;
+  });
+
+  // GRAPH
+  text = text.replace(/\[GRAPH:([^\]]+)\]/g, (_, expr) => {
+    const id = 'g' + Date.now() + Math.random().toString(36).slice(2,5);
+    ph.push(`<div class="graph-wrap"><div class="graph-label">그래프 — ${escapeHtml(expr)}</div><canvas id="${id}" height="160"></canvas></div>`);
+    setTimeout(() => drawGraph(id, expr.trim()), 100);
+    return `\uE000${ph.length-1}\uE000`;
+  });
+
+  // LaTeX 블록
+  text = text.replace(/\\\[([\s\S]*?)\\\]/g, (_, m) => {
+    try { const s=document.createElement('span'); s.className='math-block'; katex.render(m.trim(),s,{displayMode:true,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml(m));}
+    return `\uE000${ph.length-1}\uE000`;
+  });
+
+  // LaTeX 인라인
+  text = text.replace(/\\\(([\s\S]*?)\\\)/g, (_, m) => {
+    try { const s=document.createElement('span'); s.className='math-inline'; katex.render(m.trim(),s,{displayMode:false,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml(m));}
+    return `\uE000${ph.length-1}\uE000`;
+  });
+
+  let out = escapeHtml(text);
+  ph.forEach((p,i) => { out = out.split(`\uE000${i}\uE000`).join(p); });
   return out.replace(/\n/g,'<br>');
 }
 
-function renderGraph(expr) {
-  return `<div class="graph-in-bubble graph-placeholder" data-graph="${escapeHtml(expr).replace(/"/g,'&quot;')}"></div>`;
+function drawGraph(id, expr) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  try {
+    const rs = expr.replace(/^y\s*=\s*/i,'').replace(/\^/g,'**');
+    const pts = [];
+    for (let x=-8; x<=8; x+=0.2) {
+      try {
+        const y = math.evaluate(rs.replace(/\bx\b/g, `(${x})`));
+        if (isFinite(y) && Math.abs(y) < 50) pts.push({x, y});
+      } catch(_){}
+    }
+    new Chart(canvas, {
+      type:'line',
+      data:{ datasets:[{data:pts, borderColor:'#666', borderWidth:1.5, pointRadius:0, tension:0.3, fill:false}] },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{
+          x:{type:'linear',min:-8,max:8, grid:{color:'#111'}, ticks:{color:'#333',maxTicksLimit:9}, border:{color:'#1a1a1a'}},
+          y:{grid:{color:'#111'}, ticks:{color:'#333',maxTicksLimit:7}, border:{color:'#1a1a1a'}}
+        }
+      }
+    });
+  } catch(e){}
 }
 
-function initGraphs(container) {
-  (container||document).querySelectorAll('.graph-placeholder:not(.inited)').forEach(el => {
-    const expr = el.getAttribute('data-graph');
-    if (!expr) return;
-    try {
-      const rs = expr.replace(/^y\s*=\s*/i,'').replace(/\^/g,'**');
-      const pts = [];
-      for (let x=-10;x<=10;x+=0.35) { try { const y=math.evaluate(rs.replace(/\bx\b/g,`(${x})`)); if(isFinite(y)) pts.push({x,y}); } catch(_){} }
-      el.classList.add('inited');
-      const canvas = document.createElement('canvas');
-      el.appendChild(canvas);
-      new Chart(canvas, { type:'line', data:{ datasets:[{data:pts,borderColor:'#4a9eff',borderWidth:2,pointRadius:0,tension:0.2,fill:false}] }, options:{ animation:{duration:800}, responsive:true, maintainAspectRatio:true, aspectRatio:1.5, plugins:{legend:{display:false}}, scales:{ x:{type:'linear',min:-10,max:10,grid:{color:'#1a1a1a'},ticks:{color:'#555',maxTicksLimit:6}}, y:{grid:{color:'#1a1a1a'},ticks:{color:'#555',maxTicksLimit:6}} } } });
-    } catch(e) { el.innerHTML='<span style="color:#555">그래프 오류</span>'; }
-  });
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:80px;right:24px;background:#111;border:1px solid #2a2a2a;border-left:2px solid #fff;padding:10px 16px;border-radius:2px;font-size:11px;color:#888;letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:\'Noto Sans KR\',sans-serif';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
 }
 
+function updateHeaderSub() {
+  const current = getCurrentStatus();
+  if (current) {
+    document.getElementById('header-sub').textContent = `${current.unit.name} — ${current.step} 단계 진행중`;
+  } else {
+    document.getElementById('header-sub').textContent = '전 단원 완료!';
+  }
+}
+
+// ── 메시지 ──
+function appendMsg(role, content) {
+  document.getElementById('welcome')?.remove();
+  const box = document.getElementById('chat-box');
+  const wrap = document.createElement('div');
+  wrap.className = `message-wrap ${role}`;
+  if (role === 'user') {
+    wrap.innerHTML = `<div><div class="sender" style="text-align:right">나</div><div class="bubble">${escapeHtml(content)}</div></div>`;
+  } else {
+    wrap.innerHTML = `<div><div class="sender">선생님</div><div class="bubble">${renderContent(content)}</div></div>`;
+  }
+  box.appendChild(wrap);
+  box.scrollTop = box.scrollHeight;
+}
+
+function showTyping() {
+  const box = document.getElementById('chat-box');
+  const el = document.createElement('div');
+  el.id = 'typing-el'; el.className = 'typing-wrap';
+  el.innerHTML = `<div class="typing-bubble"><div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;
+  box.appendChild(el);
+  box.scrollTop = box.scrollHeight;
+}
+
+// ── 전송 ──
+async function sendTutor() {
+  const input = document.getElementById('user-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  appendMsg('user', msg);
+  input.value = '';
+  showTyping();
+  tutorHistory.push({role:'user', content:msg});
+
+  try {
+    const msgs = [{role:'system', content:buildSystem()}, ...tutorHistory.slice(-20)];
+    const reply = await callGroq(msgs);
+    tutorHistory.push({role:'assistant', content:reply});
+    saveAll();
+    document.getElementById('typing-el')?.remove();
+    appendMsg('ai', reply);
+    const lc = reply;
+    if (lc.includes('틀') || lc.includes('아쉽')) wrongCount = Math.min(wrongCount+1,3);
+    else if (lc.includes('맞아') || lc.includes('정확') || lc.includes('완벽')) wrongCount = 0;
+  } catch(e) {
+    document.getElementById('typing-el')?.remove();
+    tutorHistory.pop();
+    const errId = 'e'+Date.now();
+    const box = document.getElementById('chat-box');
+    const wrap = document.createElement('div');
+    wrap.className = 'message-wrap ai'; wrap.id = errId;
+    wrap.innerHTML = `<div><div class="sender">선생님</div><div class="bubble" style="color:#555;border-left-color:#222">연결이 끊겼어. 다시 해볼게!<br><button style="margin-top:8px;padding:5px 12px;background:none;border:1px solid #2a2a2a;color:#555;font-size:10px;cursor:pointer;border-radius:2px;font-family:'Noto Sans KR',sans-serif" onclick="retryLast('${errId}')">다시 보내기</button></div></div>`;
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+}
+
+function retryLast(errId) {
+  document.getElementById(errId)?.remove();
+  const last = tutorHistory[tutorHistory.length-1];
+  if (last?.role === 'user') { const m=last.content; tutorHistory.pop(); document.getElementById('user-input').value=m; sendTutor(); }
+}
+
+function quickAsk(text) { document.getElementById('user-input').value=text; sendTutor(); }
+
+function startTutor() {
+  const current = getCurrentStatus();
+  const msg = current
+    ? `${current.unit.name} ${current.step}부터 시작해줘`
+    : '다 끝났어! 전체 복습해줘';
+  quickAsk(msg);
+}
+
+// ── 페이지 전환 ──
 function showPage(page, btn) {
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('page-radar').style.display = page==='radar'?'block':'none';
-  document.getElementById('page-tutor').style.display = page==='tutor'?'flex':'none';
-  document.getElementById('tutor-controls').style.display = page==='tutor'?'block':'none';
-  if (page==='radar') { document.getElementById('header-title').textContent='교육 레이더'; document.getElementById('header-sub').textContent='실시간 교육 변화 감지'; }
-  else { document.getElementById('header-title').textContent=`${currentIcon} ${currentSubject} 과외`; document.getElementById('header-sub').textContent=currentLevel; }
+  document.getElementById('page-radar').style.display = page==='radar' ? 'block' : 'none';
+  document.getElementById('page-tutor').style.display = page==='tutor' ? 'flex' : 'none';
+  document.getElementById('progress-section').style.display = page==='tutor' ? 'block' : 'none';
+  if (page === 'radar') {
+    document.getElementById('header-title').textContent = '교육 레이더';
+    document.getElementById('header-sub').textContent = '실시간 교육 변화 감지';
+  } else {
+    document.getElementById('header-title').textContent = '고1 수학 과외';
+    updateHeaderSub();
+    updateProgressUI();
+  }
 }
 
+// ── 초기화 ──
+function clearTutor() {
+  if (!confirm('대화와 진도를 초기화할까요?')) return;
+  tutorHistory = []; progress = {}; wrongCount = 0;
+  localStorage.removeItem('vb_prog_v2');
+  localStorage.removeItem('vb_hist_v2');
+  document.getElementById('chat-box').innerHTML = `<div class="welcome" id="welcome"><div class="welcome-icon">📐</div><div class="welcome-title">고1 수학 선생님 — 안녕!</div><div class="welcome-chips"><div class="w-chip" onclick="startTutor()">지금 바로 시작하기</div><div class="w-chip" onclick="quickAsk('이차방정식 모르겠어')">이차방정식 모르겠어</div><div class="w-chip" onclick="quickAsk('인수분해 처음부터 알려줘')">인수분해 처음부터</div><div class="w-chip" onclick="quickAsk('지금 어디까지 했어?')">지금 어디까지 했어?</div></div></div>`;
+  updateProgressUI();
+}
+
+// ── 레이더 ──
 function dday(d) { const diff=Math.ceil((new Date(d)-new Date())/86400000); return diff>0?`D-${diff}`:diff===0?'D-Day':`D+${Math.abs(diff)}`; }
 document.getElementById('dd1').textContent=dday('2026-11-19');
 document.getElementById('dd2').textContent=dday('2026-09-05');
@@ -351,7 +609,6 @@ function renderNews(filter) {
 
 function toggleAI(id) { const el=document.getElementById(`ais-${id}`),btn=document.getElementById(`exb-${id}`),open=el.style.display==='block'; el.style.display=open?'none':'block'; btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴'; }
 function filterNews(f,btn) { document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderNews(f); }
-
 function setRadarInput(text) { document.getElementById('radar-input').value=text; radarAsk(); }
 
 async function radarAsk() {
@@ -362,113 +619,28 @@ async function radarAsk() {
   body.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
   try {
-    const reply = await callClaude(
-      [{role:'user', content:q}],
-      '너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'
-    );
-    body.textContent=reply;
-  } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요. ('+e.message+')'; }
+    const msgs = [
+      {role:'system',content:'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'},
+      {role:'user',content:q}
+    ];
+    const reply = await callGroq(msgs);
+    body.textContent = reply;
+  } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.'; }
 }
 
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
-
-let currentSubject='수학',currentIcon='📐',currentLevel='고등학생',wrongCount=0;
-let tutorHistory=JSON.parse(localStorage.getItem('verbalis_v5'))||[];
-
-const subjectData={
-  '수학':{icon:'📐',chips:['이차방정식 풀기','미적분 기초','확률과 통계','수능 수학 공부법'],asks:['이차방정식 푸는 법 알려줘','미적분 기초 개념 설명해줘','확률 문제 어떻게 풀어?','수능 수학 공부 어떻게 해?']},
-  '물리':{icon:'⚡',chips:['뉴턴의 법칙','운동에너지','전기회로 기초','파동과 빛'],asks:['뉴턴의 운동 법칙 설명해줘','운동에너지랑 위치에너지 차이?','전기회로 기초 알려줘','파동과 빛 개념 설명해줘']},
-  '화학':{icon:'🧪',chips:['주기율표 보는 법','산화환원 반응','몰 계산','화학 결합'],asks:['주기율표 어떻게 읽어?','산화환원 반응 쉽게 설명해줘','몰 계산하는 법 알려줘','공유결합 이온결합 차이?']},
-  '생물':{icon:'🧬',chips:['세포 구조','DNA와 유전','광합성 과정','진화론'],asks:['세포 구조 설명해줘','DNA 복제 과정 알려줘','광합성 어떻게 일어나?','진화론 핵심 개념 뭐야?']}
-};
-
-function buildSystemPrompt() {
-  return `넌 ${currentSubject} 과외 선생님이야. 학생 수준은 ${currentLevel}이야.
-말투: 친근하고 편하게. 반드시 한국어로만 답해. 절대 영어나 한자 쓰지 마.
-역할: ${currentSubject}만 가르쳐. 핵심만 짚어줘. 막히면 힌트부터 줘. 3번 틀리면 정답 알려줘. 현재 틀린 횟수: ${wrongCount}번.
-수식: 반드시 LaTeX로 써. 인라인은 \\( 수식 \\), 줄 단위는 \\[ 수식 \\].
-그래프: [GRAPH:y=수식] 형식으로 그려줘. 예: [GRAPH:y=x**2]`;
-}
-
-function renderWelcomeChips() {
-  const d=subjectData[currentSubject];
-  document.getElementById('welcome-chips').innerHTML=d.chips.map((c,i)=>`<div class="w-chip" onclick="quickAsk('${d.asks[i]}')">${c}</div>`).join('');
-}
-
-function setSubject(subject,icon,btn) {
-  currentSubject=subject; currentIcon=subjectData[subject].icon;
-  document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-  const wi=document.getElementById('welcome-icon'),wt=document.getElementById('welcome-title');
-  if(wi) wi.textContent=currentIcon; if(wt) wt.textContent=`${subject} 선생님 — 무엇이든 물어봐`;
-  document.getElementById('header-title').textContent=`${currentIcon} ${subject} 과외`;
-  renderWelcomeChips();
-}
-
-function setLevel(level) { currentLevel=level; document.getElementById('header-sub').textContent=level; }
-function quickAsk(text) { document.getElementById('user-input').value=text; sendTutor(); }
-
-function clearTutor() {
-  if(!confirm('대화를 초기화할까요?')) return;
-  tutorHistory=[]; localStorage.removeItem('verbalis_v5'); wrongCount=0;
-  document.getElementById('chat-box').innerHTML=`<div class="welcome" id="welcome"><div class="welcome-icon" id="welcome-icon">${currentIcon}</div><div class="welcome-title" id="welcome-title">${currentSubject} 선생님 — 무엇이든 물어봐</div><div class="welcome-chips" id="welcome-chips"></div></div>`;
-  renderWelcomeChips();
-}
-
-function appendMsg(role, content) {
-  document.getElementById('welcome')?.remove();
-  const box=document.getElementById('chat-box');
-  const wrap=document.createElement('div'); wrap.className=`message-wrap ${role}`;
-  if(role==='user') wrap.innerHTML=`<div><div class="sender">나</div><div class="bubble">${escapeHtml(content)}</div></div>`;
-  else wrap.innerHTML=`<div><div class="sender">선생님</div><div class="bubble">${renderContent(content)}</div></div>`;
-  box.appendChild(wrap); box.scrollTop=box.scrollHeight;
-  setTimeout(()=>initGraphs(box),50);
-}
-
-function showTyping() {
-  const box=document.getElementById('chat-box');
-  const el=document.createElement('div'); el.id='typing-el'; el.className='typing-wrap';
-  el.innerHTML=`<div class="typing-bubble"><div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;
-  box.appendChild(el); box.scrollTop=box.scrollHeight;
-}
-
-async function sendTutor() {
-  const input=document.getElementById('user-input');
-  const msg=input.value.trim(); if(!msg) return;
-  appendMsg('user',msg); input.value=''; showTyping();
-  tutorHistory.push({role:'user',content:msg});
-  try {
-    const reply = await callClaude(
-      tutorHistory.slice(-20),
-      buildSystemPrompt()
-    );
-    tutorHistory.push({role:'assistant',content:reply});
-    localStorage.setItem('verbalis_v5',JSON.stringify(tutorHistory));
-    document.getElementById('typing-el')?.remove();
-    appendMsg('ai',reply);
-    const lc=reply.toLowerCase();
-    if(lc.includes('틀')||lc.includes('아쉽')) wrongCount=Math.min(wrongCount+1,3);
-    else if(lc.includes('맞아')||lc.includes('정확')) wrongCount=0;
-  } catch(e) {
-    document.getElementById('typing-el')?.remove();
-    tutorHistory.pop();
-    const errId='err-'+Date.now();
-    const box=document.getElementById('chat-box');
-    const wrap=document.createElement('div'); wrap.className='message-wrap ai error'; wrap.id=errId;
-    wrap.innerHTML=`<div><div class="sender">선생님</div><div class="bubble">연결이 끊겼어. 다시 보내볼게!<br><small style="color:#555">${e.message}</small><br><button class="retry-btn" onclick="retryLast('${errId}')">다시 보내기</button></div></div>`;
-    box.appendChild(wrap); box.scrollTop=box.scrollHeight;
-  }
-}
-
-function retryLast(errId) {
-  document.getElementById(errId)?.remove();
-  const last=tutorHistory[tutorHistory.length-1];
-  if(last&&last.role==='user') { const msg=last.content; tutorHistory.pop(); document.getElementById('user-input').value=msg; sendTutor(); }
-}
-
 document.getElementById('user-input').addEventListener('keypress',e=>{if(e.key==='Enter')sendTutor();});
 
-renderNews('전체'); renderWelcomeChips();
-if(tutorHistory.length>0) { tutorHistory.forEach(m=>{ if(m.role==='user') appendMsg('user',m.content); else if(m.role==='assistant') appendMsg('ai',m.content); }); }
+// ── 초기 실행 ──
+renderNews('전체');
+updateProgressUI();
+
+if (tutorHistory.length > 0) {
+  tutorHistory.forEach(m => {
+    if (m.role==='user') appendMsg('user', m.content);
+    else if (m.role==='assistant') appendMsg('ai', m.content);
+  });
+}
 </script>
 </body>
 </html>
