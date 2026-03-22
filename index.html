@@ -248,8 +248,8 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
     <div class="logo-sub">교육 AI 플랫폼</div>
   </div>
   <div class="sidebar-section">메뉴</div>
-  <button class="nav-btn active" id="nav-radar" onclick="showPage('radar',this)"><span>📡</span> 교육 레이더</button>
-  <button class="nav-btn" id="nav-tutor" onclick="showPage('tutor',this)"><span>📚</span> 고1 수학 과외</button>
+  <button class="nav-btn active" id="nav-radar"><span>📡</span> 교육 레이더</button>
+  <button class="nav-btn" id="nav-tutor"><span>📚</span> 고1 수학 과외</button>
 
   <div class="progress-section" id="progress-section" style="display:none">
     <div class="progress-label">진도</div>
@@ -1631,6 +1631,8 @@ async function radarAsk() {
 
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
 document.getElementById('user-input').addEventListener('keypress',e=>{if(e.key==='Enter')sendTutor();});
+document.getElementById('nav-radar').addEventListener('click', function(){ showPage('radar', this); });
+document.getElementById('nav-tutor').addEventListener('click', function(){ showPage('tutor', this); });
 
 // ── 테마 토글 ──
 let isLight = localStorage.getItem('vb_theme') === 'light';
