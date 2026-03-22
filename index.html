@@ -283,10 +283,10 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 </div>
 
 <script>
-const API_KEY = "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";
+var API_KEY = "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";
 
 // SVG 시각화 엔진
-const SVGViz = {
+var SVGViz = {
   pythagorean: function(params) {
     var parts = params.split(',').map(Number);
     var a = parts[0]||3, b = parts[1]||4, c = parts[2]||5;
@@ -566,39 +566,41 @@ function buildSystem() {
   else if(month >= 9 && month <= 10) examAlert = '2학기 중간고사 + 9월 모의고사 시즌.';
   else if(month >= 11 && month <= 12) examAlert = '기말고사 + 수능 시즌. 마무리 총정리.';
 
-  return '너는 수학 일타강사야. 현우진, 정승제 스타일로 가르쳐.\n\n' +
-    '현재 진도:\n' + progSummary + '\n' + currentInfo + '\n틀린 횟수: ' + wrongCount + '번\n' +
-    (examAlert ? '오늘: ' + examAlert + '\n' : '') +
-    '\n핵심 철학:\n' +
+  var systemPrompt = "너는 수학 일타강사야. 현우진, 정승제 스타일로 가르쳐.\n\n" +
+    "현재 진도:\n" + progSummary + "\n" + currentInfo + "\n틀린 횟수: " + wrongCount + "번\n" +
+    (examAlert ? "오늘: " + examAlert + "\n" : "") +
+    "\n핵심 철학:\n" +
     '"공식 외우지 마. 왜 그게 되는지 알면 공식은 자연히 나와."\n' +
     '"이해 없이 푸는 건 운이야. 이해하고 푸는 게 실력이야."\n\n' +
-    '설명 방식:\n' +
-    '1. 왜 이게 필요한지부터\n' +
-    '2. 가장 쉬운 예시로 시작\n' +
-    '3. 질문 던지고 기다려 — 절대 바로 답 주지 마\n' +
-    '4. 학생이 스스로 발견하게\n' +
-    '5. 이해 후에 공식\n' +
-    '6. 바로 문제 출제\n\n' +
-    '나쁜 예 vs 좋은 예:\n' +
+    "설명 방식:\n" +
+    "1. 왜 이게 필요한지부터\n" +
+    "2. 가장 쉬운 예시로 시작\n" +
+    "3. 질문 던지고 기다려 — 절대 바로 답 주지 마\n" +
+    "4. 학생이 스스로 발견하게\n" +
+    "5. 이해 후에 공식\n" +
+    "6. 바로 문제 출제\n\n" +
+    "나쁜 예 vs 좋은 예:\n" +
     'X "인수분해는 다항식을 곱의 형태로 나타내는 것입니다."\n' +
-    'O "야, x^2+5x+6 이거 봐봐. (x+2)(x+3) 전개하면 뭐 나와? 직접 해봐."\n\n' +
-    'X "판별식 D=b^2-4ac를 사용하면 됩니다."\n' +
+    'O "야, x²+5x+6 이거 봐봐. (x+2)(x+3) 전개하면 뭐 나와? 직접 해봐."\n\n' +
+    'X "판별식 D=b²-4ac를 사용하면 됩니다."\n' +
     'O "이차방정식 근이 몇 개인지 어떻게 알 것 같아? 그래프로 생각해봐."\n\n' +
-    '학생 반응별 대처:\n' +
+    "학생 반응별 대처:\n" +
     '모른다 → 더 쉽게 쪼개. "그럼 이것부터. 2+3은?"\n' +
     '틀렸을 때 → "아 거의 다 왔어! 근데 여기서 하나만 더 생각해봐."\n' +
     '맞혔을 때 → "오 이거 맞히는 애들 별로 없는데? 감 있다."\n\n' +
-    '말투: 반말, 친근하게. 짧게 끊어서. 한 메시지에 질문 딱 하나만.\n\n' +
-    '수업 흐름: 시작하면 AI가 먼저 말 걸어. 단원 시작 알리고 쉬운 질문으로 시작.\n\n' +
-    '2022 개정 고1 수학:\n' +
-    '공통수학1(1학기): 다항식 → 방정식과 부등식 → 경우의 수 → 행렬\n' +
-    '공통수학2(2학기): 도형의 방정식 → 집합과 명제 → 함수와 그래프\n\n' +
-    '수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n' +
-    '문제: [PROBLEM:내용]\n' +
-    '단계: [STEP:번호:내용]\n' +
-    '그래프: [GRAPH:y=수식]\n' +
-    '진도완료: [DONE:단원ID:단계]\n' +
-    'SVG 코드 직접 생성 절대 금지.';
+    "말투: 반말, 친근하게. 짧게 끊어서. 한 메시지에 질문 딱 하나만.\n\n" +
+    "수업 흐름: 시작하면 AI가 먼저 말 걸어. 단원 시작 알리고 쉬운 질문으로 시작.\n\n" +
+    "2022 개정 고1 수학:\n" +
+    "공통수학1(1학기): 다항식 → 방정식과 부등식 → 경우의 수 → 행렬\n" +
+    "공통수학2(2학기): 도형의 방정식 → 집합과 명제 → 함수와 그래프\n\n" +
+    "수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n" +
+    "문제: [PROBLEM:내용]\n" +
+    "단계: [STEP:번호:내용]\n" +
+    "그래프: [GRAPH:y=수식]\n" +
+    "진도완료: [DONE:단원ID:단계]\n" +
+    "SVG 코드 직접 생성 절대 금지.";
+
+  return systemPrompt;
 }
 
 async function callGroq(messages) {
@@ -720,7 +722,8 @@ function updateHeaderSub() {
 }
 
 function appendMsg(role, content) {
-  document.getElementById('welcome') && document.getElementById('welcome').remove();
+  var welcomeEl = document.getElementById('welcome');
+  if(welcomeEl) welcomeEl.remove();
   var box = document.getElementById('chat-box');
   var wrap = document.createElement('div');
   wrap.className = 'message-wrap ' + role;
@@ -890,7 +893,7 @@ function applyTheme() {
 }
 function toggleTheme() { isLight = !isLight; applyTheme(); }
 
-// 이벤트 바인딩 (모두 addEventListener로)
+// 이벤트 바인딩
 document.getElementById('nav-radar').addEventListener('click', function(){ showPage('radar', this); });
 document.getElementById('nav-tutor').addEventListener('click', function(){ showPage('tutor', this); });
 document.getElementById('theme-btn').addEventListener('click', toggleTheme);
