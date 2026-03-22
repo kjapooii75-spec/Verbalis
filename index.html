@@ -12,7 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-
 :root {
   --bg:#050505; --bg2:#080808; --bg3:#0a0a0a; --bg4:#0f0f0f;
   --border:#1a1a1a; --border2:#1e1e1e;
@@ -66,6 +65,7 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 .status-dot { width:5px; height:5px; background:var(--text6); border-radius:50%; animation:pulse 2s infinite; }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
+/* === 교육 레이더 === */
 #page-radar { flex:1; overflow-y:auto; padding:28px; scrollbar-width:none; display:block; }
 #page-radar::-webkit-scrollbar{display:none;}
 .radar-live { display:flex; align-items:center; gap:6px; font-size:9px; letter-spacing:2px; color:#444; text-transform:uppercase; margin-bottom:12px; }
@@ -129,6 +129,7 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 .expand-btn{font-size:10px;color:var(--text4);background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
 .expand-btn:hover{color:var(--text2);}
 
+/* === 튜터 === */
 #page-tutor{flex:1;display:none;flex-direction:column;overflow:hidden;}
 #chat-box{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:none;}
 #chat-box::-webkit-scrollbar{display:none;}
@@ -141,12 +142,13 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 .message-wrap{display:flex;margin:12px 0;animation:fadeUp 0.2s ease;}
 .message-wrap.user{justify-content:flex-end;}
 .message-wrap.ai{justify-content:flex-start;}
-.bubble{max-width:78%;padding:12px 16px;border-radius:2px;font-size:14px;line-height:1.75;word-break:break-word;}
+.bubble{max-width:82%;padding:12px 16px;border-radius:2px;font-size:14px;line-height:1.75;word-break:break-word;}
 .user .bubble{background:var(--bubble-user);color:var(--text3);border:1px solid var(--border2);}
 .ai .bubble{background:var(--bubble-ai);color:var(--text);border:1px solid var(--border);border-left:2px solid var(--text5);}
 .sender{font-size:9px;letter-spacing:2px;color:var(--text6);margin-bottom:5px;}
 .message-wrap.user .sender{text-align:right;}
 
+/* === 카드 타입 === */
 .problem-card{background:#0d0d08;border:1px solid #252510;border-left:2px solid #444420;padding:12px 16px;margin:10px 0;border-radius:2px;}
 .problem-label{font-size:9px;letter-spacing:2px;color:#555530;margin-bottom:6px;text-transform:uppercase;}
 .problem-body{font-size:13px;color:#888860;line-height:1.8;}
@@ -158,14 +160,37 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 .graph-wrap{margin:10px 0;background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:12px;position:relative;}
 .graph-label{font-size:9px;letter-spacing:2px;color:var(--text5);margin-bottom:8px;text-transform:uppercase;}
 .graph-wrap canvas{display:block;width:100%!important;height:180px!important;}
+
+/* === AI 생성 SVG 컨테이너 === */
 .svg-viz-wrap{margin:14px 0;background:var(--bg2);border:1px solid var(--border2);border-left:2px solid var(--text5);border-radius:2px;padding:16px;overflow:hidden;}
 .svg-viz-label{font-size:9px;letter-spacing:2px;color:var(--text5);text-transform:uppercase;margin-bottom:12px;}
-.svg-viz-wrap svg{display:block;width:100%;max-width:420px;margin:0 auto;}
+.svg-viz-wrap svg{display:block;width:100%;max-width:440px;margin:0 auto;}
+
+/* === AI SVG 생성 로딩 상태 === */
+.svg-gen-wrap{margin:14px 0;background:var(--bg3);border:1px solid var(--border);border-left:2px solid #2a2a2a;border-radius:2px;padding:14px;position:relative;overflow:hidden;}
+.svg-gen-label{font-size:9px;letter-spacing:2px;color:var(--text5);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.gen-dot{width:4px;height:4px;border-radius:50%;background:var(--text5);animation:bounce 1.2s infinite;}
+.gen-dot:nth-child(2){animation-delay:.2s}.gen-dot:nth-child(3){animation-delay:.4s}
+.svg-gen-content{min-height:60px;}
+.svg-gen-content svg{display:block;width:100%;max-width:440px;margin:0 auto;}
+
+/* === 추천 카드 === */
 .recommend-card{background:#0a0810;border:1px solid #1e1a28;border-left:2px solid #443366;padding:12px 16px;margin:10px 0;border-radius:2px;}
 .recommend-label{font-size:9px;letter-spacing:2px;color:#443366;margin-bottom:8px;text-transform:uppercase;}
 .recommend-item{font-size:12px;color:#776688;line-height:1.9;}
+
+/* === 타이핑 === */
 .typing-wrap{display:flex;padding:6px 0;}
 .typing-bubble{background:var(--bg4);border:1px solid var(--border);border-left:2px solid var(--text5);padding:12px 16px;display:flex;align-items:center;gap:5px;}
+
+/* === 에이전트 상태 뱃지 === */
+.agent-badge{display:inline-flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:3px 8px;font-size:9px;letter-spacing:1.5px;color:var(--text5);margin-bottom:6px;text-transform:uppercase;}
+.agent-dot{width:4px;height:4px;border-radius:50%;background:var(--text5);}
+.agent-badge.viz .agent-dot{background:#446644;animation:pulse 1s infinite;}
+.agent-badge.viz{color:#446644;border-color:#1a2a1a;}
+.agent-badge.teach .agent-dot{background:#444466;animation:pulse 1.3s infinite;}
+.agent-badge.teach{color:#444466;border-color:#1a1a2a;}
+
 #tutor-input-area{display:flex;gap:10px;border-top:1px solid var(--border2);padding:18px 28px;flex-shrink:0;}
 #user-input{flex:1;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:2px;font-size:14px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
 #user-input:focus{border-color:var(--text5);}
@@ -283,168 +308,81 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
 </div>
 
 <script>
-var API_KEY = "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";
+/* ====================================================
+   🔑 설정
+   ==================================================== */
+var GROQ_KEY = "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";
+var ANTHROPIC_PROXY = "https://api.anthropic.com/v1/messages"; // Claude API (시각화 에이전트)
 
-// SVG 시각화 엔진
+/* ====================================================
+   📐 단계 1: 기존 SVG 라이브러리 (fallback용)
+   ==================================================== */
 var SVGViz = {
   pythagorean: function(params) {
-    var parts = params.split(',').map(Number);
-    var a = parts[0]||3, b = parts[1]||4, c = parts[2]||5;
-    var scale = 40, pad = 30;
-    var ax = pad, ay = pad + b*scale;
-    var bx = pad + a*scale, by = pad + b*scale;
-    var cx2 = pad, cy2 = pad;
-    var W = pad*2 + a*scale + 10;
-    var H = pad*2 + b*scale + 10;
-    var lenAB = a*scale;
-    var lenBC = Math.sqrt(Math.pow(bx-cx2,2)+Math.pow(by-cy2,2));
-    var lenCA = b*scale;
-    return '<div class="svg-viz-wrap"><div class="svg-viz-label">📐 피타고라스 정리 — a²+b²=c²</div>' +
-      '<svg viewBox="0 0 ' + (W+120) + ' ' + (H+60) + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><style>' +
-      '.tri-line{stroke:#666;stroke-width:1.5;fill:none;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawLine 0.8s ease forwards;}' +
-      '.sq{fill:none;stroke-width:1;opacity:0;animation:fadeIn 0.5s ease forwards;}' +
-      '.lbl{font-family:"Noto Sans KR",sans-serif;font-size:11px;fill:#888;opacity:0;animation:fadeIn 0.4s ease forwards;}' +
-      '.eq{font-family:"Noto Sans KR",sans-serif;font-size:12px;fill:#555;}' +
-      '</style></defs>' +
-      '<polygon points="' + ax + ',' + ay + ' ' + bx + ',' + by + ' ' + cx2 + ',' + cy2 + '" fill="#111" stroke="none"/>' +
-      '<line x1="' + ax + '" y1="' + ay + '" x2="' + bx + '" y2="' + by + '" class="tri-line" style="--len:' + lenAB + ';animation-delay:0s"/>' +
-      '<line x1="' + ax + '" y1="' + ay + '" x2="' + cx2 + '" y2="' + cy2 + '" class="tri-line" style="--len:' + lenCA + ';animation-delay:0.5s"/>' +
-      '<line x1="' + bx + '" y1="' + by + '" x2="' + cx2 + '" y2="' + cy2 + '" class="tri-line" style="stroke:#aaa;stroke-width:2;--len:' + lenBC + ';animation-delay:1s"/>' +
-      '<text x="' + (ax+a*scale/2) + '" y="' + (ay+18) + '" text-anchor="middle" class="lbl" style="fill:#5a8a5a;animation-delay:0.2s">a=' + a + '</text>' +
-      '<text x="' + (ax-18) + '" y="' + (ay-b*scale/2) + '" text-anchor="middle" class="lbl" style="fill:#5a5a8a;animation-delay:0.7s">b=' + b + '</text>' +
-      '<text x="' + ((bx+cx2)/2+14) + '" y="' + ((by+cy2)/2) + '" text-anchor="middle" class="lbl" style="fill:#ccc;font-size:13px;animation-delay:1.2s">c=' + c + '</text>' +
-      '<text x="' + (W+10) + '" y="' + (H/2-20) + '" class="eq" style="animation:fadeIn 0.5s ease 2.2s forwards;opacity:0"><tspan style="font-size:13px;fill:#aaa;font-weight:700">' + a + '²+' + b + '²=' + c + '²</tspan></text>' +
-      '<text x="' + (W+10) + '" y="' + (H/2) + '" class="eq" style="animation:fadeIn 0.5s ease 2.4s forwards;opacity:0"><tspan>' + (a*a) + '+' + (b*b) + '=' + (c*c) + '</tspan></text>' +
-      '<text x="' + (W+10) + '" y="' + (H/2+20) + '" class="eq" style="fill:#666;animation:fadeIn 0.5s ease 2.6s forwards;opacity:0"><tspan>∴ c=√' + (c*c) + '=' + c + '</tspan></text>' +
+    var parts = (params||'3,4,5').split(',').map(Number);
+    var a=parts[0]||3, b=parts[1]||4, c=parts[2]||5;
+    var scale=40, pad=30;
+    var ax=pad, ay=pad+b*scale, bx=pad+a*scale, by=pad+b*scale, cx2=pad, cy2=pad;
+    var W=pad*2+a*scale+10, H=pad*2+b*scale+10;
+    return '<div class="svg-viz-wrap"><div class="svg-viz-label">📐 피타고라스 — a²+b²=c²</div>' +
+      '<svg viewBox="0 0 '+(W+130)+' '+(H+40)+'" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs><style>.tl{stroke:#666;stroke-width:1.5;fill:none;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawLine 0.8s ease forwards;}.lbl{font-family:"Noto Sans KR",sans-serif;font-size:11px;fill:#888;opacity:0;animation:fadeIn 0.4s ease forwards;}</style></defs>' +
+      '<polygon points="'+ax+','+ay+' '+bx+','+by+' '+cx2+','+cy2+'" fill="#111" stroke="none"/>' +
+      '<line x1="'+ax+'" y1="'+ay+'" x2="'+bx+'" y2="'+by+'" class="tl" style="--len:'+(a*scale)+';animation-delay:0s"/>' +
+      '<line x1="'+ax+'" y1="'+ay+'" x2="'+cx2+'" y2="'+cy2+'" class="tl" style="--len:'+(b*scale)+';animation-delay:0.5s"/>' +
+      '<line x1="'+bx+'" y1="'+by+'" x2="'+cx2+'" y2="'+cy2+'" class="tl" style="stroke:#aaa;stroke-width:2;--len:'+Math.sqrt(a*a*scale*scale+b*b*scale*scale).toFixed(0)+';animation-delay:1s"/>' +
+      '<text x="'+(ax+a*scale/2)+'" y="'+(ay+18)+'" text-anchor="middle" class="lbl" style="fill:#5a8a5a;animation-delay:0.2s">a='+a+'</text>' +
+      '<text x="'+(ax-18)+'" y="'+(ay-b*scale/2)+'" text-anchor="middle" class="lbl" style="fill:#5a5a8a;animation-delay:0.7s">b='+b+'</text>' +
+      '<text x="'+((bx+cx2)/2+14)+'" y="'+((by+cy2)/2)+'" text-anchor="middle" class="lbl" style="fill:#ccc;font-size:13px;animation-delay:1.2s">c='+c+'</text>' +
+      '<text x="'+(W+10)+'" y="'+(H/2)+'" style="font-size:12px;fill:#888;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.5s ease 2s forwards">'+a+'²+'+b+'²='+c+'²</text>' +
       '</svg></div>';
   },
-
   parabola: function(params) {
-    var p = params.split(',').map(Number);
-    var a = p[0]||1, h = p[1]||0, k = p[2]||0;
+    var p=(params||'1,0,0').split(',').map(Number);
+    var a=p[0]||1, h=p[1]||0, k=p[2]||0;
     var W=340, H=220, pad=30, cx=W/2, cy=H/2, scaleX=25, scaleY=18;
-    var points = '';
-    for(var x=-6; x<=6; x+=0.15) {
-      var y = a*Math.pow(x-h,2) + k;
-      var px = cx + x*scaleX, py = cy - y*scaleY;
-      if(py > -20 && py < H+20) points += px + ',' + py + ' ';
-    }
-    var vx = cx + h*scaleX, vy = cy - k*scaleY;
-    return '<div class="svg-viz-wrap"><div class="svg-viz-label">📈 이차함수 그래프</div>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><style>.axis2{stroke:#222;stroke-width:1;fill:none;}.grid2{stroke:#111;stroke-width:0.5;}' +
-      '.curve2{stroke:#888;stroke-width:2;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:drawLine 1.2s ease 0.3s forwards;}' +
-      '.albl{font-size:9px;fill:#333;font-family:"Noto Sans KR",sans-serif;}</style></defs>' +
-      '<line x1="' + pad + '" y1="' + cy + '" x2="' + (W-pad) + '" y2="' + cy + '" class="axis2"/>' +
-      '<line x1="' + cx + '" y1="' + pad + '" x2="' + cx + '" y2="' + (H-pad) + '" class="axis2"/>' +
-      '<polyline points="' + points + '" class="curve2"/>' +
-      '<circle cx="' + vx + '" cy="' + vy + '" r="3" fill="#fff" style="opacity:0;animation:fadeIn 0.4s ease 1.6s forwards"/>' +
-      '<text x="' + (vx+6) + '" y="' + (vy-6) + '" class="albl" style="fill:#aaa;opacity:0;animation:fadeIn 0.4s ease 2s forwards">꼭짓점(' + h + ',' + k + ')</text>' +
+    var points='';
+    for(var x=-6; x<=6; x+=0.15){var y=a*Math.pow(x-h,2)+k; var px=cx+x*scaleX,py=cy-y*scaleY; if(py>-20&&py<H+20) points+=px+','+py+' ';}
+    return '<div class="svg-viz-wrap"><div class="svg-viz-label">📈 이차함수 y='+a+'(x'+(h>0?'-'+h:h<0?'+'+(-h):'')+')²'+(k>0?'+'+k:k<0?k:'')+'</div>' +
+      '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">' +
+      '<line x1="'+pad+'" y1="'+cy+'" x2="'+(W-pad)+'" y2="'+cy+'" style="stroke:#222;stroke-width:1;fill:none;"/>' +
+      '<line x1="'+cx+'" y1="'+pad+'" x2="'+cx+'" y2="'+(H-pad)+'" style="stroke:#222;stroke-width:1;fill:none;"/>' +
+      '<polyline points="'+points+'" style="stroke:#888;stroke-width:2;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:drawLine 1.2s ease 0.3s forwards;"/>' +
+      '<circle cx="'+(cx+h*scaleX)+'" cy="'+(cy-k*scaleY)+'" r="3" fill="#fff" style="opacity:0;animation:fadeIn 0.4s ease 1.6s forwards"/>' +
+      '<text x="'+(cx+h*scaleX+6)+'" y="'+(cy-k*scaleY-6)+'" style="font-size:10px;fill:#aaa;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 2s forwards">꼭짓점('+h+','+k+')</text>' +
       '</svg></div>';
   },
-
   discriminant: function(params) {
-    var p = params.split(',').map(Number);
-    var a = p[0]||1, b = p[1]||0, c = p[2]||1;
-    var D = b*b - 4*a*c;
-    var status = D > 0 ? '서로 다른 두 실근 (D>0)' : D === 0 ? '중근 (D=0)' : '실근 없음 (D<0)';
-    var color = D > 0 ? '#5a8a5a' : D === 0 ? '#8a8a5a' : '#8a5a5a';
-    var W=340, H=200, cx=W/2, cy=H/2, scaleX=28, scaleY=20;
-    var points = '';
-    for(var x=-5; x<=5; x+=0.1) {
-      var y = a*x*x + b*x + c;
-      var px = cx + x*scaleX, py = cy - y*scaleY;
-      if(py > 0 && py < H) points += px + ',' + py + ' ';
-    }
-    var roots = '';
-    if(D > 0) {
-      var x1 = (-b + Math.sqrt(D))/(2*a), x2 = (-b - Math.sqrt(D))/(2*a);
-      roots = '<circle cx="' + (cx+x1*scaleX) + '" cy="' + cy + '" r="4" fill="' + color + '" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/>' +
-              '<circle cx="' + (cx+x2*scaleX) + '" cy="' + cy + '" r="4" fill="' + color + '" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/>';
-    } else if(D === 0) {
-      var x1b = -b/(2*a);
-      roots = '<circle cx="' + (cx+x1b*scaleX) + '" cy="' + cy + '" r="4" fill="' + color + '" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/>';
-    }
-    return '<div class="svg-viz-wrap"><div class="svg-viz-label" style="color:' + color + '">📊 판별식 — ' + status + '</div>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<line x1="20" y1="' + cy + '" x2="' + (W-20) + '" y2="' + cy + '" style="stroke:#2a2a2a;stroke-width:1.5;"/>' +
-      '<line x1="' + cx + '" y1="10" x2="' + cx + '" y2="' + (H-10) + '" style="stroke:#222;stroke-width:1;"/>' +
-      '<polyline points="' + points + '" style="stroke:' + color + ';stroke-width:2;fill:none;stroke-dasharray:800;stroke-dashoffset:800;animation:drawLine 1.2s ease 0.2s forwards;"/>' +
-      roots +
-      '<text x="' + (W-60) + '" y="' + (H-10) + '" style="font-size:10px;fill:' + color + ';font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.8s forwards">D=' + D.toFixed(1) + '</text>' +
+    var p=(params||'1,0,1').split(',').map(Number);
+    var a=p[0]||1, b=p[1]||0, c=p[2]||1;
+    var D=b*b-4*a*c;
+    var status=D>0?'서로 다른 두 실근 (D>0)':D===0?'중근 (D=0)':'실근 없음 (D<0)';
+    var color=D>0?'#5a8a5a':D===0?'#8a8a5a':'#8a5a5a';
+    var W=340, H=200, cx=W/2, cy=H/2, sX=28, sY=20;
+    var pts='';
+    for(var x=-5; x<=5; x+=0.1){var y=a*x*x+b*x+c; var px=cx+x*sX,py=cy-y*sY; if(py>0&&py<H) pts+=px+','+py+' ';}
+    return '<div class="svg-viz-wrap"><div class="svg-viz-label" style="color:'+color+'">📊 판별식 — '+status+'</div>' +
+      '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">' +
+      '<line x1="20" y1="'+cy+'" x2="'+(W-20)+'" y2="'+cy+'" style="stroke:#2a2a2a;stroke-width:1.5;"/>' +
+      '<line x1="'+cx+'" y1="10" x2="'+cx+'" y2="'+(H-10)+'" style="stroke:#222;stroke-width:1;"/>' +
+      '<polyline points="'+pts+'" style="stroke:'+color+';stroke-width:2;fill:none;stroke-dasharray:800;stroke-dashoffset:800;animation:drawLine 1.2s ease 0.2s forwards;"/>' +
+      (D>0?'<circle cx="'+(cx+(-b+Math.sqrt(D))/(2*a)*sX)+'" cy="'+cy+'" r="4" fill="'+color+'" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/><circle cx="'+(cx+(-b-Math.sqrt(D))/(2*a)*sX)+'" cy="'+cy+'" r="4" fill="'+color+'" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/>':'') +
+      (D===0?'<circle cx="'+(cx+(-b/(2*a))*sX)+'" cy="'+cy+'" r="4" fill="'+color+'" style="opacity:0;animation:fadeIn 0.4s ease 1.5s forwards"/>':'') +
+      '<text x="'+(W-60)+'" y="'+(H-10)+'" style="font-size:10px;fill:'+color+';font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.8s forwards">D='+D.toFixed(1)+'</text>' +
       '</svg></div>';
   },
-
   venn: function() {
-    var W=300, H=180, cy=H/2;
     return '<div class="svg-viz-wrap"><div class="svg-viz-label">∩ 집합 — 벤 다이어그램</div>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<rect x="10" y="10" width="' + (W-20) + '" height="' + (H-20) + '" fill="none" stroke="#222" stroke-width="1" rx="2"/>' +
+      '<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="10" y="10" width="280" height="160" fill="none" stroke="#222" stroke-width="1" rx="2"/>' +
       '<text x="22" y="28" style="font-size:10px;fill:#333;font-family:\'Noto Sans KR\',sans-serif">U</text>' +
-      '<circle cx="' + (W*0.37) + '" cy="' + cy + '" r="60" style="fill:#4a6a4a;fill-opacity:0.08;stroke:#4a6a4a;stroke-width:1.5;opacity:0;animation:fadeIn 0.6s ease 0.2s forwards;"/>' +
-      '<circle cx="' + (W*0.63) + '" cy="' + cy + '" r="60" style="fill:#4a4a6a;fill-opacity:0.08;stroke:#4a4a6a;stroke-width:1.5;opacity:0;animation:fadeIn 0.6s ease 0.5s forwards;"/>' +
-      '<text x="' + (W*0.25) + '" y="' + (cy+5) + '" text-anchor="middle" style="font-size:11px;fill:#4a8a4a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1s forwards;">A</text>' +
-      '<text x="' + (W*0.75) + '" y="' + (cy+5) + '" text-anchor="middle" style="font-size:11px;fill:#4a4a8a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1s forwards;">B</text>' +
-      '<text x="' + (W/2) + '" y="' + (cy+5) + '" text-anchor="middle" style="font-size:10px;fill:#666;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.4s forwards">A∩B</text>' +
+      '<circle cx="111" cy="90" r="60" style="fill:#4a6a4a;fill-opacity:0.08;stroke:#4a6a4a;stroke-width:1.5;opacity:0;animation:fadeIn 0.6s ease 0.2s forwards;"/>' +
+      '<circle cx="189" cy="90" r="60" style="fill:#4a4a6a;fill-opacity:0.08;stroke:#4a4a6a;stroke-width:1.5;opacity:0;animation:fadeIn 0.6s ease 0.5s forwards;"/>' +
+      '<text x="75" y="95" text-anchor="middle" style="font-size:11px;fill:#4a8a4a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1s forwards;">A</text>' +
+      '<text x="225" y="95" text-anchor="middle" style="font-size:11px;fill:#4a4a8a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1s forwards;">B</text>' +
+      '<text x="150" y="95" text-anchor="middle" style="font-size:10px;fill:#666;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.4s forwards">A∩B</text>' +
       '</svg></div>';
   },
-
-  inverseFunc: function() {
-    var W=280, H=280, pad=20, cx=W/2, cy=H/2, scale=22;
-    var fPoints='', invPoints='';
-    for(var x=-5; x<=5; x+=0.2) {
-      var y = 2*x+1;
-      var px = cx+x*scale, py = cy-y*scale;
-      if(py>pad&&py<H-pad&&px>pad&&px<W-pad) fPoints+=px+','+py+' ';
-      var iy = (x-1)/2;
-      var ipx=cx+x*scale, ipy=cy-iy*scale;
-      if(ipy>pad&&ipy<H-pad&&ipx>pad&&ipx<W-pad) invPoints+=ipx+','+ipy+' ';
-    }
-    return '<div class="svg-viz-wrap"><div class="svg-viz-label">↔ 역함수 — y=x 대칭</div>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<line x1="' + pad + '" y1="' + cy + '" x2="' + (W-pad) + '" y2="' + cy + '" style="stroke:#1e1e1e;stroke-width:1;"/>' +
-      '<line x1="' + cx + '" y1="' + pad + '" x2="' + cx + '" y2="' + (H-pad) + '" style="stroke:#1e1e1e;stroke-width:1;"/>' +
-      '<line x1="' + pad + '" y1="' + (H-pad) + '" x2="' + (W-pad) + '" y2="' + pad + '" style="stroke:#2a2a2a;stroke-width:1;stroke-dasharray:4 3;"/>' +
-      '<text x="' + (W-pad-5) + '" y="' + (pad+14) + '" style="font-size:9px;fill:#333;font-family:\'Noto Sans KR\',sans-serif">y=x</text>' +
-      '<polyline points="' + fPoints + '" style="stroke:#5a8a5a;stroke-width:2;fill:none;stroke-dasharray:500;stroke-dashoffset:500;animation:drawLine 1s ease 0.3s forwards;"/>' +
-      '<polyline points="' + invPoints + '" style="stroke:#5a5a8a;stroke-width:2;fill:none;stroke-dasharray:500;stroke-dashoffset:500;animation:drawLine 1s ease 1.3s forwards;"/>' +
-      '<text x="' + (W-pad-30) + '" y="' + (pad+26) + '" style="font-size:10px;fill:#5a8a5a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.2s forwards">y=2x+1</text>' +
-      '<text x="' + (W-pad-50) + '" y="' + (H-pad-8) + '" style="font-size:10px;fill:#5a5a8a;font-family:\'Noto Sans KR\',sans-serif;opacity:0;animation:fadeIn 0.4s ease 2.3s forwards">y=(x-1)/2</text>' +
-      '</svg></div>';
-  },
-
-  matrixMul: function() {
-    var A=[[1,2],[3,4]], B=[[5,6],[7,8]];
-    var C=[[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
-           [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];
-    var W=380, H=160, cw=32, ch=36, pad=16;
-    var ax=pad+20, bx=ax+cw*2+50, rx=bx+cw*2+50;
-    var cells = '';
-    var colors = ['#5a8a5a','#5a5a8a','#aaa'];
-    var mats = [A, B, C];
-    var xs = [ax, bx, rx];
-    for(var mi=0; mi<3; mi++) {
-      for(var i=0; i<2; i++) {
-        for(var j=0; j<2; j++) {
-          cells += '<text x="' + (xs[mi]+j*cw+cw/2) + '" y="' + (pad+30+i*ch) + '" text-anchor="middle" style="font-size:12px;fill:' + colors[mi] + ';font-family:monospace;opacity:0;animation:fadeIn 0.3s ease ' + (0.3+mi*0.3+i*0.1+j*0.05) + 's forwards">' + mats[mi][i][j] + '</text>';
-        }
-      }
-    }
-    return '<div class="svg-viz-wrap"><div class="svg-viz-label">▦ 행렬 곱셈 — 행×열 흐름</div>' +
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">' +
-      '<path d="M' + (ax-4) + ',' + pad + ' Q' + (ax-12) + ',' + (H/2) + ' ' + (ax-4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 0.1s forwards"/>' +
-      '<path d="M' + (ax+cw*2+4) + ',' + pad + ' Q' + (ax+cw*2+12) + ',' + (H/2) + ' ' + (ax+cw*2+4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 0.1s forwards"/>' +
-      '<text x="' + (bx-25) + '" y="' + (H/2+5) + '" style="font-size:16px;fill:#444;opacity:0;animation:fadeIn 0.3s ease 0.5s forwards">×</text>' +
-      '<path d="M' + (bx-4) + ',' + pad + ' Q' + (bx-12) + ',' + (H/2) + ' ' + (bx-4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 0.4s forwards"/>' +
-      '<path d="M' + (bx+cw*2+4) + ',' + pad + ' Q' + (bx+cw*2+12) + ',' + (H/2) + ' ' + (bx+cw*2+4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 0.4s forwards"/>' +
-      '<text x="' + (rx-25) + '" y="' + (H/2+5) + '" style="font-size:16px;fill:#444;opacity:0;animation:fadeIn 0.3s ease 1s forwards">=</text>' +
-      '<path d="M' + (rx-4) + ',' + pad + ' Q' + (rx-12) + ',' + (H/2) + ' ' + (rx-4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 1.1s forwards"/>' +
-      '<path d="M' + (rx+cw*2+4) + ',' + pad + ' Q' + (rx+cw*2+12) + ',' + (H/2) + ' ' + (rx+cw*2+4) + ',' + (H-pad) + '" fill="none" stroke="#444" stroke-width="1.5" style="opacity:0;animation:fadeIn 0.3s ease 1.1s forwards"/>' +
-      cells +
-      '</svg></div>';
-  },
-
   render: function(type, params) {
     try {
       switch(type.toLowerCase()) {
@@ -452,15 +390,111 @@ var SVGViz = {
         case 'parabola': case 'quad': return this.parabola(params);
         case 'discriminant': case 'disc': return this.discriminant(params);
         case 'venn': return this.venn();
-        case 'inverse': case 'inv': return this.inverseFunc();
-        case 'matmul': return this.matrixMul();
         default: return '';
       }
     } catch(e) { return ''; }
   }
 };
 
-// 커리큘럼
+/* ====================================================
+   🤖 단계 2: 시각화 에이전트 (Claude API 직접 호출)
+   AI가 상황에 맞는 SVG를 즉석 생성
+   ==================================================== */
+var VizAgent = {
+  // 시각화가 필요한지 교사 AI 응답 분석
+  needsViz: function(teacherReply, userMsg) {
+    var combined = (teacherReply + ' ' + userMsg).toLowerCase();
+    var triggers = [
+      '그래프', '그려', '시각화', '그림으로', '보여줘', '보여',
+      '이차함수', '포물선', '직선', '원', '접선', '극한', '미분',
+      '수능 문제', '함수', '좌표', '교점', '꼭짓점', '대칭축',
+      '행렬', '벡터', '넓이', '넓이를', '도형', '삼각형', '사각형'
+    ];
+    return triggers.some(function(t){ return combined.includes(t); });
+  },
+
+  // 기존 라이브러리로 처리 가능한지 확인
+  canUseFallback: function(teacherReply) {
+    var t = teacherReply.toLowerCase();
+    if(t.includes('피타고라스')) return SVGViz.render('pythagorean', '3,4,5');
+    if(t.includes('판별식')) return SVGViz.render('discriminant', '1,0,1');
+    if((t.includes('이차함수')||t.includes('포물선')) && !t.includes('접선') && !t.includes('수능'))
+      return SVGViz.render('parabola', '1,0,0');
+    if(t.includes('집합') && (t.includes('교집합')||t.includes('합집합'))) return SVGViz.render('venn','');
+    return null;
+  },
+
+  // Claude API로 SVG 생성 (시각화 에이전트)
+  generateSVG: async function(context, userMsg) {
+    var prompt = '다음 수학 개념/상황을 SVG 코드로 시각화해줘.\n\n' +
+      '교사 설명:\n' + context + '\n\n' +
+      '학생 질문:\n' + userMsg + '\n\n' +
+      '규칙:\n' +
+      '- viewBox="0 0 400 300" 기준으로 그려줘\n' +
+      '- 배경 없이 투명하게\n' +
+      '- 선: stroke="#555" 기본, 강조는 stroke="#aaa"\n' +
+      '- 텍스트: fill="#888" font-size="11" font-family="Noto Sans KR, sans-serif"\n' +
+      '- 애니메이션 금지 (정적 SVG만)\n' +
+      '- <svg> 태그만 반환, 다른 텍스트 없이\n' +
+      '- 축, 격자, 레이블 포함해서 깔끔하게\n' +
+      '- 핵심 수학 요소만 표현 (과하게 복잡하게 X)\n\n' +
+      '반드시 SVG 코드만 반환. 설명 없이.';
+
+    try {
+      var res = await fetch(ANTHROPIC_PROXY, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': '', // 프록시에서 처리 — 실제 배포 시 환경변수로
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-ipc': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      var data = await res.json();
+      if(!res.ok) throw new Error('API error');
+      var svgCode = data.content[0].text.trim();
+      // SVG 태그 추출
+      var match = svgCode.match(/<svg[\s\S]*<\/svg>/i);
+      return match ? match[0] : null;
+    } catch(e) {
+      return null;
+    }
+  },
+
+  // Groq로 SVG 생성 (fallback — 속도 빠름)
+  generateSVGGroq: async function(context, userMsg) {
+    var prompt = '다음 수학 상황을 SVG로 시각화해.\n\n상황: ' + userMsg + '\n교사 설명 맥락: ' + context.slice(0,200) + '\n\n' +
+      '규칙: viewBox="0 0 400 280", 배경 없음, 선 stroke="#555", 텍스트 fill="#777" font-size="11", 정적 SVG만, <svg>태그만 반환';
+    try {
+      var res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+        body: JSON.stringify({
+          model:'llama-3.3-70b-versatile',
+          max_tokens:800,
+          messages:[
+            {role:'system', content:'너는 수학 시각화 전문가야. SVG 코드만 반환해. 다른 설명 없이.'},
+            {role:'user', content:prompt}
+          ]
+        })
+      });
+      var data = await res.json();
+      if(!res.ok) throw new Error('Groq error');
+      var svgCode = data.choices[0].message.content.trim();
+      var match = svgCode.match(/<svg[\s\S]*<\/svg>/i);
+      return match ? match[0] : null;
+    } catch(e) { return null; }
+  }
+};
+
+/* ====================================================
+   📚 단계 3: 교사 에이전트 + 시각화 에이전트 분리
+   ==================================================== */
 var CURRICULUM = [
   {id:'다항식', name:'다항식', steps:['개념','예제','유형','심화']},
   {id:'방정식', name:'방정식과 부등식', steps:['개념','예제','유형','심화']},
@@ -471,362 +505,309 @@ var CURRICULUM = [
   {id:'함수', name:'함수와 그래프', steps:['개념','예제','유형','심화']}
 ];
 
-var progress = JSON.parse(localStorage.getItem('vb_prog_v4') || '{}');
-var tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v4') || '[]');
+var progress = JSON.parse(localStorage.getItem('vb_prog_v5')||'{}');
+var tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v5')||'[]');
 var wrongCount = 0;
 
 function saveAll() {
-  localStorage.setItem('vb_prog_v4', JSON.stringify(progress));
-  localStorage.setItem('vb_hist_v4', JSON.stringify(tutorHistory.slice(-40)));
+  localStorage.setItem('vb_prog_v5', JSON.stringify(progress));
+  localStorage.setItem('vb_hist_v5', JSON.stringify(tutorHistory.slice(-40)));
 }
 
 function getCurrentStatus() {
   for(var i=0; i<CURRICULUM.length; i++) {
-    var unit = CURRICULUM[i];
-    for(var j=0; j<unit.steps.length; j++) {
-      if(!progress[unit.id] || !progress[unit.id][unit.steps[j]]) return {unit:unit, step:unit.steps[j]};
+    var u=CURRICULUM[i];
+    for(var j=0; j<u.steps.length; j++) {
+      if(!progress[u.id]||!progress[u.id][u.steps[j]]) return {unit:u, step:u.steps[j]};
     }
   }
   return null;
 }
 
 function markDone(unitId, step) {
-  if(!progress[unitId]) progress[unitId] = {};
+  if(!progress[unitId]) progress[unitId]={};
   if(progress[unitId][step]) return false;
-  progress[unitId][step] = true;
-  saveAll();
-  updateProgressUI();
-  return true;
+  progress[unitId][step]=true; saveAll(); updateProgressUI(); return true;
 }
 
 function updateProgressUI() {
-  var list = document.getElementById('unit-prog-list');
-  if(!list) return;
-  var current = getCurrentStatus();
-  var html = '';
+  var list=document.getElementById('unit-prog-list'); if(!list) return;
+  var current=getCurrentStatus(); var html='';
   for(var i=0; i<CURRICULUM.length; i++) {
-    var unit = CURRICULUM[i];
-    var doneSteps = unit.steps.filter(function(s){ return progress[unit.id] && progress[unit.id][s]; }).length;
-    var isDone = doneSteps === unit.steps.length;
-    var isCurrent = current && current.unit.id === unit.id;
-    html += '<div class="unit-prog-item">' +
-      '<div class="unit-prog-name ' + (isDone?'done':isCurrent?'current':'') + '">' + unit.name + '</div>' +
-      '<div class="unit-prog-dot ' + (isDone?'done':isCurrent?'current':'') + '"></div>' +
-      '</div>';
+    var u=CURRICULUM[i];
+    var done=u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];}).length;
+    var isDone=done===u.steps.length, isCurrent=current&&current.unit.id===u.id;
+    html+='<div class="unit-prog-item"><div class="unit-prog-name '+(isDone?'done':isCurrent?'current':'')+'">' +u.name+'</div><div class="unit-prog-dot '+(isDone?'done':isCurrent?'current':'')+'"</div></div>';
   }
-  list.innerHTML = html;
-  var totalDone = CURRICULUM.reduce(function(acc,u){ return acc + u.steps.filter(function(s){ return progress[u.id] && progress[u.id][s]; }).length; }, 0);
-  var totalMax = CURRICULUM.reduce(function(acc,u){ return acc + u.steps.length; }, 0);
-  document.getElementById('overall-fill').style.width = (totalDone/totalMax*100) + '%';
+  list.innerHTML=html;
+  var td=CURRICULUM.reduce(function(a,u){return a+u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];}).length;},0);
+  var tm=CURRICULUM.reduce(function(a,u){return a+u.steps.length;},0);
+  document.getElementById('overall-fill').style.width=(td/tm*100)+'%';
 }
 
-function autoViz(text) {
-  var t = text.toLowerCase();
-  var html = '';
-  if(t.includes('피타고라스') || (t.includes('직각삼각형') && t.includes('변'))) {
-    var nums = text.match(/(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
-    if(nums) html += SVGViz.render('pythagorean', nums[1]+','+nums[2]+','+nums[3]);
-    else html += SVGViz.render('pythagorean', '3,4,5');
-  }
-  if(t.includes('판별식') || (t.includes('이차방정식') && (t.includes('실근') || t.includes('근의 개수')))) {
-    html += SVGViz.render('discriminant', '1,0,1');
-    html += SVGViz.render('discriminant', '1,0,0');
-    html += SVGViz.render('discriminant', '1,0,-1');
-  }
-  if((t.includes('이차함수') || t.includes('포물선')) && !t.includes('판별식')) {
-    html += SVGViz.render('parabola', '1,0,0');
-  }
-  if(t.includes('역함수') || (t.includes('함수') && t.includes('y=x') && t.includes('대칭'))) {
-    html += SVGViz.render('inverse', '');
-  }
-  if(t.includes('행렬') && (t.includes('곱') || t.includes('개념'))) {
-    html += SVGViz.render('matmul', '');
-  }
-  if(t.includes('집합') && (t.includes('교집합') || t.includes('합집합') || t.includes('개념'))) {
-    html += SVGViz.render('venn', '');
-  }
-  return html;
-}
-
-function buildSystem() {
-  var current = getCurrentStatus();
-  var progSummary = CURRICULUM.map(function(u) {
-    var done = u.steps.filter(function(s){ return progress[u.id] && progress[u.id][s]; });
-    var notDone = u.steps.filter(function(s){ return !progress[u.id] || !progress[u.id][s]; });
-    if(done.length === 0) return u.name + ': 미시작';
-    if(notDone.length === 0) return u.name + ': 완료';
-    return u.name + ': ' + done.join(',') + ' 완료 / ' + notDone.join(',') + ' 남음';
+/* 교사 에이전트 시스템 프롬프트 */
+function buildTeacherSystem() {
+  var current=getCurrentStatus();
+  var progSummary=CURRICULUM.map(function(u){
+    var done=u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];});
+    var notDone=u.steps.filter(function(s){return !progress[u.id]||!progress[u.id][s];});
+    if(!done.length) return u.name+': 미시작';
+    if(!notDone.length) return u.name+': 완료';
+    return u.name+': '+done.join(',')+'완료 / '+notDone.join(',')+'남음';
   }).join('\n');
-  var currentInfo = current ? '지금 해야 할 것: [' + current.unit.name + '] - ' + current.step + ' 단계' : '모든 단원 완료!';
-  var month = new Date().getMonth() + 1;
-  var examAlert = '';
-  if(month >= 3 && month <= 4) examAlert = '3월 모의고사 시즌. 다항식·방정식 집중해야 해.';
-  else if(month >= 5 && month <= 6) examAlert = '1학기 중간고사 + 6월 모의고사 시즌.';
-  else if(month >= 7 && month <= 8) examAlert = '여름방학. 취약단원 보완할 골든타임이야.';
-  else if(month >= 9 && month <= 10) examAlert = '2학기 중간고사 + 9월 모의고사 시즌.';
-  else if(month >= 11 && month <= 12) examAlert = '기말고사 + 수능 시즌. 마무리 총정리.';
+  var currentInfo=current?'지금 해야 할 것: ['+current.unit.name+'] - '+current.step+' 단계':'모든 단원 완료!';
+  var month=new Date().getMonth()+1;
+  var examAlert='';
+  if(month>=3&&month<=4) examAlert='3월 모의고사 시즌.';
+  else if(month>=5&&month<=6) examAlert='1학기 중간고사 + 6월 모의고사 시즌.';
+  else if(month>=7&&month<=8) examAlert='여름방학. 취약단원 보완 골든타임.';
+  else if(month>=9&&month<=10) examAlert='2학기 중간고사 + 9월 모의고사 시즌.';
 
-  var systemPrompt = "너는 수학 일타강사야. 현우진, 정승제 스타일로 가르쳐.\n\n" +
-    "현재 진도:\n" + progSummary + "\n" + currentInfo + "\n틀린 횟수: " + wrongCount + "번\n" +
-    (examAlert ? "오늘: " + examAlert + "\n" : "") +
-    "\n핵심 철학:\n" +
-    '"공식 외우지 마. 왜 그게 되는지 알면 공식은 자연히 나와."\n' +
-    '"이해 없이 푸는 건 운이야. 이해하고 푸는 게 실력이야."\n\n' +
-    "설명 방식:\n" +
-    "1. 왜 이게 필요한지부터\n" +
-    "2. 가장 쉬운 예시로 시작\n" +
-    "3. 질문 던지고 기다려 — 절대 바로 답 주지 마\n" +
-    "4. 학생이 스스로 발견하게\n" +
-    "5. 이해 후에 공식\n" +
-    "6. 바로 문제 출제\n\n" +
-    "나쁜 예 vs 좋은 예:\n" +
-    'X "인수분해는 다항식을 곱의 형태로 나타내는 것입니다."\n' +
-    'O "야, x²+5x+6 이거 봐봐. (x+2)(x+3) 전개하면 뭐 나와? 직접 해봐."\n\n' +
-    'X "판별식 D=b²-4ac를 사용하면 됩니다."\n' +
-    'O "이차방정식 근이 몇 개인지 어떻게 알 것 같아? 그래프로 생각해봐."\n\n' +
-    "학생 반응별 대처:\n" +
-    '모른다 → 더 쉽게 쪼개. "그럼 이것부터. 2+3은?"\n' +
-    '틀렸을 때 → "아 거의 다 왔어! 근데 여기서 하나만 더 생각해봐."\n' +
-    '맞혔을 때 → "오 이거 맞히는 애들 별로 없는데? 감 있다."\n\n' +
-    "말투: 반말, 친근하게. 짧게 끊어서. 한 메시지에 질문 딱 하나만.\n\n" +
-    "수업 흐름: 시작하면 AI가 먼저 말 걸어. 단원 시작 알리고 쉬운 질문으로 시작.\n\n" +
-    "2022 개정 고1 수학:\n" +
-    "공통수학1(1학기): 다항식 → 방정식과 부등식 → 경우의 수 → 행렬\n" +
-    "공통수학2(2학기): 도형의 방정식 → 집합과 명제 → 함수와 그래프\n\n" +
-    "수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n" +
-    "문제: [PROBLEM:내용]\n" +
-    "단계: [STEP:번호:내용]\n" +
-    "그래프: [GRAPH:y=수식]\n" +
-    "진도완료: [DONE:단원ID:단계]\n" +
-    "SVG 코드 직접 생성 절대 금지.";
-
-  return systemPrompt;
+  return '너는 수학 일타강사야. 현우진, 정승제 스타일로 가르쳐.\n\n' +
+    '현재 진도:\n'+progSummary+'\n'+currentInfo+'\n틀린 횟수: '+wrongCount+'번\n' +
+    (examAlert?'오늘: '+examAlert+'\n':'')+
+    '\n핵심:\n"공식 외우지 마. 왜 되는지 알면 공식은 자연히 나와."\n\n' +
+    '설명 방식: 왜 필요한지 → 쉬운 예시 → 질문 던지고 기다려 → 학생이 스스로 발견 → 공식 → 문제\n\n' +
+    '말투: 반말, 친근하게, 짧게, 한 메시지에 질문 딱 하나만.\n\n' +
+    '중요: 시각화가 필요하면 [VIZ_NEEDED]라고 태그만 남겨. SVG 코드 직접 쓰지 마.\n' +
+    '(시각화 에이전트가 따로 처리함)\n\n' +
+    '수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n' +
+    '문제: [PROBLEM:내용]\n문제 단계: [STEP:번호:내용]\n' +
+    '차트: [GRAPH:y=수식] (단순 함수 그래프만)\n' +
+    '진도완료: [DONE:단원ID:단계]\n' +
+    'SVG 직접 생성 절대 금지.';
 }
 
+/* ====================================================
+   API 호출
+   ==================================================== */
 async function callGroq(messages) {
-  var res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json','Authorization':'Bearer ' + API_KEY},
-    body: JSON.stringify({model:'llama-3.3-70b-versatile', max_tokens:1800, messages:messages})
+  var res = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile', max_tokens:1800, messages})
   });
   var data = await res.json();
-  if(!res.ok) throw new Error(data.error ? data.error.message : 'HTTP ' + res.status);
+  if(!res.ok) throw new Error(data.error?data.error.message:'HTTP '+res.status);
   return data.choices[0].message.content;
 }
 
+/* ====================================================
+   렌더링
+   ==================================================== */
 function escapeHtml(t) {
-  var d = document.createElement('div');
-  d.textContent = t;
-  return d.innerHTML;
+  var d=document.createElement('div'); d.textContent=t; return d.innerHTML;
 }
 
 function renderContent(text) {
   if(!text) return '';
-  var ph = [];
+  var ph=[];
 
-  text = text.replace(/\[DONE:([^:]+):([^\]]+)\]/g, function(_, unitId, step) {
-    var wasNew = markDone(unitId.trim(), step.trim());
-    if(wasNew) {
-      var unit = CURRICULUM.find(function(u){ return u.id === unitId.trim(); });
-      showToast('✓ ' + (unit ? unit.name : unitId) + ' — ' + step + ' 완료');
-      updateHeaderSub();
-    }
+  // 진도 완료
+  text=text.replace(/\[DONE:([^:]+):([^\]]+)\]/g, function(_,uid,step){
+    var wasNew=markDone(uid.trim(),step.trim());
+    if(wasNew){var u=CURRICULUM.find(function(u){return u.id===uid.trim();}); showToast('✓ '+(u?u.name:uid)+' — '+step+' 완료'); updateHeaderSub();}
     return '';
   });
 
-  text = text.replace(/\[PROBLEM:([^\]]+)\]/g, function(_, content) {
-    ph.push('<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">' + escapeHtml(content) + '</div></div>');
-    return '\uE000' + (ph.length-1) + '\uE000';
+  // VIZ_NEEDED 태그 — 시각화 에이전트가 처리하므로 숨김
+  text=text.replace(/\[VIZ_NEEDED\]/g, '');
+
+  // 문제 카드
+  text=text.replace(/\[PROBLEM:([^\]]+)\]/g, function(_,c){
+    ph.push('<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">'+escapeHtml(c)+'</div></div>');
+    return '\uE000'+(ph.length-1)+'\uE000';
+  });
+  // 단계 카드
+  text=text.replace(/\[STEP:(\d+):([^\]]+)\]/g, function(_,n,c){
+    ph.push('<div class="step-card"><div class="step-num">STEP '+n+'</div><div class="step-body">'+escapeHtml(c)+'</div></div>');
+    return '\uE000'+(ph.length-1)+'\uE000';
+  });
+  // 그래프 (Chart.js)
+  text=text.replace(/\[GRAPH:([^\]]+)\]/g, function(_,expr){
+    var id='g'+Date.now()+Math.random().toString(36).slice(2,5);
+    ph.push('<div class="graph-wrap"><div class="graph-label">그래프 — '+escapeHtml(expr)+'</div><canvas id="'+id+'"></canvas></div>');
+    setTimeout(function(){drawGraph(id,expr.trim());},200);
+    return '\uE000'+(ph.length-1)+'\uE000';
+  });
+  // LaTeX 블록
+  text=text.replace(/\\\[([\s\S]*?)\\\]/g, function(_,m){
+    try{var s=document.createElement('span');s.className='math-block';katex.render(m.trim(),s,{displayMode:true,throwOnError:false});ph.push(s.outerHTML);}
+    catch(e){ph.push(escapeHtml(m));}
+    return '\uE000'+(ph.length-1)+'\uE000';
+  });
+  // LaTeX 인라인
+  text=text.replace(/\\\(([\s\S]*?)\\\)/g, function(_,m){
+    try{var s=document.createElement('span');s.className='math-inline';katex.render(m.trim(),s,{displayMode:false,throwOnError:false});ph.push(s.outerHTML);}
+    catch(e){ph.push(escapeHtml(m));}
+    return '\uE000'+(ph.length-1)+'\uE000';
   });
 
-  text = text.replace(/\[STEP:(\d+):([^\]]+)\]/g, function(_, num, content) {
-    ph.push('<div class="step-card"><div class="step-num">STEP ' + num + '</div><div class="step-body">' + escapeHtml(content) + '</div></div>');
-    return '\uE000' + (ph.length-1) + '\uE000';
-  });
-
-  text = text.replace(/\[GRAPH:([^\]]+)\]/g, function(_, expr) {
-    var id = 'g' + Date.now() + Math.random().toString(36).slice(2,5);
-    ph.push('<div class="graph-wrap"><div class="graph-label">그래프 — ' + escapeHtml(expr) + '</div><canvas id="' + id + '"></canvas></div>');
-    setTimeout(function(){ drawGraph(id, expr.trim()); }, 200);
-    return '\uE000' + (ph.length-1) + '\uE000';
-  });
-
-  text = text.replace(/\\\[([\s\S]*?)\\\]/g, function(_, m) {
-    try {
-      var s = document.createElement('span');
-      s.className = 'math-block';
-      katex.render(m.trim(), s, {displayMode:true, throwOnError:false});
-      ph.push(s.outerHTML);
-    } catch(e) { ph.push(escapeHtml(m)); }
-    return '\uE000' + (ph.length-1) + '\uE000';
-  });
-
-  text = text.replace(/\\\(([\s\S]*?)\\\)/g, function(_, m) {
-    try {
-      var s = document.createElement('span');
-      s.className = 'math-inline';
-      katex.render(m.trim(), s, {displayMode:false, throwOnError:false});
-      ph.push(s.outerHTML);
-    } catch(e) { ph.push(escapeHtml(m)); }
-    return '\uE000' + (ph.length-1) + '\uE000';
-  });
-
-  var out = escapeHtml(text);
-  for(var i=0; i<ph.length; i++) {
-    out = out.split('\uE000' + i + '\uE000').join(ph[i]);
-  }
-  return out.replace(/\n/g, '<br>');
+  var out=escapeHtml(text);
+  for(var i=0;i<ph.length;i++) out=out.split('\uE000'+i+'\uE000').join(ph[i]);
+  return out.replace(/\n/g,'<br>');
 }
 
 function drawGraph(id, expr) {
-  var canvas = document.getElementById(id);
-  if(!canvas) return;
+  var canvas=document.getElementById(id); if(!canvas) return;
   try {
-    canvas.style.height = '180px';
-    canvas.style.width = '100%';
-    var rs = expr.replace(/^y\s*=\s*/i,'').replace(/\^/g,'**');
-    var pts = [];
-    for(var x=-8; x<=8; x+=0.15) {
-      try {
-        var y = math.evaluate(rs.replace(/\bx\b/g, '(' + x + ')'));
-        if(isFinite(y) && Math.abs(y) < 100) pts.push({x:x, y:y});
-      } catch(e){}
+    canvas.style.height='180px'; canvas.style.width='100%';
+    var rs=expr.replace(/^y\s*=\s*/i,'').replace(/\^/g,'**');
+    var pts=[];
+    for(var x=-8; x<=8; x+=0.15){
+      try{var y=math.evaluate(rs.replace(/\bx\b/g,'('+x+')'));if(isFinite(y)&&Math.abs(y)<100)pts.push({x,y});}catch(e){}
     }
-    new Chart(canvas, {
-      type:'line',
-      data:{datasets:[{data:pts, borderColor:'#888', borderWidth:2, pointRadius:0, tension:0.2, fill:false}]},
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        animation:{duration:800},
-        plugins:{legend:{display:false}},
-        scales:{
-          x:{type:'linear',min:-8,max:8,grid:{color:'#1a1a1a'},ticks:{color:'#444',maxTicksLimit:9,font:{size:10}},border:{color:'#2a2a2a'}},
-          y:{grid:{color:'#1a1a1a'},ticks:{color:'#444',maxTicksLimit:7,font:{size:10}},border:{color:'#2a2a2a'}}
-        }
-      }
-    });
+    new Chart(canvas,{type:'line',data:{datasets:[{data:pts,borderColor:'#888',borderWidth:2,pointRadius:0,tension:0.2,fill:false}]},
+      options:{responsive:true,maintainAspectRatio:false,animation:{duration:800},plugins:{legend:{display:false}},
+        scales:{x:{type:'linear',min:-8,max:8,grid:{color:'#1a1a1a'},ticks:{color:'#444',maxTicksLimit:9,font:{size:10}},border:{color:'#2a2a2a'}},
+                y:{grid:{color:'#1a1a1a'},ticks:{color:'#444',maxTicksLimit:7,font:{size:10}},border:{color:'#2a2a2a'}}}}});
   } catch(e){}
 }
 
 function showToast(msg) {
-  var t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:80px;right:24px;background:#111;border:1px solid #2a2a2a;border-left:2px solid #fff;padding:10px 16px;border-radius:2px;font-size:11px;color:#888;letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:"Noto Sans KR",sans-serif';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(function(){ t.remove(); }, 2500);
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:80px;right:24px;background:#111;border:1px solid #2a2a2a;border-left:2px solid #fff;padding:10px 16px;border-radius:2px;font-size:11px;color:#888;letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:"Noto Sans KR",sans-serif';
+  t.textContent=msg; document.body.appendChild(t); setTimeout(function(){t.remove();},2500);
 }
 
 function updateHeaderSub() {
-  var current = getCurrentStatus();
-  document.getElementById('header-sub').textContent = current ? current.unit.name + ' — ' + current.step + ' 단계 진행중' : '전 단원 완료!';
+  var c=getCurrentStatus();
+  document.getElementById('header-sub').textContent=c?c.unit.name+' — '+c.step+' 단계 진행중':'전 단원 완료!';
 }
 
-function appendMsg(role, content) {
-  var welcomeEl = document.getElementById('welcome');
-  if(welcomeEl) welcomeEl.remove();
-  var box = document.getElementById('chat-box');
-  var wrap = document.createElement('div');
-  wrap.className = 'message-wrap ' + role;
-  if(role === 'user') {
-    var graphMatch = content.match(/y\s*=\s*([^\s,\n]+)/i);
-    var drawReq = content.includes('그려') || content.includes('그래프');
-    var graphHtml = '';
-    if(graphMatch && drawReq) {
-      var gid = 'ug' + Date.now();
-      graphHtml = '<div class="graph-wrap"><div class="graph-label">그래프 — y=' + graphMatch[1] + '</div><canvas id="' + gid + '"></canvas></div>';
-      setTimeout(function(){ drawGraph(gid, graphMatch[1]); }, 200);
-    }
-    wrap.innerHTML = '<div><div class="sender" style="text-align:right">나</div><div class="bubble">' + escapeHtml(content) + graphHtml + '</div></div>';
+/* ====================================================
+   메시지 렌더링 + 에이전트 분리 실행
+   ==================================================== */
+function appendMsg(role, content, skipViz) {
+  var welcomeEl=document.getElementById('welcome'); if(welcomeEl) welcomeEl.remove();
+  var box=document.getElementById('chat-box');
+  var wrap=document.createElement('div'); wrap.className='message-wrap '+role;
+
+  if(role==='user'){
+    wrap.innerHTML='<div><div class="sender" style="text-align:right">나</div><div class="bubble">'+escapeHtml(content)+'</div></div>';
   } else {
-    var vizHtml = autoViz(content);
-    wrap.innerHTML = '<div><div class="sender">선생님</div><div class="bubble">' + vizHtml + renderContent(content) + '</div></div>';
+    var badge='<div class="agent-badge teach"><div class="agent-dot"></div>교사 AI</div>';
+    wrap.innerHTML='<div><div class="sender">선생님</div>'+badge+'<div class="bubble" id="bubble-'+Date.now()+'">'+renderContent(content)+'</div></div>';
   }
-  box.appendChild(wrap);
-  box.scrollTop = box.scrollHeight;
+  box.appendChild(wrap); box.scrollTop=box.scrollHeight;
+  return wrap;
 }
 
+/* 시각화 에이전트 — 별도 DOM 블록으로 추가 */
+async function runVizAgent(teacherReply, userMsg, bubbleParent) {
+  // 1. fallback 가능하면 즉시 렌더
+  var fallbackHtml = VizAgent.canUseFallback(teacherReply);
+  if(fallbackHtml) {
+    var vizDiv=document.createElement('div');
+    vizDiv.innerHTML=fallbackHtml;
+    bubbleParent.insertAdjacentElement('afterend', vizDiv);
+    return;
+  }
+
+  // 2. 시각화 필요한지 판단
+  if(!VizAgent.needsViz(teacherReply, userMsg)) return;
+
+  // 3. 로딩 상태 표시
+  var vizWrap=document.createElement('div');
+  vizWrap.className='svg-gen-wrap';
+  vizWrap.innerHTML='<div class="svg-gen-label"><div class="gen-dot"></div><div class="gen-dot"></div><div class="gen-dot"></div><span style="margin-left:4px">시각화 에이전트 생성 중</span></div><div class="svg-gen-content" id="viz-content-'+Date.now()+'"></div>';
+  var contentId=vizWrap.querySelector('.svg-gen-content').id;
+  bubbleParent.insertAdjacentElement('afterend', vizWrap);
+  document.getElementById('chat-box').scrollTop=document.getElementById('chat-box').scrollHeight;
+
+  // 4. Groq로 SVG 생성 (빠른 경로)
+  var svgCode = await VizAgent.generateSVGGroq(teacherReply, userMsg);
+
+  var contentEl=document.getElementById(contentId);
+  if(svgCode && contentEl) {
+    contentEl.innerHTML=svgCode;
+    vizWrap.querySelector('.svg-gen-label').innerHTML='<span style="color:var(--text5);font-size:9px;letter-spacing:2px">시각화</span>';
+  } else if(contentEl) {
+    vizWrap.remove(); // 실패 시 조용히 제거
+  }
+  document.getElementById('chat-box').scrollTop=document.getElementById('chat-box').scrollHeight;
+}
+
+/* ====================================================
+   메인 전송 로직
+   ==================================================== */
 function showTyping() {
-  var box = document.getElementById('chat-box');
-  var el = document.createElement('div');
-  el.id = 'typing-el';
-  el.className = 'typing-wrap';
-  el.innerHTML = '<div class="typing-bubble"><div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>';
-  box.appendChild(el);
-  box.scrollTop = box.scrollHeight;
+  var box=document.getElementById('chat-box');
+  var el=document.createElement('div'); el.id='typing-el'; el.className='typing-wrap';
+  el.innerHTML='<div class="typing-bubble"><div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>';
+  box.appendChild(el); box.scrollTop=box.scrollHeight;
 }
 
 async function sendTutor() {
-  var input = document.getElementById('user-input');
-  var msg = input.value.trim();
-  if(!msg) return;
+  var input=document.getElementById('user-input');
+  var msg=input.value.trim(); if(!msg) return;
   appendMsg('user', msg);
-  input.value = '';
+  input.value='';
   showTyping();
   tutorHistory.push({role:'user', content:msg});
   try {
-    var msgs = [{role:'system', content:buildSystem()}].concat(tutorHistory.slice(-20));
-    var reply = await callGroq(msgs);
+    // 교사 에이전트 호출
+    var msgs=[{role:'system', content:buildTeacherSystem()}].concat(tutorHistory.slice(-20));
+    var reply=await callGroq(msgs);
     tutorHistory.push({role:'assistant', content:reply});
     saveAll();
-    var tel = document.getElementById('typing-el');
-    if(tel) tel.remove();
-    appendMsg('ai', reply);
-    if(reply.includes('틀') || reply.includes('아쉽')) wrongCount = Math.min(wrongCount+1, 3);
-    else if(reply.includes('맞아') || reply.includes('정확') || reply.includes('완벽')) wrongCount = 0;
+    var tel=document.getElementById('typing-el'); if(tel) tel.remove();
+
+    // 교사 응답 렌더링
+    var msgWrap=appendMsg('ai', reply);
+    var bubble=msgWrap.querySelector('.bubble');
+
+    // 시각화 에이전트 비동기 실행 (교사 응답 방해 없이)
+    if(bubble) {
+      runVizAgent(reply, msg, bubble);
+    }
+
+    if(reply.includes('틀')||reply.includes('아쉽')) wrongCount=Math.min(wrongCount+1,3);
+    else if(reply.includes('맞아')||reply.includes('정확')||reply.includes('완벽')) wrongCount=0;
   } catch(e) {
-    var tel2 = document.getElementById('typing-el');
-    if(tel2) tel2.remove();
+    var tel2=document.getElementById('typing-el'); if(tel2) tel2.remove();
     tutorHistory.pop();
-    appendMsg('ai', '연결이 끊겼어. 잠깐 후 다시 해봐!');
+    appendMsg('ai','연결이 끊겼어. 잠깐 후 다시 해봐!');
   }
 }
 
 function quickAsk(text) {
-  document.getElementById('user-input').value = text;
-  sendTutor();
+  document.getElementById('user-input').value=text; sendTutor();
 }
-
 function startTutor() {
-  var current = getCurrentStatus();
-  var msg = current ? '안녕! 나 고1인데 ' + current.unit.name + ' 처음부터 가르쳐줘. 질문하면서 내가 스스로 이해할 수 있게 해줘.' : '다 끝났어! 전체 복습해줘';
-  quickAsk(msg);
+  var c=getCurrentStatus();
+  quickAsk(c?'안녕! 나 고1인데 '+c.unit.name+' 처음부터 가르쳐줘. 질문하면서 내가 스스로 이해할 수 있게 해줘.':'다 끝났어! 전체 복습해줘');
 }
 
+/* ====================================================
+   페이지 전환
+   ==================================================== */
 function showPage(page, btn) {
-  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.getElementById('page-radar').style.display = page === 'radar' ? 'block' : 'none';
-  document.getElementById('page-tutor').style.display = page === 'tutor' ? 'flex' : 'none';
-  document.getElementById('progress-section').style.display = page === 'tutor' ? 'block' : 'none';
-  if(page === 'radar') {
-    document.getElementById('header-title').textContent = '교육 레이더';
-    document.getElementById('header-sub').textContent = '실시간 교육 변화 감지';
-  } else {
-    document.getElementById('header-title').textContent = '고1 수학 과외';
-    updateHeaderSub();
-    updateProgressUI();
-  }
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active');
+  document.getElementById('page-radar').style.display=page==='radar'?'block':'none';
+  document.getElementById('page-tutor').style.display=page==='tutor'?'flex':'none';
+  document.getElementById('progress-section').style.display=page==='tutor'?'block':'none';
+  if(page==='radar'){document.getElementById('header-title').textContent='교육 레이더';document.getElementById('header-sub').textContent='실시간 교육 변화 감지';}
+  else {document.getElementById('header-title').textContent='고1 수학 과외';updateHeaderSub();updateProgressUI();}
 }
 
 function clearTutor() {
   if(!confirm('대화와 진도를 초기화할까요?')) return;
-  tutorHistory = []; progress = {}; wrongCount = 0;
-  localStorage.removeItem('vb_prog_v4');
-  localStorage.removeItem('vb_hist_v4');
-  document.getElementById('chat-box').innerHTML = '<div class="welcome" id="welcome"><div class="welcome-icon">📐</div><div class="welcome-title">고1 수학 선생님 — 안녕!</div><div class="welcome-chips"><div class="w-chip" id="chip-start">지금 바로 시작하기</div><div class="w-chip" data-ask="피타고라스 정리 설명해줘">피타고라스 정리</div><div class="w-chip" data-ask="이차함수 그래프 보여줘">이차함수 그래프</div><div class="w-chip" data-ask="인수분해 처음부터 알려줘">인수분해 처음부터</div></div></div>';
-  bindWelcomeChips();
-  updateProgressUI();
+  tutorHistory=[]; progress={}; wrongCount=0;
+  localStorage.removeItem('vb_prog_v5'); localStorage.removeItem('vb_hist_v5');
+  document.getElementById('chat-box').innerHTML='<div class="welcome" id="welcome"><div class="welcome-icon">📐</div><div class="welcome-title">고1 수학 선생님 — 안녕!</div><div class="welcome-chips"><div class="w-chip" id="chip-start">지금 바로 시작하기</div><div class="w-chip" data-ask="피타고라스 정리 설명해줘">피타고라스 정리</div><div class="w-chip" data-ask="이차함수 그래프 보여줘">이차함수 그래프</div><div class="w-chip" data-ask="인수분해 처음부터 알려줘">인수분해 처음부터</div></div></div>';
+  bindWelcomeChips(); updateProgressUI();
 }
 
 function bindWelcomeChips() {
-  var chipStart = document.getElementById('chip-start');
-  if(chipStart) chipStart.addEventListener('click', startTutor);
-  document.querySelectorAll('.w-chip[data-ask]').forEach(function(el) {
-    el.addEventListener('click', function(){ quickAsk(el.dataset.ask); });
-  });
+  var cs=document.getElementById('chip-start'); if(cs) cs.addEventListener('click', startTutor);
+  document.querySelectorAll('.w-chip[data-ask]').forEach(function(el){el.addEventListener('click',function(){quickAsk(el.dataset.ask);});});
 }
 
-var newsData = [
+/* ====================================================
+   교육 레이더
+   ==================================================== */
+var newsData=[
   {id:1,cat:'수능/입시',tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']],date:'2026.03.20',title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',summary:'교육부가 2028 수능 개편안을 확정 발표. 사회·과학이 통합되고 선택과목 구조가 대폭 축소됩니다.',ai:'핵심 요약\n사회/과학 → 통합사회, 통합과학으로 묶임\n현재 중3이 첫 적용 대상',impact:'영향도 매우 높음'},
   {id:2,cat:'수능/입시',tags:[['ct-policy','📋 정책']],date:'2026.03.18',title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',summary:'의대 정원이 3,058명에서 5,058명으로 확대 확정. 이과 상위권 수험생 입시 전략에 큰 변화 예상.',ai:'핵심 요약\n이과 최상위권 의대 쏠림 심화\n서울대 공대 등 커트라인 하락 가능성',impact:'영향도 매우 높음'},
   {id:3,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.15',title:'고교학점제 전면 시행 — 2025년 입학생부터 적용',summary:'원하는 과목을 선택해 이수하는 고교학점제가 2025년 입학생부터 전면 적용됩니다.',ai:'핵심 요약\n192학점 이수 시 졸업\n원하는 과목 직접 선택',impact:'영향도 높음'},
@@ -836,111 +817,74 @@ var newsData = [
 ];
 
 function renderNews(filter) {
-  var filtered = filter === '전체' ? newsData : newsData.filter(function(n){ return n.cat === filter; });
-  document.getElementById('news-feed').innerHTML = filtered.map(function(n) {
-    return '<div class="news-card">' +
-      '<div class="card-top"><div class="card-tags">' + n.tags.map(function(t){ return '<span class="ctag ' + t[0] + '">' + t[1] + '</span>'; }).join('') + '</div><div class="card-date">' + n.date + '</div></div>' +
-      '<div class="card-title">' + n.title + '</div>' +
-      '<div class="card-summary">' + n.summary + '</div>' +
-      '<div class="card-ai-summary" id="ais-' + n.id + '"><div class="card-ai-label">AI 요약</div>' + n.ai + '</div>' +
-      '<div class="card-bottom"><div class="card-impact">' + n.impact + '</div><button class="expand-btn" id="exb-' + n.id + '" data-id="' + n.id + '">AI 요약 보기 ▾</button></div>' +
+  var filtered=filter==='전체'?newsData:newsData.filter(function(n){return n.cat===filter;});
+  document.getElementById('news-feed').innerHTML=filtered.map(function(n){
+    return '<div class="news-card">'+
+      '<div class="card-top"><div class="card-tags">'+n.tags.map(function(t){return '<span class="ctag '+t[0]+'">'+t[1]+'</span>';}).join('')+'</div><div class="card-date">'+n.date+'</div></div>'+
+      '<div class="card-title">'+n.title+'</div>'+
+      '<div class="card-summary">'+n.summary+'</div>'+
+      '<div class="card-ai-summary" id="ais-'+n.id+'"><div class="card-ai-label">AI 요약</div>'+n.ai+'</div>'+
+      '<div class="card-bottom"><div class="card-impact">'+n.impact+'</div><button class="expand-btn" id="exb-'+n.id+'" data-id="'+n.id+'">AI 요약 보기 ▾</button></div>'+
       '</div>';
   }).join('');
-  document.querySelectorAll('.expand-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var id = btn.dataset.id;
-      var el = document.getElementById('ais-' + id);
-      var open = el.style.display === 'block';
-      el.style.display = open ? 'none' : 'block';
-      btn.textContent = open ? 'AI 요약 보기 ▾' : '접기 ▴';
+  document.querySelectorAll('.expand-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var id=btn.dataset.id; var el=document.getElementById('ais-'+id);
+      var open=el.style.display==='block'; el.style.display=open?'none':'block';
+      btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴';
     });
   });
 }
 
 async function radarAsk() {
-  var q = document.getElementById('radar-input').value.trim();
-  if(!q) return;
-  var box = document.getElementById('ai-box'), body = document.getElementById('ai-box-body');
-  box.style.display = 'block';
-  body.innerHTML = '<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
-  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  var q=document.getElementById('radar-input').value.trim(); if(!q) return;
+  var box=document.getElementById('ai-box'), body=document.getElementById('ai-box-body');
+  box.style.display='block';
+  body.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
   try {
-    var msgs = [
-      {role:'system', content:'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'},
-      {role:'user', content:q}
-    ];
-    var reply = await callGroq(msgs);
-    body.textContent = reply;
-  } catch(e) { body.textContent = '잠깐 연결이 끊겼어요. 다시 시도해주세요.'; }
+    var msgs=[{role:'system',content:'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.'},{role:'user',content:q}];
+    var reply=await callGroq(msgs);
+    body.textContent=reply;
+  } catch(e){body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.';}
 }
 
-function dday(d) {
-  var diff = Math.ceil((new Date(d) - new Date()) / 86400000);
-  return diff > 0 ? 'D-' + diff : diff === 0 ? 'D-Day' : 'D+' + Math.abs(diff);
-}
+function dday(d){var diff=Math.ceil((new Date(d)-new Date())/86400000);return diff>0?'D-'+diff:diff===0?'D-Day':'D+'+Math.abs(diff);}
 
-// 테마
-var isLight = localStorage.getItem('vb_theme') === 'light';
-function applyTheme() {
-  if(isLight) {
-    document.body.classList.add('light');
-    document.getElementById('theme-btn').textContent = '🌙 다크';
-  } else {
-    document.body.classList.remove('light');
-    document.getElementById('theme-btn').textContent = '☀ 라이트';
-  }
-  localStorage.setItem('vb_theme', isLight ? 'light' : 'dark');
-}
-function toggleTheme() { isLight = !isLight; applyTheme(); }
+/* 테마 */
+var isLight=localStorage.getItem('vb_theme')==='light';
+function applyTheme(){if(isLight){document.body.classList.add('light');document.getElementById('theme-btn').textContent='🌙 다크';}else{document.body.classList.remove('light');document.getElementById('theme-btn').textContent='☀ 라이트';}localStorage.setItem('vb_theme',isLight?'light':'dark');}
+function toggleTheme(){isLight=!isLight;applyTheme();}
 
-// 이벤트 바인딩
-document.getElementById('nav-radar').addEventListener('click', function(){ showPage('radar', this); });
-document.getElementById('nav-tutor').addEventListener('click', function(){ showPage('tutor', this); });
-document.getElementById('theme-btn').addEventListener('click', toggleTheme);
-document.getElementById('clear-btn').addEventListener('click', clearTutor);
-document.getElementById('send-btn').addEventListener('click', sendTutor);
-document.getElementById('radar-ask-btn').addEventListener('click', radarAsk);
-document.getElementById('ai-box-close').addEventListener('click', function(){ document.getElementById('ai-box').style.display='none'; });
-document.getElementById('radar-input').addEventListener('keypress', function(e){ if(e.key==='Enter') radarAsk(); });
-document.getElementById('user-input').addEventListener('keypress', function(e){ if(e.key==='Enter') sendTutor(); });
+/* 이벤트 바인딩 */
+document.getElementById('nav-radar').addEventListener('click',function(){showPage('radar',this);});
+document.getElementById('nav-tutor').addEventListener('click',function(){showPage('tutor',this);});
+document.getElementById('theme-btn').addEventListener('click',toggleTheme);
+document.getElementById('clear-btn').addEventListener('click',clearTutor);
+document.getElementById('send-btn').addEventListener('click',sendTutor);
+document.getElementById('radar-ask-btn').addEventListener('click',radarAsk);
+document.getElementById('ai-box-close').addEventListener('click',function(){document.getElementById('ai-box').style.display='none';});
+document.getElementById('radar-input').addEventListener('keypress',function(e){if(e.key==='Enter')radarAsk();});
+document.getElementById('user-input').addEventListener('keypress',function(e){if(e.key==='Enter')sendTutor();});
 
-document.querySelectorAll('.ask-chip').forEach(function(el) {
-  el.addEventListener('click', function() {
-    document.getElementById('radar-input').value = el.dataset.q;
-    radarAsk();
-  });
-});
-document.querySelectorAll('.trend-chip').forEach(function(el) {
-  el.addEventListener('click', function() {
-    document.getElementById('radar-input').value = el.dataset.q;
-    radarAsk();
-  });
-});
-document.querySelectorAll('.filter-tab').forEach(function(el) {
-  el.addEventListener('click', function() {
-    document.querySelectorAll('.filter-tab').forEach(function(b){ b.classList.remove('active'); });
-    el.classList.add('active');
-    renderNews(el.dataset.filter);
-  });
-});
+document.querySelectorAll('.ask-chip').forEach(function(el){el.addEventListener('click',function(){document.getElementById('radar-input').value=el.dataset.q;radarAsk();});});
+document.querySelectorAll('.trend-chip').forEach(function(el){el.addEventListener('click',function(){document.getElementById('radar-input').value=el.dataset.q;radarAsk();});});
+document.querySelectorAll('.filter-tab').forEach(function(el){el.addEventListener('click',function(){document.querySelectorAll('.filter-tab').forEach(function(b){b.classList.remove('active');});el.classList.add('active');renderNews(el.dataset.filter);});});
 
 bindWelcomeChips();
 
-// 초기 실행
+/* 초기화 */
 applyTheme();
-document.getElementById('dd1').textContent = dday('2026-11-19');
-document.getElementById('dd2').textContent = dday('2026-09-05');
-document.getElementById('dd3').textContent = dday('2027-01-03');
+document.getElementById('dd1').textContent=dday('2026-11-19');
+document.getElementById('dd2').textContent=dday('2026-09-05');
+document.getElementById('dd3').textContent=dday('2027-01-03');
 renderNews('전체');
 updateProgressUI();
 
-if(tutorHistory.length > 0) {
-  showPage('tutor', document.getElementById('nav-tutor'));
-  tutorHistory.forEach(function(m) {
-    if(m.role==='user') appendMsg('user', m.content);
-    else if(m.role==='assistant') appendMsg('ai', m.content);
-  });
-  showPage('radar', document.getElementById('nav-radar'));
+if(tutorHistory.length>0){
+  showPage('tutor',document.getElementById('nav-tutor'));
+  tutorHistory.forEach(function(m){if(m.role==='user')appendMsg('user',m.content);else if(m.role==='assistant')appendMsg('ai',m.content,true);});
+  showPage('radar',document.getElementById('nav-radar'));
 }
 </script>
 </body>
