@@ -13,7 +13,7 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica Neue',sans-serif; display:flex; height:100vh; overflow:hidden; }
- 
+
 /* SIDEBAR */
 .sidebar { width:200px; background:#080808; border-right:1px solid #1a1a1a; display:flex; flex-direction:column; flex-shrink:0; }
 .sidebar-logo { padding:24px 18px 20px; border-bottom:1px solid #1a1a1a; }
@@ -24,7 +24,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .nav-btn:hover { color:#aaa; background:#0f0f0f; }
 .nav-btn.active { color:#fff; background:#111; border-left:2px solid #fff; }
 .sidebar-divider { border:none; border-top:1px solid #1a1a1a; margin:8px 0; }
- 
+
 .progress-section { padding:16px 18px; border-top:1px solid #1a1a1a; margin-top:auto; }
 .progress-label { font-size:9px; letter-spacing:2px; color:#2a2a2a; margin-bottom:10px; text-transform:uppercase; }
 .unit-progress-list { display:flex; flex-direction:column; gap:6px; }
@@ -37,11 +37,11 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .unit-prog-dot.current { background:#fff; }
 .overall-bar { height:1px; background:#1a1a1a; margin-top:12px; }
 .overall-fill { height:100%; background:#333; transition:width 0.5s; }
- 
+
 .sidebar-bottom { padding:12px; border-top:1px solid #1a1a1a; }
 .clear-btn { width:100%; padding:8px; background:none; border:1px solid #1a1a1a; border-radius:2px; color:#333; font-size:10px; letter-spacing:1px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
 .clear-btn:hover { color:#666; border-color:#333; }
- 
+
 /* MAIN */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
 .header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid #1e1e1e; flex-shrink:0; }
@@ -50,7 +50,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .status { display:flex; align-items:center; gap:6px; font-size:9px; color:#2a2a2a; letter-spacing:2px; }
 .status-dot { width:5px; height:5px; background:#2a2a2a; border-radius:50%; animation:pulse 2s infinite; }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
- 
+
 /* RADAR PAGE */
 #page-radar { flex:1; overflow-y:auto; padding:28px; scrollbar-width:none; display:block; }
 #page-radar::-webkit-scrollbar{display:none;}
@@ -114,7 +114,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .card-impact{font-size:11px;color:#2a2a2a;}
 .expand-btn{font-size:10px;color:#444;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
 .expand-btn:hover{color:#aaa;}
- 
+
 /* TUTOR PAGE */
 #page-tutor{flex:1;display:none;flex-direction:column;overflow:hidden;}
 #chat-box{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:none;}
@@ -133,22 +133,22 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 .ai .bubble{background:#0f0f0f;color:#e0e0e0;border:1px solid #1a1a1a;border-left:2px solid #333;}
 .sender{font-size:9px;letter-spacing:2px;color:#2a2a2a;margin-bottom:5px;}
 .message-wrap.user .sender{text-align:right;}
- 
+
 /* 문제 카드 */
 .problem-card{background:#0d0d08;border:1px solid #252510;border-left:2px solid #444420;padding:12px 16px;margin:10px 0;border-radius:2px;}
 .problem-label{font-size:9px;letter-spacing:2px;color:#555530;margin-bottom:6px;text-transform:uppercase;}
 .problem-body{font-size:13px;color:#888860;line-height:1.8;}
- 
+
 /* 단계 카드 */
 .step-card{background:#0a0a0a;border:1px solid #1a1a1a;border-left:2px solid #2a2a2a;padding:10px 14px;margin:8px 0;border-radius:2px;}
 .step-num{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:4px;text-transform:uppercase;}
 .step-body{font-size:13px;color:#888;line-height:1.75;}
- 
+
 .math-inline{display:inline;}
 .math-block{display:block;margin:10px 0;padding:12px;background:#0a0a0a;border-radius:2px;overflow-x:auto;border-left:2px solid #2a2a2a;}
 .graph-wrap{margin:10px 0;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:2px;padding:12px;}
 .graph-label{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:8px;text-transform:uppercase;}
- 
+
 /* ── SVG 시각화 래퍼 ── */
 .svg-viz-wrap {
   margin: 14px 0;
@@ -172,22 +172,22 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
   max-width: 420px;
   margin: 0 auto;
 }
- 
+
 /* 추천 카드 */
 .recommend-card{background:#0a0810;border:1px solid #1e1a28;border-left:2px solid #443366;padding:12px 16px;margin:10px 0;border-radius:2px;}
 .recommend-label{font-size:9px;letter-spacing:2px;color:#443366;margin-bottom:8px;text-transform:uppercase;}
 .recommend-item{font-size:12px;color:#776688;line-height:1.9;}
- 
+
 .typing-wrap{display:flex;padding:6px 0;}
 .typing-bubble{background:#0f0f0f;border:1px solid #1a1a1a;border-left:2px solid #333;padding:12px 16px;display:flex;align-items:center;gap:5px;}
- 
+
 #tutor-input-area{display:flex;gap:10px;border-top:1px solid #1e1e1e;padding:18px 28px;flex-shrink:0;}
 #user-input{flex:1;padding:12px 16px;background:#0a0a0a;border:1px solid #1e1e1e;color:#e0e0e0;border-radius:2px;font-size:14px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
 #user-input:focus{border-color:#2a2a2a;}
 #user-input::placeholder{color:#1e1e1e;}
 .send-btn{padding:12px 22px;background:#ffffff;color:#000;border:none;border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;}
 .send-btn:hover{background:#ccc;}
- 
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes drawLine{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -196,7 +196,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 </style>
 </head>
 <body>
- 
+
 <div class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-text">VERBALIS</div>
@@ -205,18 +205,18 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
   <div class="sidebar-section">메뉴</div>
   <button class="nav-btn active" id="nav-radar" onclick="showPage('radar',this)"><span>📡</span> 교육 레이더</button>
   <button class="nav-btn" id="nav-tutor" onclick="showPage('tutor',this)"><span>📚</span> 고1 수학 과외</button>
- 
+
   <div class="progress-section" id="progress-section" style="display:none">
     <div class="progress-label">진도</div>
     <div class="unit-progress-list" id="unit-prog-list"></div>
     <div class="overall-bar"><div class="overall-fill" id="overall-fill" style="width:0%"></div></div>
   </div>
- 
+
   <div class="sidebar-bottom">
     <button class="clear-btn" onclick="clearTutor()">대화 초기화</button>
   </div>
 </div>
- 
+
 <div class="main">
   <div class="header">
     <div>
@@ -225,7 +225,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
- 
+
   <!-- RADAR -->
   <div id="page-radar">
     <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
@@ -276,7 +276,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
     <div id="news-feed"></div>
   </div>
- 
+
   <!-- TUTOR -->
   <div id="page-tutor">
     <div id="chat-box">
@@ -297,16 +297,16 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
     </div>
   </div>
 </div>
- 
+
 <script>
 // ── API 키 (여기서 교체하세요) ──
-const API_KEY = "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";
- 
+const API_KEY = "YOUR_GROQ_API_KEY_HERE";
+
 // ══════════════════════════════════════════
 //  SVG 시각화 엔진
 // ══════════════════════════════════════════
 const SVGViz = {
- 
+
   // 피타고라스 정리: a,b,c
   pythagorean(params) {
     const parts = params.split(',').map(Number);
@@ -318,12 +318,12 @@ const SVGViz = {
     const cx = pad, cy = pad;
     const W = pad*2 + a*scale + 10;
     const H = pad*2 + b*scale + 10;
- 
+
     // 애니메이션 딜레이용 길이
     const lenAB = a*scale;
     const lenBC = Math.sqrt((bx-cx)**2+(by-cy)**2);
     const lenCA = b*scale;
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">📐 피타고라스 정리 — a²+b²=c²</div>
@@ -343,11 +343,11 @@ const SVGViz = {
         .eq-highlight { font-size:13px; fill:#aaa; font-weight:700; }
       </style>
     </defs>
- 
+
     <!-- 삼각형 면 -->
     <polygon points="${ax},${ay} ${bx},${by} ${cx},${cy}"
       fill="#111" stroke="none"/>
- 
+
     <!-- 변 a (밑변) -->
     <line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}"
       class="tri-line" style="--len:${lenAB};animation-delay:0s"/>
@@ -357,26 +357,26 @@ const SVGViz = {
     <!-- 변 c (빗변) -->
     <line x1="${bx}" y1="${by}" x2="${cx}" y2="${cy}"
       class="tri-line" style="stroke:#aaa;stroke-width:2;--len:${lenBC};animation-delay:1s"/>
- 
+
     <!-- 직각 표시 -->
     <rect x="${ax}" y="${ay-10}" width="10" height="10"
       fill="none" stroke="#444" stroke-width="1"
       opacity="0" style="animation:fadeIn 0.3s ease 0.4s forwards"/>
- 
+
     <!-- a² 정사각형 (아래) -->
     <rect x="${ax}" y="${ay}" width="${a*scale}" height="${a*scale}"
       class="sq sq-fill-a sq-a" style="animation-delay:1.6s"/>
     <!-- b² 정사각형 (왼쪽) -->
     <rect x="${ax - b*scale}" y="${cy}" width="${b*scale}" height="${b*scale}"
       class="sq sq-fill-b sq-b" style="animation-delay:1.8s"/>
- 
+
     <!-- 레이블 a -->
     <text x="${ax + a*scale/2}" y="${ay + a*scale/2 + 5}" text-anchor="middle"
       class="lbl" style="animation-delay:1.7s">a²=${a*a}</text>
     <!-- 레이블 b -->
     <text x="${ax - b*scale/2}" y="${cy + b*scale/2 + 5}" text-anchor="middle"
       class="lbl" style="animation-delay:1.9s">b²=${b*b}</text>
- 
+
     <!-- 변 레이블 -->
     <text x="${ax + a*scale/2}" y="${ay + 18}" text-anchor="middle"
       class="lbl" style="fill:#5a8a5a;animation-delay:0.2s">a=${a}</text>
@@ -384,7 +384,7 @@ const SVGViz = {
       class="lbl" style="fill:#5a5a8a;animation-delay:0.7s">b=${b}</text>
     <text x="${(bx+cx)/2 + 14}" y="${(by+cy)/2}" text-anchor="middle"
       class="lbl" style="fill:#ccc;font-size:13px;animation-delay:1.2s">c=${c}</text>
- 
+
     <!-- 수식 -->
     <text x="${W+10}" y="${H/2 - 20}" class="eq" style="animation:fadeIn 0.5s ease 2.2s forwards;opacity:0">
       <tspan class="eq-highlight">${a}²+${b}²=${c}²</tspan>
@@ -398,7 +398,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 이차함수 그래프 (SVG)
   parabola(params) {
     const p = params.split(',').map(Number);
@@ -406,7 +406,7 @@ const SVGViz = {
     const W=340, H=220, pad=30;
     const cx=W/2, cy=H/2;
     const scaleX=25, scaleY=18;
- 
+
     let points = '';
     for(let x=-6; x<=6; x+=0.15) {
       const y = a*(x-h)**2 + k;
@@ -414,11 +414,11 @@ const SVGViz = {
       const py = cy - y*scaleY;
       if(py > -20 && py < H+20) points += `${px},${py} `;
     }
- 
+
     const vx = cx + h*scaleX;
     const vy = cy - k*scaleY;
     const label = a===1&&h===0&&k===0 ? 'y=x²' : `y=${a!==1?a:''}(x${h?`${h>0?'-':'+'}${Math.abs(h)}`:''}  )²${k?`${k>0?'+':'-'}${Math.abs(k)}`:''}`;
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">📈 이차함수 그래프 — ${label}</div>
@@ -430,27 +430,27 @@ const SVGViz = {
       .vertex{fill:#fff;animation:scaleIn 0.4s ease 1.6s forwards;transform-origin:${vx}px ${vy}px;}
       .axis-lbl{font-size:9px;fill:#333;font-family:'Noto Sans KR',sans-serif;}
     </style></defs>
- 
+
     <!-- 그리드 -->
     ${[-4,-3,-2,-1,1,2,3,4].map(i=>`
       <line x1="${cx+i*scaleX}" y1="${pad}" x2="${cx+i*scaleX}" y2="${H-pad}" class="grid"/>
       <line x1="${pad}" y1="${cy+i*scaleY}" x2="${W-pad}" y2="${cy+i*scaleY}" class="grid"/>
     `).join('')}
- 
+
     <!-- 축 -->
     <line x1="${pad}" y1="${cy}" x2="${W-pad}" y2="${cy}" class="axis"/>
     <line x1="${cx}" y1="${pad}" x2="${cx}" y2="${H-pad}" class="axis"/>
     <text x="${W-pad-8}" y="${cy-6}" class="axis-lbl">x</text>
     <text x="${cx+5}" y="${pad+12}" class="axis-lbl">y</text>
- 
+
     <!-- 축 눈금 -->
     ${[-3,-2,-1,1,2,3].map(i=>`
       <text x="${cx+i*scaleX-4}" y="${cy+14}" class="axis-lbl">${i}</text>
     `).join('')}
- 
+
     <!-- 곡선 -->
     <polyline points="${points}" class="curve"/>
- 
+
     <!-- 꼭짓점 -->
     <circle cx="${vx}" cy="${vy}" r="3" class="vertex" opacity="0"/>
     <text x="${vx+6}" y="${vy-6}" class="axis-lbl" style="fill:#aaa;font-size:10px;opacity:0;animation:fadeIn 0.4s ease 2s forwards">
@@ -459,7 +459,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 수직선
   numberline(params) {
     const p = params.split(',').map(Number);
@@ -467,13 +467,13 @@ const SVGViz = {
     const W=360, H=60, pad=30, cy=30;
     const range = max - min;
     const step = (W - pad*2) / range;
- 
+
     const ticks = [];
     for(let i=min; i<=max; i++) {
       const x = pad + (i-min)*step;
       ticks.push({i, x});
     }
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">— 수직선 [${min}, ${max}]</div>
@@ -498,13 +498,13 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 원 (단위원 또는 일반원)
   circle(params) {
     const isUnit = params.includes('unit');
     const r = isUnit ? 80 : (Number(params)||80);
     const W=260, H=260, cx=W/2, cy=H/2;
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">○ ${isUnit?'단위원':'원'} — 반지름 ${isUnit?'1':r}</div>
@@ -535,7 +535,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 분수 시각화 (파이 차트 형식)
   fraction(params) {
     const p = params.split(',').map(Number);
@@ -547,7 +547,7 @@ const SVGViz = {
     const x2 = cx + r * Math.sin(angle);
     const y2 = cy - r * Math.cos(angle);
     const large = angle > Math.PI ? 1 : 0;
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">◔ 분수 시각화 — ${num}/${den}</div>
@@ -566,7 +566,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 벡터/좌표 시각화
   vector(params) {
     const p = params.split(',').map(Number);
@@ -574,7 +574,7 @@ const SVGViz = {
     const W=260, H=220, pad=40, ox=pad, oy=H-pad, scale=30;
     const ex=ox+x*scale, ey=oy-y*scale;
     const angle=Math.atan2(oy-ey, ex-ox);
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">→ 벡터 (${x}, ${y})</div>
@@ -608,7 +608,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 집합 (벤 다이어그램)
   venn(params) {
     const sets = params.split(';');
@@ -640,7 +640,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 행렬
   matrix(params) {
     const rows = params.split(';').map(r => r.split(',').map(Number));
@@ -648,7 +648,7 @@ const SVGViz = {
     const cw=40, ch=34, pad=20;
     const W = nCols*cw + pad*2 + 30;
     const H = nRows*ch + pad*2;
- 
+
     let cells = '';
     rows.forEach((row,i) => {
       row.forEach((val,j) => {
@@ -656,7 +656,7 @@ const SVGViz = {
           style="font-size:13px;fill:#aaa;font-family:monospace;text-anchor:middle;opacity:0;animation:fadeIn 0.3s ease ${0.3+i*0.1+j*0.05}s forwards">${val}</text>`;
       });
     });
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">▦ 행렬 ${nRows}×${nCols}</div>
@@ -673,7 +673,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   // 인수분해 시각화 (넓이 모델)
   factoring(params) {
     // params: a,b,c => ax²+bx+c 형태
@@ -682,7 +682,7 @@ const SVGViz = {
     // 단순히 (x+p)(x+q) 형태로 표현
     // b = p+q, c = p*q
     const W=300, H=180;
- 
+
     return `
 <div class="svg-viz-wrap">
   <div class="svg-viz-label">⬛ 인수분해 — 넓이 모델 x²+${b}x+${c}</div>
@@ -691,19 +691,19 @@ const SVGViz = {
       .fm-rect{fill-opacity:0.07;stroke-width:1;opacity:0;animation:fadeIn 0.6s ease forwards;}
       .fm-lbl{font-size:11px;font-family:'Noto Sans KR',sans-serif;text-anchor:middle;}
     </style></defs>
- 
+
     <!-- 큰 정사각형 x² -->
     <rect x="60" y="30" width="90" height="90" class="fm-rect" style="fill:#5a8a5a;stroke:#5a8a5a;animation-delay:0.2s"/>
     <text x="105" y="80" class="fm-lbl" style="fill:#5a8a5a;opacity:0;animation:fadeIn 0.3s ease 0.8s forwards">x²</text>
- 
+
     <!-- 직사각형 bx (위쪽) -->
     <rect x="150" y="30" width="80" height="90" class="fm-rect" style="fill:#8a8a5a;stroke:#8a8a5a;animation-delay:0.5s"/>
     <text x="190" y="80" class="fm-lbl" style="fill:#8a8a5a;opacity:0;animation:fadeIn 0.3s ease 1.1s forwards">${b}x</text>
- 
+
     <!-- 상수 c -->
     <rect x="150" y="120" width="80" height="30" class="fm-rect" style="fill:#8a5a5a;stroke:#8a5a5a;animation-delay:0.8s"/>
     <text x="190" y="140" class="fm-lbl" style="fill:#8a5a5a;font-size:10px;opacity:0;animation:fadeIn 0.3s ease 1.4s forwards">${c}</text>
- 
+
     <!-- 수식 -->
     <text x="150" y="18" text-anchor="middle" style="font-size:10px;fill:#555;font-family:'Noto Sans KR',sans-serif;opacity:0;animation:fadeIn 0.4s ease 1.8s forwards">
       x²+${b}x+${c}
@@ -714,7 +714,7 @@ const SVGViz = {
   </svg>
 </div>`;
   },
- 
+
   render(type, params) {
     try {
       switch(type.toLowerCase()) {
@@ -732,7 +732,7 @@ const SVGViz = {
     } catch(e) { console.error('SVG viz error:', e); return ''; }
   }
 };
- 
+
 // ── 커리큘럼 ──
 const CURRICULUM = [
   { id:'다항식',   name:'다항식',          steps:['개념','예제','유형','심화'] },
@@ -743,16 +743,16 @@ const CURRICULUM = [
   { id:'집합',     name:'집합과 명제',     steps:['개념','예제','유형','심화'] },
   { id:'함수',     name:'함수와 그래프',   steps:['개념','예제','유형','심화'] },
 ];
- 
+
 let progress = JSON.parse(localStorage.getItem('vb_prog_v3') || '{}');
 let tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v3') || '[]');
 let wrongCount = 0;
- 
+
 function saveAll() {
   localStorage.setItem('vb_prog_v3', JSON.stringify(progress));
   localStorage.setItem('vb_hist_v3', JSON.stringify(tutorHistory.slice(-40)));
 }
- 
+
 function getCurrentStatus() {
   for (const unit of CURRICULUM) {
     for (const step of unit.steps) {
@@ -761,7 +761,7 @@ function getCurrentStatus() {
   }
   return null;
 }
- 
+
 function markDone(unitId, step) {
   if (!progress[unitId]) progress[unitId] = {};
   if (progress[unitId][step]) return false;
@@ -770,7 +770,7 @@ function markDone(unitId, step) {
   updateProgressUI();
   return true;
 }
- 
+
 function updateProgressUI() {
   const list = document.getElementById('unit-prog-list');
   if (!list) return;
@@ -788,7 +788,51 @@ function updateProgressUI() {
   const totalMax = CURRICULUM.reduce((acc, u) => acc + u.steps.length, 0);
   document.getElementById('overall-fill').style.width = (totalDone/totalMax*100)+'%';
 }
- 
+
+// ── 키워드 기반 자동 시각화 ──
+function autoViz(text) {
+  const t = text.toLowerCase();
+  const vizList = [];
+
+  // 피타고라스
+  if (t.includes('피타고라스') || t.includes('직각삼각형')) {
+    // 숫자 추출 시도
+    const nums = text.match(/(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+    if (nums) vizList.push(SVGViz.render('pythagorean', `${nums[1]},${nums[2]},${nums[3]}`));
+    else vizList.push(SVGViz.render('pythagorean', '3,4,5'));
+  }
+
+  // 이차함수/포물선
+  if (t.includes('이차함수') || t.includes('포물선') || t.includes('y=x²') || t.includes('y=x^2')) {
+    // y=a(x-h)²+k 파라미터 추출 시도
+    const coef = text.match(/y\s*=\s*(-?\d*\.?\d*)x/i);
+    const a = coef ? (parseFloat(coef[1])||1) : 1;
+    vizList.push(SVGViz.render('parabola', `${a},0,0`));
+  }
+
+  // 집합/벤다이어그램
+  if (t.includes('벤 다이어그램') || (t.includes('집합') && (t.includes('교집합') || t.includes('합집합') || t.includes('개념')))) {
+    vizList.push(SVGViz.render('venn', ''));
+  }
+
+  // 수직선
+  if (t.includes('수직선') || t.includes('부등식') && t.includes('범위')) {
+    vizList.push(SVGViz.render('numberline', '-5,5'));
+  }
+
+  // 행렬
+  if (t.includes('행렬') && (t.includes('개념') || t.includes('정의') || text.includes('[[') || /\[\d/.test(text))) {
+    vizList.push(SVGViz.render('matrix', '1,2;3,4'));
+  }
+
+  // 인수분해
+  if (t.includes('인수분해') && (t.includes('넓이') || t.includes('개념') || t.includes('x²'))) {
+    vizList.push(SVGViz.render('factoring', '1,5,6'));
+  }
+
+  return vizList.join('');
+}
+
 // ── 시스템 프롬프트 ──
 function buildSystem() {
   const current = getCurrentStatus();
@@ -799,55 +843,35 @@ function buildSystem() {
     if (notDone.length === 0) return `${u.name}: ✓ 완료`;
     return `${u.name}: ${done.join(',')} 완료 / ${notDone.join(',')} 남음`;
   }).join('\n');
- 
+
   const currentInfo = current
     ? `지금 해야 할 것: [${current.unit.name}] - ${current.step} 단계`
     : '모든 단원 완료!';
- 
+
   return `너는 고1 수학 AI 과외선생님이야. 2022 개정 교육과정 기준.
- 
+
 현재 진도 상황:
 ${progSummary}
- 
+
 ${currentInfo}
 틀린 횟수: ${wrongCount}번 (3번 틀리면 정답 알려줘)
- 
-═══ 핵심 규칙 ═══
+
+핵심 규칙:
 1. 반드시 한국어로만. 친근하고 자연스럽게 (반말 OK).
 2. 진도를 AI가 이끌어. 개념→예제→유형→심화 순서로 자연스럽게 넘겨줘.
 3. 한 단원 끝나면 "다음은 [단원명] 가볼까?" 라고 넘어가.
 4. 수식은 LaTeX: 인라인 \\( \\), 블록 \\[ \\]
 5. 단계 설명: [STEP:번호:내용]
 6. 문제: [PROBLEM:내용]
-7. 그래프(Chart.js용): [GRAPH:y=수식]
+7. 그래프: [GRAPH:y=수식]
 8. 진도 완료: [DONE:단원ID:단계] — 반드시 표시해줘
    단원ID: 다항식/방정식/경우의수/행렬/도형/집합/함수
    단계: 개념/예제/유형/심화
- 
-9. ★★★ SVG 시각화 (핵심 차별점!) ★★★
-   개념 설명할 때 반드시 아래 태그 적극 활용해:
-   [VIZ:pythagorean:3,4,5]   → 피타고라스 직각삼각형 (a,b,c)
-   [VIZ:parabola:1,0,0]      → 이차함수 그래프 (a,h,k) — y=a(x-h)²+k
-   [VIZ:parabola:-1,2,3]     → 꼭짓점 (2,3)인 아래로 볼록
-   [VIZ:numberline:-5,5,2]   → 수직선 (최소,최대,표시점)
-   [VIZ:circle:unit]         → 단위원
-   [VIZ:circle:70]           → 원 (반지름 픽셀값)
-   [VIZ:fraction:3,4]        → 분수 3/4 시각화
-   [VIZ:vector:3,4]          → 벡터 (3,4) 좌표
-   [VIZ:venn:]               → 벤 다이어그램 (집합 단원)
-   [VIZ:matrix:1,2;3,4]      → 2×2 행렬 (행은 ;로 구분)
-   [VIZ:factoring:1,5,6]     → 인수분해 x²+5x+6 넓이 모델
- 
-   ⚡ 규칙: 시각화로 보여줄 수 있으면 반드시 써. 텍스트만 쓰지 마.
-   ⚡ 피타고라스 → [VIZ:pythagorean:3,4,5] 필수
-   ⚡ 이차함수 → [VIZ:parabola:계수들] 필수
-   ⚡ 집합 → [VIZ:venn:] 필수
-   ⚡ 행렬 → [VIZ:matrix:값들] 필수
- 
-10. 문제집 추천: [RECOMMEND:제목:설명]
+9. 문제집 추천: [RECOMMEND:제목:설명]
+10. SVG 코드는 절대 직접 생성하지 마. 텍스트 설명만 해.
 11. 격려 잊지 말고, 막히면 힌트 먼저.`;
 }
- 
+
 // ── API ──
 async function callGroq(messages) {
   const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -859,14 +883,14 @@ async function callGroq(messages) {
   if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
   return data.choices[0].message.content;
 }
- 
+
 // ── 렌더링 ──
 function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
- 
+
 function renderContent(text) {
   if (!text) return '';
   const ph = [];
- 
+
   // DONE 태그 (숨김 처리)
   text = text.replace(/\[DONE:([^:]+):([^\]]+)\]/g, (_, unitId, step) => {
     const wasNew = markDone(unitId.trim(), step.trim());
@@ -877,32 +901,32 @@ function renderContent(text) {
     }
     return '';
   });
- 
+
   // ★ VIZ 태그 처리 (SVG 시각화)
   text = text.replace(/\[VIZ:([^:]+):([^\]]*)\]/g, (_, type, params) => {
     const html = SVGViz.render(type.trim(), params.trim());
     if (html) { ph.push(html); return `\uE000${ph.length-1}\uE000`; }
     return '';
   });
- 
+
   // RECOMMEND 카드
   text = text.replace(/\[RECOMMEND:([^:]+):([^\]]+)\]/g, (_, title, desc) => {
     ph.push(`<div class="recommend-card"><div class="recommend-label">📚 문제집 추천</div><div class="recommend-item"><strong style="color:#998aaa">${escapeHtml(title)}</strong><br>${escapeHtml(desc)}</div></div>`);
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   // STEP 카드
   text = text.replace(/\[STEP:(\d+):([^\]]+)\]/g, (_, num, content) => {
     ph.push(`<div class="step-card"><div class="step-num">STEP ${num}</div><div class="step-body">${escapeHtml(content)}</div></div>`);
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   // PROBLEM 카드
   text = text.replace(/\[PROBLEM:([^\]]+)\]/g, (_, content) => {
     ph.push(`<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">${escapeHtml(content)}</div></div>`);
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   // GRAPH (Chart.js)
   text = text.replace(/\[GRAPH:([^\]]+)\]/g, (_, expr) => {
     const id = 'g' + Date.now() + Math.random().toString(36).slice(2,5);
@@ -910,24 +934,24 @@ function renderContent(text) {
     setTimeout(() => drawGraph(id, expr.trim()), 100);
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   // LaTeX 블록
   text = text.replace(/\\\[([\s\S]*?)\\\]/g, (_, m) => {
     try { const s=document.createElement('span'); s.className='math-block'; katex.render(m.trim(),s,{displayMode:true,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml(m));}
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   // LaTeX 인라인
   text = text.replace(/\\\(([\s\S]*?)\\\)/g, (_, m) => {
     try { const s=document.createElement('span'); s.className='math-inline'; katex.render(m.trim(),s,{displayMode:false,throwOnError:false}); ph.push(s.outerHTML); } catch(e){ph.push(escapeHtml(m));}
     return `\uE000${ph.length-1}\uE000`;
   });
- 
+
   let out = escapeHtml(text);
   ph.forEach((p,i) => { out = out.split(`\uE000${i}\uE000`).join(p); });
   return out.replace(/\n/g,'<br>');
 }
- 
+
 function drawGraph(id, expr) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
@@ -954,7 +978,7 @@ function drawGraph(id, expr) {
     });
   } catch(e){}
 }
- 
+
 function showToast(msg) {
   const t = document.createElement('div');
   t.style.cssText = 'position:fixed;bottom:80px;right:24px;background:#111;border:1px solid #2a2a2a;border-left:2px solid #fff;padding:10px 16px;border-radius:2px;font-size:11px;color:#888;letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:\'Noto Sans KR\',sans-serif';
@@ -962,7 +986,7 @@ function showToast(msg) {
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2500);
 }
- 
+
 function updateHeaderSub() {
   const current = getCurrentStatus();
   if (current) {
@@ -971,7 +995,7 @@ function updateHeaderSub() {
     document.getElementById('header-sub').textContent = '전 단원 완료!';
   }
 }
- 
+
 // ── 메시지 ──
 function appendMsg(role, content) {
   document.getElementById('welcome')?.remove();
@@ -981,12 +1005,13 @@ function appendMsg(role, content) {
   if (role === 'user') {
     wrap.innerHTML = `<div><div class="sender" style="text-align:right">나</div><div class="bubble">${escapeHtml(content)}</div></div>`;
   } else {
-    wrap.innerHTML = `<div><div class="sender">선생님</div><div class="bubble">${renderContent(content)}</div></div>`;
+    const vizHtml = autoViz(content);
+    wrap.innerHTML = `<div><div class="sender">선생님</div><div class="bubble">${vizHtml}${renderContent(content)}</div></div>`;
   }
   box.appendChild(wrap);
   box.scrollTop = box.scrollHeight;
 }
- 
+
 function showTyping() {
   const box = document.getElementById('chat-box');
   const el = document.createElement('div');
@@ -995,7 +1020,7 @@ function showTyping() {
   box.appendChild(el);
   box.scrollTop = box.scrollHeight;
 }
- 
+
 // ── 전송 ──
 async function sendTutor() {
   const input = document.getElementById('user-input');
@@ -1005,7 +1030,7 @@ async function sendTutor() {
   input.value = '';
   showTyping();
   tutorHistory.push({role:'user', content:msg});
- 
+
   try {
     const msgs = [{role:'system', content:buildSystem()}, ...tutorHistory.slice(-20)];
     const reply = await callGroq(msgs);
@@ -1027,21 +1052,21 @@ async function sendTutor() {
     box.scrollTop = box.scrollHeight;
   }
 }
- 
+
 function retryLast(errId) {
   document.getElementById(errId)?.remove();
   const last = tutorHistory[tutorHistory.length-1];
   if (last?.role === 'user') { const m=last.content; tutorHistory.pop(); document.getElementById('user-input').value=m; sendTutor(); }
 }
- 
+
 function quickAsk(text) { document.getElementById('user-input').value=text; sendTutor(); }
- 
+
 function startTutor() {
   const current = getCurrentStatus();
   const msg = current ? `${current.unit.name} ${current.step}부터 시작해줘` : '다 끝났어! 전체 복습해줘';
   quickAsk(msg);
 }
- 
+
 // ── 페이지 전환 ──
 function showPage(page, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1058,7 +1083,7 @@ function showPage(page, btn) {
     updateProgressUI();
   }
 }
- 
+
 // ── 초기화 ──
 function clearTutor() {
   if (!confirm('대화와 진도를 초기화할까요?')) return;
@@ -1077,13 +1102,13 @@ function clearTutor() {
   </div>`;
   updateProgressUI();
 }
- 
+
 // ── 레이더 ──
 function dday(d) { const diff=Math.ceil((new Date(d)-new Date())/86400000); return diff>0?`D-${diff}`:diff===0?'D-Day':`D+${Math.abs(diff)}`; }
 document.getElementById('dd1').textContent=dday('2026-11-19');
 document.getElementById('dd2').textContent=dday('2026-09-05');
 document.getElementById('dd3').textContent=dday('2027-01-03');
- 
+
 const newsData=[
   {id:1,cat:'수능/입시',tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']],date:'2026.03.20',title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',summary:'교육부가 2028 수능 개편안을 확정 발표. 사회·과학이 통합되고 선택과목 구조가 대폭 축소됩니다.',ai:'✅ 핵심 요약\n• 사회/과학 → 통합사회, 통합과학으로 묶임\n• 현재 중3이 첫 적용 대상\n\n👨‍👩‍👧 학부모: 지금 공부법 바꿔야 해요.',impact:'⚡ 영향도 매우 높음'},
   {id:2,cat:'수능/입시',tags:[['ct-policy','📋 정책']],date:'2026.03.18',title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',summary:'의대 정원이 3,058명 → 5,058명으로 확대 확정. 이과 상위권 수험생 입시 전략에 큰 변화 예상.',ai:'✅ 핵심 요약\n• 이과 최상위권 의대 쏠림 심화\n• 서울대 공대 등 커트라인 하락 가능성',impact:'⚡ 영향도 매우 높음'},
@@ -1092,7 +1117,7 @@ const newsData=[
   {id:5,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.10',title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작',summary:'AI 디지털 교과서 전국 도입. 2026년 초3~4, 중1, 고1 수학/영어 우선 도입.',ai:'✅ 핵심 요약\n• 2026년: 초3~4, 중1, 고1 수학/영어 우선\n• 2028년: 전 학년 전 과목 확대',impact:'⚠️ 영향도 높음'},
   {id:6,cat:'팁',tags:[['ct-tip','💡 팁']],date:'2026.03.08',title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심',summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부. 2026 주요 대학 평가기준 정리.',ai:'✅ 핵심 요약\n• 자기소개서 완전 폐지\n• 세특 기재 과목당 최대 500자',impact:'⚠️ 영향도 높음'}
 ];
- 
+
 function renderNews(filter) {
   const filtered = filter==='전체'?newsData:newsData.filter(n=>n.cat===filter);
   document.getElementById('news-feed').innerHTML = filtered.map(n=>`
@@ -1104,11 +1129,11 @@ function renderNews(filter) {
       <div class="card-bottom"><div class="card-impact">${n.impact}</div><button class="expand-btn" id="exb-${n.id}" onclick="toggleAI(${n.id})">AI 요약 보기 ▾</button></div>
     </div>`).join('');
 }
- 
+
 function toggleAI(id) { const el=document.getElementById(`ais-${id}`),btn=document.getElementById(`exb-${id}`),open=el.style.display==='block'; el.style.display=open?'none':'block'; btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴'; }
 function filterNews(f,btn) { document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderNews(f); }
 function setRadarInput(text) { document.getElementById('radar-input').value=text; radarAsk(); }
- 
+
 async function radarAsk() {
   const q=document.getElementById('radar-input').value.trim();
   if(!q) return;
@@ -1125,14 +1150,14 @@ async function radarAsk() {
     body.textContent = reply;
   } catch(e) { body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.'; }
 }
- 
+
 document.getElementById('radar-input').addEventListener('keypress',e=>{if(e.key==='Enter')radarAsk();});
 document.getElementById('user-input').addEventListener('keypress',e=>{if(e.key==='Enter')sendTutor();});
- 
+
 // ── 초기 실행 ──
 renderNews('전체');
 updateProgressUI();
- 
+
 if (tutorHistory.length > 0) {
   showPage('tutor', document.getElementById('nav-tutor'));
   tutorHistory.forEach(m => {
@@ -1144,4 +1169,3 @@ if (tutorHistory.length > 0) {
 </script>
 </body>
 </html>
- 
