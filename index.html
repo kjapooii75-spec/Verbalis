@@ -312,7 +312,7 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Helv
    🔑 설정
    ==================================================== */
 var GROQ_KEY = "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";
-var ANTHROPIC_PROXY = "https://api.anthropic.com/v1/messages"; // Claude API (시각화 에이전트)
+
 
 /* ====================================================
    📐 단계 1: 기존 SVG 라이브러리 (fallback용)
@@ -397,98 +397,76 @@ var SVGViz = {
 };
 
 /* ====================================================
-   🤖 단계 2: 시각화 에이전트 (Claude API 직접 호출)
-   AI가 상황에 맞는 SVG를 즉석 생성
+   🤖 단계 2: 시각화 에이전트 (Groq 단일 경로)
    ==================================================== */
 var VizAgent = {
-  // 시각화가 필요한지 교사 AI 응답 분석
   needsViz: function(teacherReply, userMsg) {
     var combined = (teacherReply + ' ' + userMsg).toLowerCase();
     var triggers = [
-      '그래프', '그려', '시각화', '그림으로', '보여줘', '보여',
-      '이차함수', '포물선', '직선', '원', '접선', '극한', '미분',
-      '수능 문제', '함수', '좌표', '교점', '꼭짓점', '대칭축',
-      '행렬', '벡터', '넓이', '넓이를', '도형', '삼각형', '사각형'
+      '그래프', '그려', '시각화', '그림', '보여줘',
+      '이차함수', '포물선', '직선', '원', '접선', '극한',
+      '함수', '좌표', '교점', '꼭짓점', '대칭축',
+      '행렬', '도형', '삼각형', '사각형', '넓이'
     ];
     return triggers.some(function(t){ return combined.includes(t); });
   },
 
-  // 기존 라이브러리로 처리 가능한지 확인
   canUseFallback: function(teacherReply) {
     var t = teacherReply.toLowerCase();
     if(t.includes('피타고라스')) return SVGViz.render('pythagorean', '3,4,5');
     if(t.includes('판별식')) return SVGViz.render('discriminant', '1,0,1');
-    if((t.includes('이차함수')||t.includes('포물선')) && !t.includes('접선') && !t.includes('수능'))
+    if((t.includes('이차함수')||t.includes('포물선')) && !t.includes('접선'))
       return SVGViz.render('parabola', '1,0,0');
     if(t.includes('집합') && (t.includes('교집합')||t.includes('합집합'))) return SVGViz.render('venn','');
     return null;
   },
 
-  // Claude API로 SVG 생성 (시각화 에이전트)
-  generateSVG: async function(context, userMsg) {
-    var prompt = '다음 수학 개념/상황을 SVG 코드로 시각화해줘.\n\n' +
-      '교사 설명:\n' + context + '\n\n' +
-      '학생 질문:\n' + userMsg + '\n\n' +
-      '규칙:\n' +
-      '- viewBox="0 0 400 300" 기준으로 그려줘\n' +
-      '- 배경 없이 투명하게\n' +
-      '- 선: stroke="#555" 기본, 강조는 stroke="#aaa"\n' +
-      '- 텍스트: fill="#888" font-size="11" font-family="Noto Sans KR, sans-serif"\n' +
-      '- 애니메이션 금지 (정적 SVG만)\n' +
-      '- <svg> 태그만 반환, 다른 텍스트 없이\n' +
-      '- 축, 격자, 레이블 포함해서 깔끔하게\n' +
-      '- 핵심 수학 요소만 표현 (과하게 복잡하게 X)\n\n' +
-      '반드시 SVG 코드만 반환. 설명 없이.';
-
-    try {
-      var res = await fetch(ANTHROPIC_PROXY, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': '', // 프록시에서 처리 — 실제 배포 시 환경변수로
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-ipc': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      var data = await res.json();
-      if(!res.ok) throw new Error('API error');
-      var svgCode = data.content[0].text.trim();
-      // SVG 태그 추출
-      var match = svgCode.match(/<svg[\s\S]*<\/svg>/i);
-      return match ? match[0] : null;
-    } catch(e) {
-      return null;
-    }
-  },
-
-  // Groq로 SVG 생성 (fallback — 속도 빠름)
+  // Groq로 SVG 생성 — 프롬프트를 매우 구체적으로 작성해야 동작함
   generateSVGGroq: async function(context, userMsg) {
-    var prompt = '다음 수학 상황을 SVG로 시각화해.\n\n상황: ' + userMsg + '\n교사 설명 맥락: ' + context.slice(0,200) + '\n\n' +
-      '규칙: viewBox="0 0 400 280", 배경 없음, 선 stroke="#555", 텍스트 fill="#777" font-size="11", 정적 SVG만, <svg>태그만 반환';
+    var systemPrompt =
+      'You are a math SVG generator. Output ONLY raw SVG code, nothing else.\n' +
+      'No explanation, no markdown, no backticks. Start directly with <svg and end with </svg>.\n\n' +
+      'SVG rules:\n' +
+      '- viewBox="0 0 400 260" width="400" height="260"\n' +
+      '- Transparent background (no <rect> fill for background)\n' +
+      '- Axes: stroke="#444" stroke-width="1"\n' +
+      '- Curves/lines: stroke="#888" stroke-width="2" fill="none"\n' +
+      '- Labels: fill="#666" font-size="11" font-family="sans-serif"\n' +
+      '- Key points: fill="#aaa" r="3"\n' +
+      '- Center origin at cx=200 cy=130, scale 30px per unit\n' +
+      '- Include x-axis, y-axis, tick marks, and relevant labels\n' +
+      '- STATIC only — no animations, no CSS classes\n' +
+      '- Output SVG code ONLY. No text before or after.';
+
+    var userPrompt = 'Draw this math situation as SVG:\n' + userMsg +
+      '\nContext from teacher: ' + context.slice(0, 150);
+
     try {
       var res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
         body: JSON.stringify({
-          model:'llama-3.3-70b-versatile',
-          max_tokens:800,
-          messages:[
-            {role:'system', content:'너는 수학 시각화 전문가야. SVG 코드만 반환해. 다른 설명 없이.'},
-            {role:'user', content:prompt}
+          model: 'llama-3.3-70b-versatile',
+          max_tokens: 1200,
+          temperature: 0.1,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
           ]
         })
       });
       var data = await res.json();
-      if(!res.ok) throw new Error('Groq error');
-      var svgCode = data.choices[0].message.content.trim();
-      var match = svgCode.match(/<svg[\s\S]*<\/svg>/i);
+      if(!res.ok) throw new Error('Groq ' + res.status + ': ' + (data.error && data.error.message));
+      var raw = data.choices[0].message.content.trim();
+      // 마크다운 코드블록 제거
+      raw = raw.replace(/```[\w]*\n?/g, '').replace(/```/g, '').trim();
+      // <svg> 태그 추출
+      var match = raw.match(/<svg[\s\S]*?<\/svg>/i);
       return match ? match[0] : null;
-    } catch(e) { return null; }
+    } catch(e) {
+      console.warn('VizAgent error:', e);
+      return null;
+    }
   }
 };
 
