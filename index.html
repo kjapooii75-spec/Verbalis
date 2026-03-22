@@ -146,8 +146,9 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 
 .math-inline{display:inline;}
 .math-block{display:block;margin:10px 0;padding:12px;background:#0a0a0a;border-radius:2px;overflow-x:auto;border-left:2px solid #2a2a2a;}
-.graph-wrap{margin:10px 0;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:2px;padding:12px;}
+.graph-wrap{margin:10px 0;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:2px;padding:12px;position:relative;}
 .graph-label{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:8px;text-transform:uppercase;}
+.graph-wrap canvas{display:block;width:100%!important;height:180px!important;}
 
 /* ── SVG 시각화 래퍼 ── */
 .svg-viz-wrap {
@@ -300,7 +301,7 @@ body { background:#050505; color:#e0e0e0; font-family:'Noto Sans KR','Helvetica 
 
 <script>
 // ── API 키 (여기서 교체하세요) ──
-const API_KEY = "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";
+const API_KEY = "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";
 
 // ══════════════════════════════════════════
 //  SVG 시각화 엔진
@@ -1310,27 +1311,31 @@ function drawGraph(id, expr) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
   try {
+    canvas.style.height = '180px';
+    canvas.style.width = '100%';
     const rs = expr.replace(/^y\s*=\s*/i,'').replace(/\^/g,'**');
     const pts = [];
-    for (let x=-8; x<=8; x+=0.2) {
+    for (let x=-8; x<=8; x+=0.15) {
       try {
         const y = math.evaluate(rs.replace(/\bx\b/g, `(${x})`));
-        if (isFinite(y) && Math.abs(y) < 50) pts.push({x, y});
+        if (isFinite(y) && Math.abs(y) < 100) pts.push({x, y});
       } catch(_){}
     }
     new Chart(canvas, {
       type:'line',
-      data:{ datasets:[{data:pts, borderColor:'#666', borderWidth:1.5, pointRadius:0, tension:0.3, fill:false}] },
+      data:{ datasets:[{data:pts, borderColor:'#888', borderWidth:2, pointRadius:0, tension:0.2, fill:false}] },
       options:{
-        responsive:true, maintainAspectRatio:false,
+        responsive:true,
+        maintainAspectRatio:false,
+        animation:{ duration:800 },
         plugins:{legend:{display:false}},
         scales:{
-          x:{type:'linear',min:-8,max:8, grid:{color:'#111'}, ticks:{color:'#333',maxTicksLimit:9}, border:{color:'#1a1a1a'}},
-          y:{grid:{color:'#111'}, ticks:{color:'#333',maxTicksLimit:7}, border:{color:'#1a1a1a'}}
+          x:{type:'linear',min:-8,max:8, grid:{color:'#1a1a1a'}, ticks:{color:'#444',maxTicksLimit:9,font:{size:10}}, border:{color:'#2a2a2a'}},
+          y:{grid:{color:'#1a1a1a'}, ticks:{color:'#444',maxTicksLimit:7,font:{size:10}}, border:{color:'#2a2a2a'}}
         }
       }
     });
-  } catch(e){}
+  } catch(e){ console.error('graph error',e); }
 }
 
 function showToast(msg) {
