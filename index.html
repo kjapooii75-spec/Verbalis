@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verbalis</title>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>Verbalis - Pro Engine</title>
+<script src="[https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js](https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js)"></script>
+<link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css](https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css)">
+<link href="[https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap](https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap)" rel="stylesheet">
 <style>
-/* 기존 스타일 그대로 유지 (생략 없이 전체 포함) */
+/* 기본 세팅 */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --bg:#050505;--bg2:#080808;--bg3:#0a0a0a;--bg4:#0f0f0f;
@@ -18,288 +18,232 @@
   --bubble-user:#151515;--bubble-ai:#0f0f0f;
   --purple:#7c6fff;--purple-dim:#2a2450;
 }
-body.light{
-  --bg:#fafafa;--bg2:#f4f4f4;--bg3:#efefef;--bg4:#e8e8e8;
-  --border:#e0e0e0;--border2:#d8d8d8;
-  --text:#111;--text2:#222;--text3:#555;--text4:#888;--text5:#aaa;--text6:#bbb;
-  --accent:#111;--accent-inv:#fff;
-  --bubble-user:#f0f0f0;--bubble-ai:#f8f8f8;
-}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Helvetica Neue',sans-serif;display:flex;height:100vh;overflow:hidden;transition:background 0.2s,color 0.2s;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;display:flex;height:100vh;overflow:hidden;}
+
+/* 사이드바 */
 .sidebar{width:200px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
 .sidebar-logo{padding:24px 18px 20px;border-bottom:1px solid var(--border);}
 .logo-text{font-size:16px;font-weight:700;letter-spacing:5px;color:var(--accent);}
 .logo-sub{font-size:9px;letter-spacing:2px;color:var(--text6);margin-top:4px;}
-.sidebar-section{font-size:9px;letter-spacing:2px;color:var(--text6);padding:16px 18px 8px;text-transform:uppercase;}
-.nav-btn{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:12px;color:var(--text4);cursor:pointer;background:none;border:none;width:100%;text-align:left;letter-spacing:1px;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;}
-.nav-btn:hover{color:var(--text3);background:var(--bg4);}
+.nav-btn{display:flex;align-items:center;gap:10px;padding:12px 18px;font-size:12px;color:var(--text4);cursor:pointer;background:none;border:none;width:100%;text-align:left;letter-spacing:1px;transition:all 0.15s;}
 .nav-btn.active{color:var(--accent);background:var(--bg3);border-left:2px solid var(--accent);}
-.progress-section{padding:16px 18px;border-top:1px solid var(--border);margin-top:auto;}
-.progress-label{font-size:9px;letter-spacing:2px;color:var(--text6);margin-bottom:10px;text-transform:uppercase;}
-.unit-progress-list{display:flex;flex-direction:column;gap:6px;}
-.unit-prog-item{display:flex;align-items:center;justify-content:space-between;}
-.unit-prog-name{font-size:10px;color:var(--text5);letter-spacing:0.5px;}
-.unit-prog-name.done{color:var(--text4);}
-.unit-prog-name.current{color:var(--text3);}
-.unit-prog-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0;}
-.unit-prog-dot.done{background:var(--text4);}
-.unit-prog-dot.current{background:var(--accent);}
-.overall-bar{height:1px;background:var(--border);margin-top:12px;}
-.overall-fill{height:100%;background:var(--text5);transition:width 0.5s;}
-.sidebar-bottom{padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
-.clear-btn{width:100%;padding:8px;background:none;border:1px solid var(--border);border-radius:2px;color:var(--text5);font-size:10px;letter-spacing:1px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
-.theme-toggle{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text4);font-size:10px;padding:6px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:all 0.15s;width:100%;}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
-.header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border2);flex-shrink:0;}
-.header-title{font-size:12px;font-weight:500;letter-spacing:3px;color:var(--accent);}
-.header-sub{font-size:9px;letter-spacing:2px;color:var(--text6);margin-top:3px;}
-.status{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--text6);letter-spacing:2px;}
-.status-dot{width:5px;height:5px;background:var(--text6);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-#page-radar{flex:1;overflow-y:auto;padding:28px;scrollbar-width:none;display:block;}
-#page-radar::-webkit-scrollbar{display:none;}
-.radar-live{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:12px;}
-.live-dot{width:5px;height:5px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite;}
-.radar-title{font-size:22px;font-weight:500;color:var(--accent);letter-spacing:-0.5px;line-height:1.4;margin-bottom:20px;}
-.ask-bar{display:flex;gap:8px;max-width:580px;margin-bottom:14px;}
-.ask-input{flex:1;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:2px;color:var(--text);font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;}
-.ask-btn{padding:12px 20px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:2px;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;white-space:nowrap;}
-.ask-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
-.ask-chip{padding:5px 12px;border:1px solid var(--border2);border-radius:2px;font-size:11px;color:var(--text5);cursor:pointer;}
-#ai-box{display:none;margin-bottom:24px;max-width:580px;}
-.ai-box-inner{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:2px;}
-.ai-box-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);}
-.ai-box-label{font-size:9px;letter-spacing:2px;color:var(--text4);}
-.ai-box-close{background:none;border:none;color:var(--text5);cursor:pointer;font-size:16px;}
-.ai-box-body{padding:16px;font-size:13.5px;line-height:1.85;color:var(--text2);white-space:pre-wrap;}
-.typing-dots{display:flex;gap:5px;padding:4px 0;}
-.tdot{width:5px;height:5px;background:var(--text5);border-radius:50%;animation:bounce 1.2s infinite;}
-.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
-@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
-.dday-strip{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
-.dday-card{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:12px 16px;flex:1;min-width:140px;}
-.dday-label{font-size:9px;letter-spacing:2px;color:var(--text5);margin-bottom:6px;}
-.dday-name{font-size:12px;color:var(--text3);margin-bottom:4px;}
-.dday-num{font-size:20px;font-weight:700;color:var(--accent);}
-.news-grid-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-top:4px;border-top:1px solid var(--border);}
-.news-grid-title{font-size:10px;letter-spacing:2px;color:var(--text4);}
-.news-card{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:18px 20px;margin-bottom:8px;cursor:pointer;}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
-.card-tags{display:flex;gap:5px;}
-.ctag{font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:1px;}
-.card-date{font-size:10px;color:var(--text6);}
-.card-title{font-size:14px;font-weight:500;color:var(--text2);margin-bottom:7px;}
-.card-summary{font-size:12.5px;color:var(--text4);margin-bottom:10px;}
-.card-bottom{display:flex;align-items:center;justify-content:space-between;}
-.card-impact{font-size:11px;color:var(--text6);}
-#page-tutor{flex:1;display:none;flex-direction:row;overflow:hidden;}
-.whiteboard{flex:1;background:#fafafa;position:relative;overflow:hidden;}
-body.light .whiteboard{background:#f0f0f8;}
-.whiteboard.hidden{flex:0;width:0;min-width:0;opacity:0;pointer-events:none;}
-.wb-label{position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:2px;color:#aaa;}
-.wb-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;}
-.wb-scene{width:100%;max-width:560px;}
-.anim-container{width:100%;min-height:280px;display:flex;align-items:center;justify-content:center;}
-.chatpanel{width:360px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid var(--border);background:var(--bg2);}
+.sidebar-bottom{padding:12px;border-top:1px solid var(--border);margin-top:auto;}
+.clear-btn{width:100%;padding:10px;background:var(--bg4);border:1px solid var(--border2);border-radius:4px;color:var(--text4);font-size:11px;cursor:pointer;}
+
+/* 메인 영역 */
+.main{flex:1;display:flex;flex-direction:column;}
+.header{padding:18px 28px;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center;}
+.header-title{font-size:13px;font-weight:500;letter-spacing:2px;}
+.status{font-size:10px;color:var(--text5);letter-spacing:1px;display:flex;align-items:center;gap:6px;}
+.status-dot{width:6px;height:6px;background:#4CAF50;border-radius:50%;}
+
+/* 튜터 레이아웃 */
+#page-tutor{flex:1;display:flex;overflow:hidden;}
+.whiteboard{flex:1;background:#fafafa;position:relative;display:none;align-items:center;justify-content:center;}
+.whiteboard.active{display:flex;}
+.wb-label{position:absolute;top:20px;left:20px;font-size:10px;color:#888;letter-spacing:2px;font-weight:bold;}
+
+/* 🎬 비디오 플레이스홀더 UI (핵심 변경점) */
+.video-box{
+  width:80%; max-width:600px; padding:40px; background:#fff; 
+  border:2px dashed #7c6fff; border-radius:12px; text-align:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.video-icon{font-size:48px; margin-bottom:16px;}
+.video-title{font-size:16px; color:#333; font-weight:bold; margin-bottom:8px;}
+.video-file{font-size:13px; color:#7c6fff; background:#f0f0ff; padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:20px;}
+.wb-text{font-size:22px; color:#111; font-weight:700; padding-top:20px; border-top:1px solid #eee; margin-top:10px;}
+
+/* 채팅 영역 */
+.chatpanel{width:400px;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;}
 .chatpanel.fullscreen{width:100%;border-left:none;}
-.chat-messages{flex:1;overflow-y:auto;padding:20px 18px;scrollbar-width:none;display:flex;flex-direction:column;gap:12px;}
-.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:12px;padding:20px;}
-.welcome-icon{font-size:32px;}
-.welcome-title{font-size:12px;letter-spacing:3px;color:var(--text4);}
-.welcome-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;}
-.w-chip{padding:6px 13px;border:1px solid var(--border2);border-radius:20px;font-size:11px;color:var(--text4);cursor:pointer;background:none;}
-.msg{display:flex;flex-direction:column;gap:4px;}
+.chat-messages{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px;}
+.msg{display:flex;flex-direction:column;gap:6px;}
 .msg.user{align-items:flex-end;}
 .msg.ai{align-items:flex-start;}
-.msg-sender{font-size:9px;letter-spacing:1.5px;color:var(--text5);}
-.msg-bubble{padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.75;max-width:290px;}
-.msg.user .msg-bubble{background:var(--bubble-user);color:var(--text3);border:1px solid var(--border2);}
-.msg.ai .msg-bubble{background:var(--bubble-ai);color:var(--text);border:1px solid var(--border);border-left:2px solid var(--text5);}
-.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;padding:2px 8px;border-radius:8px;margin-bottom:3px;}
-.mode-badge.wb{background:#1a1428;color:var(--purple);border:1px solid var(--purple-dim);}
-.mode-badge.chat{background:var(--bg4);color:var(--text4);border:1px solid var(--border2);}
-.mbdot{width:4px;height:4px;border-radius:50%;background:currentColor;}
-.typing-wrap{display:flex;padding:4px 0;}
-.typing-bubble{background:var(--bg4);border:1px solid var(--border);border-left:2px solid var(--text5);padding:10px 14px;display:flex;align-items:center;gap:5px;border-radius:10px;}
-#tutor-input-area{padding:14px 16px;border-top:1px solid var(--border2);background:var(--bg2);flex-shrink:0;}
-.subject-bar{display:flex;gap:6px;margin-bottom:10px;}
-.subj-btn{padding:3px 10px;border:1px solid var(--border2);border-radius:10px;font-size:10px;color:var(--text4);cursor:pointer;background:none;}
-.subj-btn.active{color:var(--purple);border-color:var(--purple-dim);background:var(--purple-dim);}
-.input-wrap{display:flex;gap:8px;}
-#user-input{flex:1;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:20px;font-size:13px;outline:none;}
-.send-btn{padding:10px 18px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;}
-@media(max-width:600px){.sidebar{display:none;}.header,#page-radar,#tutor-input-area{padding-left:16px;padding-right:16px;}.whiteboard{display:none;}.chatpanel{width:100%;}}
+.msg-sender{font-size:10px;color:var(--text5);font-weight:bold;}
+.msg-bubble{padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.6;max-width:85%;word-break:break-word;}
+.msg.user .msg-bubble{background:var(--bg4);color:var(--text2);border:1px solid var(--border2);}
+.msg.ai .msg-bubble{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-left:3px solid var(--purple);}
+
+/* 입력창 */
+.input-area{padding:20px;background:var(--bg2);border-top:1px solid var(--border2);display:flex;gap:10px;}
+#user-input{flex:1;padding:12px 16px;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:14px;outline:none;}
+#send-btn{padding:0 24px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
 </style>
 </head>
 <body>
 
 <div class="sidebar">
-  <div class="sidebar-logo"><div class="logo-text">VERBALIS</div></div>
-  <button class="nav-btn active" id="nav-radar">교육 레이더</button>
-  <button class="nav-btn" id="nav-tutor">AI 과외</button>
-  <div class="sidebar-bottom"><button class="clear-btn" id="clear-btn">대화 초기화</button><button class="theme-toggle" id="theme-btn">☀ 라이트</button></div>
+  <div class="sidebar-logo"><div class="logo-text">VERBALIS</div><div class="logo-sub">PRO ENGINE</div></div>
+  <button class="nav-btn active">📚 AI 과외 (JSON Mode)</button>
+  <div class="sidebar-bottom"><button class="clear-btn" id="clear-btn">대화 기록 싹 지우기</button></div>
 </div>
 
 <div class="main">
   <div class="header">
-    <div><div class="header-title" id="header-title">교육 레이더</div></div>
-    <div class="status"><div class="status-dot"></div>ONLINE</div>
-  </div>
-
-  <div id="page-radar">
-    <div class="ask-bar">
-      <input class="ask-input" id="radar-input" placeholder="예) 2028 수능 개편 설명해줘"/>
-      <button class="ask-btn" id="radar-ask-btn">AI 분석</button>
-    </div>
-    <div id="ai-box"><div class="ai-box-inner"><div class="ai-box-body" id="ai-box-body"></div></div></div>
+    <div class="header-title">시각화 엔진 테스트</div>
+    <div class="status"><div class="status-dot"></div>API 연결됨</div>
   </div>
 
   <div id="page-tutor">
-    <div class="whiteboard hidden" id="whiteboard">
+    <div class="whiteboard" id="whiteboard">
       <div class="wb-label">VERBALIS BOARD</div>
-      <div class="wb-content">
-        <div class="wb-scene">
-          <div class="anim-container" id="anim-container"></div>
-        </div>
-      </div>
+      <div id="anim-container"></div>
     </div>
+    
     <div class="chatpanel fullscreen" id="chatpanel">
       <div class="chat-messages" id="chat-messages">
-        <div class="welcome" id="welcome">
-          <div class="welcome-icon">📐</div>
-          <div class="welcome-title">AI 과외 선생님</div>
-          <div class="welcome-chips"><button class="w-chip" data-ask="1 더하기 1은 뭐야?">1+1 예시 보기</button></div>
+        <div class="msg ai">
+          <div class="msg-sender">System</div>
+          <div class="msg-bubble">엔진 초기화 완료. "이차함수 접선 그려줘" 라고 명령해 보세요.</div>
         </div>
       </div>
-      <div id="tutor-input-area">
-        <div class="input-wrap">
-          <input type="text" id="user-input" placeholder="뭐든 물어봐..."/>
-          <button class="send-btn" id="send-btn">SEND</button>
-        </div>
+      <div class="input-area">
+        <input type="text" id="user-input" placeholder="여기에 입력하세요..."/>
+        <button id="send-btn">전송</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-var PROXY_URL = "https://verbalis.jashfnv.workers.dev";
-var GROQ_KEY = "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";
+// API 키 세팅
+const PROXY_URL = "[https://verbalis.jashfnv.workers.dev](https://verbalis.jashfnv.workers.dev)";
+const GROQ_KEY = "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";
 
-var tutorHistory = [];
-var isWBMode = false;
+let tutorHistory = [];
 
-async function callClaude(messages,system){
-  var res=await fetch(PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:system,messages:messages})});
-  var data=await res.json();if(!res.ok)throw new Error('Proxy error');return data.content[0].text;
-}
-async function callGroq(messages,system){
-  var msgs=system?[{role:'system',content:system}].concat(messages):messages;
-  var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:2000,messages:msgs})});
-  var data=await res.json();if(!res.ok)throw new Error('Groq error');return data.choices[0].message.content;
-}
-async function callAI(messages,system){try{return await callClaude(messages,system);}catch(e){return await callGroq(messages,system);}}
-
-/* 💡 새로운 프롬프트 구조: 무조건 JSON으로만 답하게 만듦 */
-function buildSystem(){
-  return `너는 소크라테스식 AI 비주얼 튜터야.
-학생이 질문하면 절대 정답을 바로 주지 말고 유도 질문을 해.
-응답은 반드시 아래 JSON 형식으로만 출력해. 일반 텍스트는 절대 쓰지 마.
+// 시스템 프롬프트 (절대 낙서 못하게 막음)
+const systemPrompt = `너는 세계 최고의 소크라테스식 수학/과학 튜터야.
+[절대 규칙]
+1. 정답을 주지 말고 역질문으로 유도해.
+2. SVG나 코드를 직접 그리지 마. 절대 금지.
+3. 무조건 아래 JSON 포맷으로만 응답해. 마크다운이나 다른 설명 금지.
 
 {
-  "dialogue": "학생에게 던지는 유도 질문이나 텍스트 대답",
-  "animation_target": "화면에 틀어야 할 영상/에셋 이름 (예: apple_basket, parabola_graph 등)",
-  "whiteboard_text": "칠판 영상 밑에 띄워줄 핵심 수식이나 강조 단어"
+  "dialogue": "학생에게 할 말 (역질문)",
+  "need_video": true 혹은 false,
+  "video_filename": "틀어야 할 영상 이름 (예: parabola_tangent.mp4)",
+  "whiteboard_text": "칠판에 강조할 수식이나 텍스트"
 }`;
-}
 
-function switchToWB(){
-  isWBMode=true;
-  document.getElementById('whiteboard').classList.remove('hidden');
-  document.getElementById('chatpanel').classList.remove('fullscreen');
-}
-function switchToChat(){
-  isWBMode=false;
-  document.getElementById('whiteboard').classList.add('hidden');
-  document.getElementById('chatpanel').classList.add('fullscreen');
-}
-
-function escapeHtml(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
-
-function appendMsg(role,content,mode){
-  var w=document.getElementById('welcome');if(w)w.remove();
-  var box=document.getElementById('chat-messages');
-  var wrap=document.createElement('div');wrap.className='msg '+role;
-  if(role==='user'){
-    wrap.innerHTML='<div class="msg-sender">나</div><div class="msg-bubble">'+escapeHtml(content)+'</div>';
-  }else{
-    var badge=mode==='wb'?'<div class="mode-badge wb"><div class="mbdot"></div>칠판 모드</div>':'<div class="mode-badge chat"><div class="mbdot"></div>채팅 모드</div>';
-    wrap.innerHTML='<div class="msg-sender">Verbalis</div>'+badge+'<div class="msg-bubble">'+escapeHtml(content).replace(/\n/g,'<br>')+'</div>';
+// API 통신
+async function callAI(messages) {
+  try {
+    const res = await fetch(PROXY_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1500, system: systemPrompt, messages: messages })
+    });
+    const data = await res.json();
+    return data.content[0].text;
+  } catch (e) {
+    // 대체망 (Groq)
+    const msgs = [{ role: 'system', content: systemPrompt }, ...messages];
+    const res = await fetch('[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_KEY}` },
+      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: msgs })
+    });
+    const data = await res.json();
+    return data.choices[0].message.content;
   }
-  box.appendChild(wrap);box.scrollTop=box.scrollHeight;
 }
 
-function showTyping(){
-  var box=document.getElementById('chat-messages');
-  var el=document.createElement('div');el.id='typing-el';el.className='msg ai';
-  el.innerHTML='<div class="msg-sender">Verbalis</div><div class="typing-wrap"><div class="typing-bubble"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>';
-  box.appendChild(el);box.scrollTop=box.scrollHeight;
+// 안전한 JSON 파서 (마크다운 찌꺼기 제거)
+function extractJSON(text) {
+  try {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start === -1 || end === -1) return null;
+    return JSON.parse(text.substring(start, end + 1));
+  } catch (e) {
+    return null; // 파싱 실패 시 null 반환
+  }
 }
 
-/* 💡 핵심: JSON을 파싱해서 화면에 영상 플레이스홀더를 띄움 */
-async function sendTutor(){
-  var input=document.getElementById('user-input');
-  var msg=input.value.trim();if(!msg)return;
-  appendMsg('user',msg);input.value='';showTyping();
-  tutorHistory.push({role:'user',content:msg});
-  
-  try{
-    var reply=await callAI(tutorHistory.slice(-10),buildSystem());
+// 채팅 UI 업데이트
+function appendMsg(role, text) {
+  const box = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `<div class="msg-sender">${role === 'user' ? '나' : 'Verbalis'}</div>
+                   <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+// 칠판 UI 컨트롤
+function updateWhiteboard(data) {
+  const wb = document.getElementById('whiteboard');
+  const panel = document.getElementById('chatpanel');
+  const container = document.getElementById('anim-container');
+
+  if (data.need_video && data.video_filename) {
+    wb.classList.add('active');
+    panel.classList.remove('fullscreen');
     
-    // AI 응답에서 JSON만 추출
-    var jsonStr = reply.substring(reply.indexOf('{'), reply.lastIndexOf('}') + 1);
-    var data = JSON.parse(jsonStr);
+    // 강제 비디오 플레이스홀더 렌더링 (낙서 불가)
+    container.innerHTML = `
+      <div class="video-box">
+        <div class="video-icon">🎬</div>
+        <div class="video-title">시스템에서 다음 영상을 호출했습니다:</div>
+        <div class="video-file">${data.video_filename}</div>
+        <div style="font-size:12px; color:#888;">(개발자가 이 파일명으로 영상을 연결하면 재생됩니다)</div>
+        <div class="wb-text">${data.whiteboard_text || ''}</div>
+      </div>
+    `;
+  } else {
+    wb.classList.remove('active');
+    panel.classList.add('fullscreen');
+  }
+}
+
+// 메인 전송 로직
+async function sendTutor() {
+  const input = document.getElementById('user-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  appendMsg('user', msg);
+  input.value = '';
+  tutorHistory.push({ role: 'user', content: msg });
+  appendMsg('ai', '분석 중...'); // 로딩 메시지
+
+  try {
+    const replyRaw = await callAI(tutorHistory.slice(-10));
     
-    tutorHistory.push({role:'assistant',content:data.dialogue});
-    var tel=document.getElementById('typing-el');if(tel)tel.remove();
-    
-    // 영상 지시가 있으면 칠판 켬
-    if(data.animation_target && data.animation_target !== "none"){
-      switchToWB();
-      appendMsg('ai', data.dialogue, 'wb');
-      
-      // 나중에 여기에 실제 <video src="..."> 태그를 넣으면 됩니다!
-      document.getElementById('anim-container').innerHTML = 
-        '<div style="text-align:center; padding: 50px; background:#eef; border-radius:15px; border:2px dashed #7c6fff; width:100%;">' +
-        '<div style="font-size:50px; margin-bottom:15px;">🎬</div>' +
-        '<div style="font-size:16px; color:#444;">[여기에 <b>"' + data.animation_target + '"</b> 고퀄리티 영상 재생]</div>' +
-        '<div style="font-size:24px; font-weight:bold; margin-top:25px; color:#1a1a2a;">' + data.whiteboard_text + '</div>' +
-        '</div>';
-    }else{
-      switchToChat();
-      appendMsg('ai', data.dialogue, 'chat');
+    // 로딩 메시지 삭제
+    const chatBox = document.getElementById('chat-messages');
+    chatBox.removeChild(chatBox.lastChild);
+
+    // AI 응답 정제
+    const parsedData = extractJSON(replyRaw);
+
+    if (parsedData) {
+      tutorHistory.push({ role: 'assistant', content: parsedData.dialogue });
+      appendMsg('ai', parsedData.dialogue);
+      updateWhiteboard(parsedData);
+    } else {
+      // JSON 파싱 완전 실패 시 비상 처리 (에러 방어)
+      tutorHistory.push({ role: 'assistant', content: replyRaw });
+      appendMsg('ai', "데이터 형식이 꼬였어. 텍스트로만 답할게: \n" + replyRaw);
     }
-    
-  }catch(e){
-    var tel2=document.getElementById('typing-el');if(tel2)tel2.remove();
-    tutorHistory.push({role:'assistant',content:"에러 발생: JSON 형식이 아님"});
-    appendMsg('ai','연결이 불안정합니다. 일반 텍스트: ' + e.message, 'chat');
+
+  } catch (e) {
+    const chatBox = document.getElementById('chat-messages');
+    chatBox.removeChild(chatBox.lastChild);
+    appendMsg('ai', '서버 에러가 발생했습니다.');
   }
 }
 
-document.getElementById('nav-radar').addEventListener('click',function(){
-  document.getElementById('page-radar').style.display='block';
-  document.getElementById('page-tutor').style.display='none';
-  this.classList.add('active'); document.getElementById('nav-tutor').classList.remove('active');
+// 이벤트 리스너
+document.getElementById('send-btn').addEventListener('click', sendTutor);
+document.getElementById('user-input').addEventListener('keypress', e => { if (e.key === 'Enter') sendTutor(); });
+document.getElementById('clear-btn').addEventListener('click', () => {
+  tutorHistory = [];
+  document.getElementById('chat-messages').innerHTML = '<div class="msg ai"><div class="msg-sender">System</div><div class="msg-bubble">초기화 완료.</div></div>';
+  updateWhiteboard({ need_video: false });
 });
-document.getElementById('nav-tutor').addEventListener('click',function(){
-  document.getElementById('page-radar').style.display='none';
-  document.getElementById('page-tutor').style.display='flex';
-  this.classList.add('active'); document.getElementById('nav-radar').classList.remove('active');
-});
-document.getElementById('send-btn').addEventListener('click',sendTutor);
-document.getElementById('user-input').addEventListener('keypress',function(e){if(e.key==='Enter')sendTutor();});
-document.querySelectorAll('.w-chip[data-ask]').forEach(function(el){el.addEventListener('click',function(){document.getElementById('user-input').value=el.dataset.ask;sendTutor();});});
-
 </script>
 </body>
 </html>
