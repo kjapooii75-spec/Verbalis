@@ -230,6 +230,7 @@ body.light .whiteboard{background:#f0f0f8;}
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
 
+  <!-- 교육 레이더 -->
   <div id="page-radar">
     <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
     <div class="radar-title">교육 변화,<br><span>설명회 없이</span> 바로 이해</div>
@@ -280,6 +281,7 @@ body.light .whiteboard{background:#f0f0f8;}
     <div id="news-feed"></div>
   </div>
 
+  <!-- AI 과외 (칠판 + 채팅) -->
   <div id="page-tutor">
     <div class="whiteboard hidden" id="whiteboard">
       <div class="wb-label">VERBALIS BOARD</div>
@@ -368,24 +370,51 @@ async function callGroq(messages,system){
 }
 async function callAI(messages,system){try{return await callClaude(messages,system);}catch(e){return await callGroq(messages,system);}}
 
-/* 교사 시스템 프롬프트 (수정완료) */
+/* 모드 판단 */
+async function detectMode(msg){
+  var system='Decide if this question needs WHITEBOARD (visual animation needed) or CHAT (text only). WHITEBOARD: graphs, shapes, step-by-step visual, science diagrams, animations. CHAT: simple questions, definitions, tips. Reply ONLY: WHITEBOARD or CHAT.';
+  try{var r=await callAI([{role:'user',content:msg}],system);return r.trim().toUpperCase().includes('WHITEBOARD')?'wb':'chat';}catch(e){return 'chat';}
+}
+
+/* SVG 생성 */
+async function generateSVG(msg,context){
+  var system='You are a math/science SVG generator. Output ONLY raw SVG. No explanation. No markdown. Start with <svg.\n'+
+    'Rules: viewBox="0 0 500 320", light bg (#fafafa), grid stroke="#eee", axes stroke="#ccc" stroke-width="1.5", curves stroke="#7c6fff" stroke-width="2.5" fill="none", points fill="#7c6fff" r="5", labels fill="#444" font-size="12" font-family="sans-serif".\n'+
+    'Include CSS @keyframes animations inside SVG. Center at cx=250 cy=160, scale 35px/unit. Output SVG ONLY.';
+  try{
+    var raw=await callAI([{role:'user',content:'Draw SVG for: '+msg+'\nContext: '+context.slice(0,150)}],system);
+    raw=raw.replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
+    var m=raw.match(/<svg[\s\S]*?<\/svg>/i);return m?m[0]:null;
+  }catch(e){return null;}
+}
+
+/* 교사 시스템 프롬프트 */
 function buildSystem(){
-  return `너는 [버벌리스(Verbalis)의 소크라테스식 AI 비주얼 튜터]야.
-
-## 나의 목표
-학습자에게 정답을 먼저 말하는 대신, 유도 질문을 던지고, 그 질문에 맞는 '실시간 코드 기반 시각화(SVG 애니메이션)'를 흰색 캔버스에 구현하여 스스로 깨닫게 만드는 것.
-
-## 나의 행동 규칙 (중요)
-1. 소크라테스식 대화법: 절대 정답을 먼저 말하지 마. 학습자의 논리를 자극하는 역질문을 던져.
-2. 실시간 시각화 구현: 답변 시 반드시 [VISUAL] 태그를 달고, 그 아래에 움직이는 애니메이션이 포함된 <svg> 코드를 직접 작성해.
-3. 예시: "1 더하기 1은 뭐야?"라고 물으면 "2야"라고 하지 말고, 바구니에 사과가 담기는 SVG를 그리고 "사과가 합쳐지면 몇 개가 될까?"라고 물어봐.
-
-[출력 포맷]
-(학생에게 던질 소크라테스식 유도 질문)
-[VISUAL]
-<svg>
-(여기에 애니메이션이 포함된 완벽한 SVG 코드)
-</svg>`;
+  var sn=currentSubject==='math'?'수학':'과학';
+  return '너는 버발리스(Verbalis)의 소크라테스식 AI 비주얼 튜터야. 세계 최고의 '+sn+' 교사. 현우진+정승제+한석원 합친 수준.\n\n'+
+    '## 핵심 철학\n'+
+    '"공식 외우지 마. 왜 되는지 알면 공식은 자연히 나와."\n'+
+    '"정답을 먼저 말하지 마. 학생이 스스로 발견하게 만들어."\n\n'+
+    '## 소크라테스식 대화 규칙\n'+
+    '1. 절대 정답 먼저 말하지 마\n'+
+    '2. 학생이 질문하면 역질문으로 생각 자극\n'+
+    '   예: "그건 왜 그렇게 생각해?", "이렇게 되면 어떻게 될까?"\n'+
+    '3. 학생이 틀리면 "거의 다 왔어! 근데 여기서 하나만 더 생각해봐"\n'+
+    '4. 학생이 맞히면 "오 이거 맞히는 애들 별로 없는데? 감 있다"\n'+
+    '5. 말투: 반말, 친근하게, 짧게, 질문 하나씩만\n\n'+
+    '## 시각화 규칙 (매우 중요)\n'+
+    '모든 개념 설명은 반드시 시각화와 함께해야 해.\n'+
+    '시각화가 필요하면 답변 끝에 반드시 [VISUAL] 태그 추가.\n\n'+
+    '시각화 판단 기준:\n'+
+    '- 그래프, 도형, 함수 → 반드시 [VISUAL]\n'+
+    '- 개념 설명, 단계별 풀이 → 반드시 [VISUAL]\n'+
+    '- 숫자 계산, 단순 질문 → [VISUAL] 선택\n'+
+    '- 단순 대화, 격려 → [VISUAL] 불필요\n\n'+
+    '시각화는 그 순간 대화 맥락에 딱 맞게 즉석에서 생성해.\n'+
+    '정해진 템플릿 쓰지 말고, 지금 이 질문에 가장 적합한 방식으로.\n\n'+
+    '수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n'+
+    '문제: [PROBLEM:내용] 단계: [STEP:번호:내용] 진도완료: [DONE:단원ID:단계]\n'+
+    '[VISUAL] 태그는 답변 맨 끝에. SVG 코드 직접 생성 절대 금지.';
 }
 
 /* 화면 전환 */
@@ -440,41 +469,37 @@ function showToast(msg){
   t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},2500);
 }
 
-/* 전송 (수정완료) */
+/* 전송 */
 async function sendTutor(){
   var input=document.getElementById('user-input');
   var msg=input.value.trim();if(!msg)return;
   appendMsg('user',msg);input.value='';showTyping();
   tutorHistory.push({role:'user',content:msg});
   try{
+    var modePromise=detectMode(msg);
     var reply=await callAI(tutorHistory.slice(-16),buildSystem());
-    
-    // AI 답변에서 SVG 코드만 분리
-    var svgMatch = reply.match(/<svg[\s\S]*?<\/svg>/i);
-    var svgCode = svgMatch ? svgMatch[0] : null;
-    var textOnly = reply.replace(/<svg[\s\S]*?<\/svg>/i, '').trim();
-    
-    tutorHistory.push({role:'assistant',content:textOnly});saveAll();
-    
+    tutorHistory.push({role:'assistant',content:reply});saveAll();
+    var mode=await modePromise;
+    var finalMode=(mode==='wb'||reply.includes('[VISUAL]'))?'wb':'chat';
     var tel=document.getElementById('typing-el');if(tel)tel.remove();
-    
-    // SVG가 있거나 [VISUAL] 태그가 있으면 칠판 모드로 전환
-    if(svgCode || textOnly.includes('[VISUAL]')){
-      switchToWB();
-      appendMsg('ai',textOnly,'wb');
+    if(finalMode==='wb'){
+      switchToWB();appendMsg('ai',reply,'wb');
+      var svgCode=await generateSVG(msg,reply);
       if(svgCode){
         document.getElementById('anim-container').innerHTML=svgCode;
+        var qMatch=reply.replace(/\[VISUAL\]/g,'').match(/[^.!?]*\?[^.!?]*/);
         var wbQ=document.getElementById('wb-question');
-        var qMatch=textOnly.replace(/\[VISUAL\]/g,'').match(/[^.!?]*\?[^.!?]*/);
         if(qMatch){wbQ.textContent=qMatch[0].trim();wbQ.style.display='block';}
         else wbQ.style.display='none';
       }
     }else{
-      switchToChat();appendMsg('ai',textOnly,'chat');
+      switchToChat();appendMsg('ai',reply,'chat');
     }
+    if(reply.includes('틀')||reply.includes('아쉽'))wrongCount=Math.min(wrongCount+1,3);
+    else if(reply.includes('맞아')||reply.includes('정확'))wrongCount=0;
   }catch(e){
     var tel2=document.getElementById('typing-el');if(tel2)tel2.remove();
-    tutorHistory.pop();appendMsg('ai','연결이 끊겼어. 다시 해봐!','chat');
+    tutorHistory.pop();appendMsg('ai','연결이 끊겼어. 잠깐 후 다시 해봐!','chat');
   }
 }
 
