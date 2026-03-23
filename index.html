@@ -8,208 +8,276 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.0/lib/browser/math.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#050505;--bg2:#080808;--bg3:#0a0a0a;--bg4:#0f0f0f;
-  --border:#1a1a1a;--border2:#1e1e1e;
-  --text:#e0e0e0;--text2:#ccc;--text3:#888;--text4:#444;--text5:#333;--text6:#2a2a2a;
-  --accent:#fff;--accent-inv:#000;
-  --bubble-user:#151515;--bubble-ai:#0f0f0f;
-  --purple:#7c6fff;--purple-dim:#2a2450;
+  --bg:#040407;--bg2:#07070d;--bg3:#0c0c15;--bg4:#12121e;
+  --border:#1c1c2e;--border2:#22223a;
+  --text:#e2e2f0;--text2:#c8c8e0;--text3:#9090b8;--text4:#606080;--text5:#3a3a58;--text6:#22223a;
+  --accent:#a78bfa;--accent2:#7c6fff;--accent-dim:#2a2450;--accent-glow:rgba(124,111,255,0.15);
+  --bubble-user:#0f0f1a;--bubble-ai:#080810;
+  --purple:#a78bfa;--purple-dim:#1e1a3a;--purple2:#7c6fff;
+  --teal:#5eead4;--teal-dim:#0d2a27;
+  --gold:#fbbf24;--gold-dim:#2a1f00;
+  --red:#f87171;
 }
 body.light{
-  --bg:#fafafa;--bg2:#f4f4f4;--bg3:#efefef;--bg4:#e8e8e8;
-  --border:#e0e0e0;--border2:#d8d8d8;
-  --text:#111;--text2:#222;--text3:#555;--text4:#888;--text5:#aaa;--text6:#bbb;
-  --accent:#111;--accent-inv:#fff;
-  --bubble-user:#f0f0f0;--bubble-ai:#f8f8f8;
+  --bg:#f4f4f8;--bg2:#eeeef6;--bg3:#e8e8f2;--bg4:#e0e0ec;
+  --border:#d0d0e8;--border2:#c8c8e0;
+  --text:#1a1a2e;--text2:#2a2a42;--text3:#555580;--text4:#8888aa;--text5:#aaaacc;--text6:#ccccee;
+  --accent:#7c6fff;--accent2:#6050ef;--accent-dim:#e8e4ff;--accent-glow:rgba(124,111,255,0.08);
+  --bubble-user:#e8e8f8;--bubble-ai:#f0f0fa;
+  --purple:#7c6fff;--purple-dim:#e8e4ff;
+  --teal:#0d9488;--teal-dim:#ccfdf8;
+  --gold:#d97706;--gold-dim:#fef3c7;
 }
+
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Helvetica Neue',sans-serif;display:flex;height:100vh;overflow:hidden;transition:background 0.2s,color 0.2s;}
 
-/* 사이드바 */
-.sidebar{width:200px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-.sidebar-logo{padding:24px 18px 20px;border-bottom:1px solid var(--border);}
-.logo-text{font-size:16px;font-weight:700;letter-spacing:5px;color:var(--accent);}
-.logo-sub{font-size:9px;letter-spacing:2px;color:var(--text6);margin-top:4px;}
-.sidebar-section{font-size:9px;letter-spacing:2px;color:var(--text6);padding:16px 18px 8px;text-transform:uppercase;}
-.nav-btn{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:12px;color:var(--text4);cursor:pointer;background:none;border:none;width:100%;text-align:left;letter-spacing:1px;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;}
+/* ───── SIDEBAR ───── */
+.sidebar{width:210px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-logo{padding:22px 18px 18px;}
+.logo-wordmark{display:flex;align-items:baseline;gap:6px;}
+.logo-v{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--accent);letter-spacing:-1px;}
+.logo-erbalis{font-size:11px;letter-spacing:6px;color:var(--text4);font-weight:400;text-transform:uppercase;}
+.logo-sub{font-size:9px;letter-spacing:2px;color:var(--text5);margin-top:6px;}
+.sidebar-divider{height:1px;background:var(--border);margin:0 18px;}
+.sidebar-section{font-size:9px;letter-spacing:3px;color:var(--text5);padding:14px 18px 6px;text-transform:uppercase;}
+.nav-btn{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:11px;color:var(--text4);cursor:pointer;background:none;border:none;width:100%;text-align:left;letter-spacing:1px;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;border-left:2px solid transparent;}
 .nav-btn:hover{color:var(--text3);background:var(--bg4);}
-.nav-btn.active{color:var(--accent);background:var(--bg3);border-left:2px solid var(--accent);}
-.progress-section{padding:16px 18px;border-top:1px solid var(--border);margin-top:auto;}
-.progress-label{font-size:9px;letter-spacing:2px;color:var(--text6);margin-bottom:10px;text-transform:uppercase;}
-.unit-progress-list{display:flex;flex-direction:column;gap:6px;}
+.nav-btn.active{color:var(--accent);background:var(--accent-glow);border-left-color:var(--accent);}
+.nav-icon{font-size:14px;width:18px;text-align:center;}
+
+/* progress */
+.progress-section{padding:14px 18px;border-top:1px solid var(--border);margin-top:auto;}
+.progress-label{font-size:9px;letter-spacing:2px;color:var(--text5);margin-bottom:10px;text-transform:uppercase;}
+.unit-progress-list{display:flex;flex-direction:column;gap:5px;}
 .unit-prog-item{display:flex;align-items:center;justify-content:space-between;}
-.unit-prog-name{font-size:10px;color:var(--text5);letter-spacing:0.5px;}
+.unit-prog-name{font-size:10px;color:var(--text5);letter-spacing:0.3px;}
 .unit-prog-name.done{color:var(--text4);}
 .unit-prog-name.current{color:var(--text3);}
 .unit-prog-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0;}
 .unit-prog-dot.done{background:var(--text4);}
-.unit-prog-dot.current{background:var(--accent);}
-.overall-bar{height:1px;background:var(--border);margin-top:12px;}
-.overall-fill{height:100%;background:var(--text5);transition:width 0.5s;}
+.unit-prog-dot.current{background:var(--accent);box-shadow:0 0 6px var(--accent);}
+.overall-bar{height:1px;background:var(--border);margin-top:12px;border-radius:1px;}
+.overall-fill{height:100%;background:linear-gradient(90deg,var(--purple2),var(--teal));transition:width 0.6s cubic-bezier(.4,0,.2,1);border-radius:1px;}
 .sidebar-bottom{padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
-.clear-btn{width:100%;padding:8px;background:none;border:1px solid var(--border);border-radius:2px;color:var(--text5);font-size:10px;letter-spacing:1px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
-.clear-btn:hover{color:var(--text3);border-color:var(--text5);}
-.theme-toggle{background:none;border:1px solid var(--border);border-radius:2px;color:var(--text4);font-size:10px;padding:6px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:all 0.15s;width:100%;}
+.clear-btn{width:100%;padding:8px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text5);font-size:10px;letter-spacing:1px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
+.clear-btn:hover{color:var(--text3);border-color:var(--text4);}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:4px;color:var(--text4);font-size:10px;padding:6px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:all 0.15s;width:100%;}
 .theme-toggle:hover{color:var(--text3);}
 
-/* 메인 */
+/* ───── MAIN ───── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
-.header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--border2);flex-shrink:0;}
-.header-title{font-size:12px;font-weight:500;letter-spacing:3px;color:var(--accent);}
-.header-sub{font-size:9px;letter-spacing:2px;color:var(--text6);margin-top:3px;}
-.status{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--text6);letter-spacing:2px;}
-.status-dot{width:5px;height:5px;background:var(--text6);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.header-title{font-size:11px;font-weight:500;letter-spacing:4px;color:var(--accent);text-transform:uppercase;}
+.header-sub{font-size:9px;letter-spacing:2px;color:var(--text5);margin-top:3px;}
+.status{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--teal);letter-spacing:2px;}
+.status-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 6px var(--teal);}
 
-/* 교육 레이더 */
+/* ───── RADAR PAGE ───── */
 #page-radar{flex:1;overflow-y:auto;padding:28px;scrollbar-width:none;display:block;}
 #page-radar::-webkit-scrollbar{display:none;}
-.radar-live{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:12px;}
-.live-dot{width:5px;height:5px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite;}
-.radar-title{font-size:22px;font-weight:500;color:var(--accent);letter-spacing:-0.5px;line-height:1.4;margin-bottom:20px;}
-.radar-title span{color:var(--text3);}
-.ask-bar{display:flex;gap:8px;max-width:580px;margin-bottom:14px;}
-.ask-input{flex:1;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:2px;color:var(--text);font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color 0.15s;}
-.ask-input:focus{border-color:var(--text5);}
-.ask-input::placeholder{color:var(--text6);}
-.ask-btn{padding:12px 20px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:2px;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;transition:opacity 0.15s;}
-.ask-btn:hover{opacity:0.8;}
+
+.radar-live{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:3px;color:var(--text5);text-transform:uppercase;margin-bottom:14px;}
+.live-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;animation:pulse 1.5s infinite;box-shadow:0 0 6px var(--teal);}
+
+.radar-title{font-size:26px;font-weight:700;color:var(--text);letter-spacing:-0.5px;line-height:1.35;margin-bottom:24px;}
+.radar-title em{color:var(--accent);font-style:normal;}
+
+.ask-bar{display:flex;gap:8px;max-width:600px;margin-bottom:12px;}
+.ask-input{flex:1;padding:12px 18px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:all 0.2s;}
+.ask-input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px var(--accent-glow);}
+.ask-input::placeholder{color:var(--text5);}
+.ask-btn{padding:12px 22px;background:var(--accent2);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
+.ask-btn:hover{background:var(--accent);transform:translateY(-1px);}
+
 .ask-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
-.ask-chip{padding:5px 12px;border:1px solid var(--border2);border-radius:2px;font-size:11px;color:var(--text5);cursor:pointer;transition:all 0.15s;letter-spacing:0.5px;}
-.ask-chip:hover{color:var(--text3);border-color:var(--text4);}
-#ai-box{display:none;margin-bottom:24px;max-width:580px;}
-.ai-box-inner{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:2px;animation:fadeUp 0.25s ease;}
+.ask-chip{padding:5px 13px;border:1px solid var(--border2);border-radius:20px;font-size:11px;color:var(--text4);cursor:pointer;transition:all 0.15s;letter-spacing:0.5px;}
+.ask-chip:hover{color:var(--accent);border-color:var(--accent2);background:var(--accent-glow);}
+
+#ai-box{display:none;margin-bottom:24px;max-width:600px;}
+.ai-box-inner{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--accent2);border-radius:8px;animation:fadeUp 0.25s ease;overflow:hidden;}
 .ai-box-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);}
-.ai-box-label{font-size:9px;letter-spacing:2px;color:var(--text4);text-transform:uppercase;}
-.ai-box-close{background:none;border:none;color:var(--text5);cursor:pointer;font-size:16px;}
-.ai-box-body{padding:16px;font-size:13.5px;line-height:1.85;color:var(--text2);white-space:pre-wrap;min-height:48px;}
+.ai-box-label{font-size:9px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;}
+.ai-box-close{background:none;border:none;color:var(--text4);cursor:pointer;font-size:18px;line-height:1;}
+.ai-box-body{padding:16px;font-size:13.5px;line-height:1.9;color:var(--text2);white-space:pre-wrap;min-height:48px;}
+
 .typing-dots{display:flex;gap:5px;padding:4px 0;}
-.tdot{width:5px;height:5px;background:var(--text5);border-radius:50%;animation:bounce 1.2s infinite;}
+.tdot{width:5px;height:5px;background:var(--text4);border-radius:50%;animation:bounce 1.2s infinite;}
 .tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
-@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
-.dday-strip{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
-.dday-card{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:12px 16px;flex:1;min-width:140px;}
-.dday-label{font-size:9px;letter-spacing:2px;color:var(--text5);text-transform:uppercase;margin-bottom:6px;}
-.dday-name{font-size:12px;color:var(--text3);margin-bottom:4px;}
-.dday-num{font-size:20px;font-weight:700;color:var(--accent);}
-.trending-strip{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap;}
-.trend-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:all 0.15s;}
-.trend-chip:hover{border-color:var(--text5);}
-.trend-rank{font-size:9px;color:var(--text5);}
-.trend-text{font-size:11px;color:var(--text4);}
-.trend-up{font-size:9px;color:var(--text4);}
+
+.dday-strip{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+.dday-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:140px;transition:border-color 0.2s;}
+.dday-card:hover{border-color:var(--border2);}
+.dday-label{font-size:9px;letter-spacing:2px;color:var(--text5);text-transform:uppercase;margin-bottom:5px;}
+.dday-name{font-size:11px;color:var(--text4);margin-bottom:6px;}
+.dday-num{font-size:22px;font-weight:700;color:var(--accent);font-family:'Space Mono',monospace;}
+
+.trending-strip{display:flex;gap:6px;margin-bottom:26px;flex-wrap:wrap;}
+.trend-chip{display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all 0.15s;}
+.trend-chip:hover{border-color:var(--accent2);background:var(--accent-glow);}
+.trend-rank{font-size:9px;color:var(--text5);font-family:'Space Mono',monospace;}
+.trend-text{font-size:11px;color:var(--text3);}
+.trend-up{font-size:9px;color:var(--teal);}
+
 .news-grid-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-top:4px;border-top:1px solid var(--border);}
 .news-grid-title{font-size:10px;letter-spacing:2px;color:var(--text4);text-transform:uppercase;}
 .filter-tabs{display:flex;gap:4px;}
-.filter-tab{padding:4px 10px;border:1px solid var(--border);border-radius:2px;font-size:10px;color:var(--text5);cursor:pointer;background:none;letter-spacing:1px;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
-.filter-tab:hover{color:var(--text3);border-color:var(--text4);}
-.filter-tab.active{color:var(--accent);border-color:var(--accent);background:var(--bg3);}
-.news-card{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:18px 20px;margin-bottom:8px;cursor:pointer;transition:all 0.15s;position:relative;}
-.news-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background 0.15s;}
-.news-card:hover{background:var(--bg4);}
-.news-card:hover::before{background:var(--accent);}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
-.card-tags{display:flex;gap:5px;}
-.ctag{font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:1px;text-transform:uppercase;}
-.ct-hot{background:#1a1000;color:#887030;border:1px solid #2a2000;}
-.ct-policy{background:#0a100a;color:#3a6a3a;border:1px solid #1a2a1a;}
-.ct-tip{background:#0a0a18;color:#3a3a8a;border:1px solid #1a1a2a;}
-.ct-suneung{background:#150a0a;color:#8a4a4a;border:1px solid #2a1515;}
-.card-date{font-size:10px;color:var(--text6);}
-.card-title{font-size:14px;font-weight:500;color:var(--text2);line-height:1.5;margin-bottom:7px;}
-.card-summary{font-size:12.5px;color:var(--text4);line-height:1.7;margin-bottom:10px;}
-.card-ai-summary{display:none;background:var(--bg2);border:1px solid var(--border);border-left:2px solid var(--border2);padding:10px 14px;font-size:12px;color:var(--text4);line-height:1.8;white-space:pre-wrap;margin-bottom:10px;}
-.card-ai-label{font-size:9px;letter-spacing:1.5px;color:var(--text5);text-transform:uppercase;margin-bottom:6px;}
-.card-bottom{display:flex;align-items:center;justify-content:space-between;}
-.card-impact{font-size:11px;color:var(--text6);}
-.expand-btn{font-size:10px;color:var(--text4);background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
-.expand-btn:hover{color:var(--text2);}
+.filter-tab{padding:4px 12px;border:1px solid var(--border);border-radius:20px;font-size:10px;color:var(--text5);cursor:pointer;background:none;letter-spacing:1px;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
+.filter-tab:hover{color:var(--text3);border-color:var(--border2);}
+.filter-tab.active{color:var(--accent);border-color:var(--accent2);background:var(--accent-glow);}
 
-/* 튜터 페이지 — 칠판 + 채팅 */
+.news-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.news-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.2s;border-radius:0 2px 2px 0;}
+.news-card:hover{background:var(--bg4);border-color:var(--border2);}
+.news-card:hover::before{background:var(--accent2);}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.ctag{font-size:9px;letter-spacing:1.5px;padding:3px 8px;border-radius:4px;text-transform:uppercase;}
+.ct-hot{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(251,191,36,0.2);}
+.ct-policy{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(94,234,212,0.2);}
+.ct-tip{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,0.2);}
+.ct-suneung{background:#1a0a2e;color:#c084fc;border:1px solid rgba(192,132,252,0.2);}
+.card-date{font-size:10px;color:var(--text5);}
+.card-title{font-size:14px;font-weight:500;color:var(--text2);line-height:1.55;margin-bottom:8px;}
+.card-summary{font-size:12.5px;color:var(--text4);line-height:1.75;margin-bottom:10px;}
+.card-ai-summary{display:none;background:var(--bg2);border:1px solid var(--border);border-left:2px solid var(--accent-dim);padding:12px 16px;font-size:12px;color:var(--text3);line-height:1.85;white-space:pre-wrap;margin-bottom:10px;border-radius:6px;}
+.card-ai-label{font-size:9px;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;}
+.card-impact{font-size:11px;color:var(--text5);}
+.expand-btn{font-size:10px;color:var(--text4);background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:1px;transition:color 0.15s;}
+.expand-btn:hover{color:var(--accent);}
+
+/* ───── TUTOR PAGE ───── */
 #page-tutor{flex:1;display:none;flex-direction:row;overflow:hidden;}
 
-/* 칠판 */
-.whiteboard{flex:1;background:#fafafa;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
+/* Whiteboard */
+.whiteboard{flex:1;background:#f8f8fc;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
 body.light .whiteboard{background:#f0f0f8;}
 .whiteboard.hidden{flex:0;width:0;min-width:0;opacity:0;pointer-events:none;}
-.wb-label{position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:2px;color:#aaa;text-transform:uppercase;}
+.wb-label{position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:#b0b0c8;text-transform:uppercase;font-family:'Space Mono',monospace;}
 .wb-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;}
 .wb-scene{width:100%;max-width:560px;}
 .anim-container{width:100%;min-height:280px;display:flex;align-items:center;justify-content:center;}
 .anim-container svg{display:block;max-width:100%;}
-.wb-question{font-size:17px;color:#1a1a2a;font-weight:500;text-align:center;margin-top:18px;padding:14px 20px;background:#ededfa;border-radius:10px;border-left:4px solid var(--purple);}
 
-/* 채팅 패널 */
-.chatpanel{width:360px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid var(--border);background:var(--bg2);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
+/* socratic hint box on whiteboard */
+.wb-hint{
+  margin-top:18px;
+  padding:14px 20px;
+  background:linear-gradient(135deg,rgba(124,111,255,0.08),rgba(94,234,212,0.06));
+  border:1px solid rgba(124,111,255,0.25);
+  border-radius:12px;
+  font-size:15px;color:#3a3a6a;font-weight:500;text-align:center;line-height:1.6;
+  position:relative;
+}
+body.light .wb-hint{color:#3a3a6a;}
+.wb-hint-label{font-size:9px;letter-spacing:2px;color:var(--purple2);text-transform:uppercase;margin-bottom:6px;}
+
+/* Chat panel */
+.chatpanel{width:380px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid var(--border);background:var(--bg2);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
 .chatpanel.fullscreen{width:100%;border-left:none;}
-.chat-messages{flex:1;overflow-y:auto;padding:20px 18px;scrollbar-width:none;display:flex;flex-direction:column;gap:12px;}
-.chat-messages::-webkit-scrollbar{display:none;}
+.chat-messages{flex:1;overflow-y:auto;padding:20px 16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;display:flex;flex-direction:column;gap:14px;}
+.chat-messages::-webkit-scrollbar{width:4px;}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 
-/* 웰컴 */
-.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:12px;padding:20px;}
-.welcome-icon{font-size:32px;}
-.welcome-title{font-size:12px;letter-spacing:3px;color:var(--text4);}
-.welcome-desc{font-size:11px;color:var(--text5);line-height:1.8;max-width:260px;}
-.welcome-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;}
-.w-chip{padding:6px 13px;border:1px solid var(--border2);border-radius:20px;font-size:11px;letter-spacing:0.5px;color:var(--text4);cursor:pointer;transition:all 0.15s;font-family:'Noto Sans KR',sans-serif;background:none;}
-.w-chip:hover{color:var(--accent);border-color:var(--text4);}
+/* Welcome */
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:14px;padding:24px;}
+.welcome-icon{font-size:36px;}
+.welcome-title{font-size:11px;letter-spacing:4px;color:var(--text4);text-transform:uppercase;}
+.welcome-desc{font-size:12px;color:var(--text5);line-height:1.9;max-width:280px;}
+.welcome-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:8px;}
+.w-chip{padding:7px 15px;border:1px solid var(--border2);border-radius:20px;font-size:11px;letter-spacing:0.5px;color:var(--text4);cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;background:none;}
+.w-chip:hover{color:var(--accent);border-color:var(--accent2);background:var(--accent-glow);}
 
-/* 메시지 */
-.msg{display:flex;flex-direction:column;gap:4px;animation:fadeUp 0.2s ease;}
+/* Messages */
+.msg{display:flex;flex-direction:column;gap:4px;animation:fadeUp 0.22s ease;}
 .msg.user{align-items:flex-end;}
 .msg.ai{align-items:flex-start;}
 .msg-sender{font-size:9px;letter-spacing:1.5px;color:var(--text5);text-transform:uppercase;}
-.msg-bubble{padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.75;word-break:break-word;max-width:290px;}
-.msg.user .msg-bubble{background:var(--bubble-user);color:var(--text3);border:1px solid var(--border2);}
-.msg.ai .msg-bubble{background:var(--bubble-ai);color:var(--text);border:1px solid var(--border);border-left:2px solid var(--text5);}
-.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1.5px;padding:2px 8px;border-radius:8px;margin-bottom:3px;text-transform:uppercase;}
-.mode-badge.wb{background:#1a1428;color:var(--purple);border:1px solid var(--purple-dim);}
+.msg-bubble{padding:11px 15px;border-radius:12px;font-size:13px;line-height:1.8;word-break:break-word;max-width:310px;}
+.msg.user .msg-bubble{background:var(--bubble-user);color:var(--text3);border:1px solid var(--border2);border-radius:12px 12px 4px 12px;}
+.msg.ai .msg-bubble{background:var(--bubble-ai);color:var(--text);border:1px solid var(--border);border-left:2px solid var(--accent2);border-radius:4px 12px 12px 12px;}
+
+/* mode badge */
+.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1.5px;padding:3px 9px;border-radius:8px;margin-bottom:4px;text-transform:uppercase;}
+.mode-badge.wb{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,0.2);}
 .mode-badge.chat{background:var(--bg4);color:var(--text4);border:1px solid var(--border2);}
 .mbdot{width:4px;height:4px;border-radius:50%;background:currentColor;}
-.math-block{display:block;margin:8px 0;padding:10px;background:var(--bg3);border-radius:6px;overflow-x:auto;border-left:2px solid var(--text5);}
+
+/* Socratic cue inside bubble */
+.socratic-cue{
+  margin-top:10px;
+  padding:10px 13px;
+  background:linear-gradient(135deg,var(--purple-dim),rgba(94,234,212,0.05));
+  border:1px solid rgba(167,139,250,0.2);
+  border-radius:8px;
+  font-size:12px;color:var(--purple);font-weight:500;font-style:italic;
+}
+
+/* math / problem / step */
+.math-block{display:block;margin:8px 0;padding:10px;background:var(--bg3);border-radius:8px;overflow-x:auto;border-left:2px solid var(--accent2);}
 .math-inline{display:inline;}
-.problem-card{background:#0d0d08;border:1px solid #252510;border-left:2px solid #444420;padding:12px 16px;margin:8px 0;border-radius:4px;}
-.problem-label{font-size:9px;letter-spacing:2px;color:#555530;margin-bottom:6px;text-transform:uppercase;}
-.problem-body{font-size:13px;color:#888860;line-height:1.8;}
-.step-card{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--border2);padding:10px 14px;margin:6px 0;border-radius:4px;}
-.step-num{font-size:9px;letter-spacing:2px;color:var(--text5);margin-bottom:4px;text-transform:uppercase;}
-.step-body{font-size:13px;color:var(--text3);line-height:1.75;}
+.problem-card{background:#0d0b18;border:1px solid #22203a;border-left:2px solid var(--purple2);padding:13px 17px;margin:8px 0;border-radius:8px;}
+.problem-label{font-size:9px;letter-spacing:2px;color:var(--text4);margin-bottom:7px;text-transform:uppercase;}
+.problem-body{font-size:13px;color:var(--text2);line-height:1.85;}
+.step-card{background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--teal);padding:10px 15px;margin:6px 0;border-radius:8px;}
+.step-num{font-size:9px;letter-spacing:2px;color:var(--teal);margin-bottom:4px;text-transform:uppercase;}
+.step-body{font-size:13px;color:var(--text2);line-height:1.8;}
 
-/* 타이핑 */
+/* Typing indicator */
 .typing-wrap{display:flex;padding:4px 0;}
-.typing-bubble{background:var(--bg4);border:1px solid var(--border);border-left:2px solid var(--text5);padding:10px 14px;display:flex;align-items:center;gap:5px;border-radius:10px;}
+.typing-bubble{background:var(--bg4);border:1px solid var(--border);border-left:2px solid var(--accent2);padding:10px 14px;display:flex;align-items:center;gap:5px;border-radius:4px 12px 12px 12px;}
 
-/* 입력창 */
-#tutor-input-area{padding:14px 16px;border-top:1px solid var(--border2);background:var(--bg2);flex-shrink:0;}
+/* Input area */
+#tutor-input-area{padding:14px 16px;border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0;}
 .subject-bar{display:flex;gap:6px;margin-bottom:10px;}
-.subj-btn{padding:3px 10px;border:1px solid var(--border2);border-radius:10px;font-size:10px;color:var(--text4);cursor:pointer;background:none;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;}
-.subj-btn.active{color:var(--purple);border-color:var(--purple-dim);background:var(--purple-dim);}
+.subj-btn{padding:4px 12px;border:1px solid var(--border2);border-radius:20px;font-size:10px;color:var(--text4);cursor:pointer;background:none;font-family:'Noto Sans KR',sans-serif;transition:all 0.2s;}
+.subj-btn.active{color:var(--purple);border-color:rgba(167,139,250,0.4);background:var(--purple-dim);}
 .input-wrap{display:flex;gap:8px;}
-#user-input{flex:1;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:20px;font-size:13px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.15s;}
-#user-input:focus{border-color:var(--text5);}
-#user-input::placeholder{color:var(--text6);}
-.send-btn{padding:10px 18px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:opacity 0.15s;white-space:nowrap;}
-.send-btn:hover{opacity:0.8;}
+#user-input{flex:1;padding:11px 16px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:22px;font-size:13px;outline:none;font-family:'Noto Sans KR',sans-serif;transition:all 0.2s;}
+#user-input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px var(--accent-glow);}
+#user-input::placeholder{color:var(--text5);}
+.send-btn{padding:11px 20px;background:var(--accent2);color:#fff;border:none;border-radius:22px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:all 0.15s;white-space:nowrap;}
+.send-btn:hover{background:var(--accent);transform:translateY(-1px);}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@keyframes drawLine{from{stroke-dashoffset:var(--len,500)}to{stroke-dashoffset:0}}
+/* Hint reveal button */
+.hint-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:8px;padding:5px 12px;
+  background:none;border:1px solid rgba(167,139,250,0.25);border-radius:12px;
+  font-size:11px;color:var(--purple);cursor:pointer;font-family:'Noto Sans KR',sans-serif;
+  transition:all 0.15s;
+}
+.hint-btn:hover{background:var(--purple-dim);}
+
+/* Animations */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@media(max-width:600px){.sidebar{display:none;}.header,#page-radar,#tutor-input-area{padding-left:16px;padding-right:16px;}.whiteboard{display:none;}.chatpanel{width:100%;}}
+@keyframes drawLine{from{stroke-dashoffset:var(--len,500)}to{stroke-dashoffset:0}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px var(--accent-glow)}50%{box-shadow:0 0 20px rgba(124,111,255,0.3)}}
+
+@media(max-width:640px){.sidebar{display:none;}.header,#page-radar,#tutor-input-area{padding-left:16px;padding-right:16px;}.whiteboard{display:none;}.chatpanel{width:100%;}}
 </style>
 </head>
 <body>
 
 <div class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-text">VERBALIS</div>
+    <div class="logo-wordmark">
+      <span class="logo-v">V</span>
+      <span class="logo-erbalis">ERBALIS</span>
+    </div>
     <div class="logo-sub">교육 AI 플랫폼</div>
   </div>
+  <div class="sidebar-divider"></div>
   <div class="sidebar-section">메뉴</div>
-  <button class="nav-btn active" id="nav-radar"><span>📡</span> 교육 레이더</button>
-  <button class="nav-btn" id="nav-tutor"><span>📚</span> AI 과외</button>
+  <button class="nav-btn active" id="nav-radar"><span class="nav-icon">📡</span> 교육 레이더</button>
+  <button class="nav-btn" id="nav-tutor"><span class="nav-icon">📚</span> AI 과외</button>
   <div class="progress-section" id="progress-section" style="display:none">
     <div class="progress-label">진도</div>
     <div class="unit-progress-list" id="unit-prog-list"></div>
@@ -230,10 +298,10 @@ body.light .whiteboard{background:#f0f0f8;}
     <div class="status"><div class="status-dot"></div>ONLINE</div>
   </div>
 
-  <!-- 교육 레이더 -->
+  <!-- ── 교육 레이더 ── -->
   <div id="page-radar">
     <div class="radar-live"><div class="live-dot"></div>실시간 감지 중</div>
-    <div class="radar-title">교육 변화,<br><span>설명회 없이</span> 바로 이해</div>
+    <div class="radar-title">교육 변화,<br><em>설명회 없이</em> 바로 이해</div>
     <div class="ask-bar">
       <input class="ask-input" id="radar-input" placeholder="예) 2028 수능 개편 설명해줘"/>
       <button class="ask-btn" id="radar-ask-btn">AI 분석</button>
@@ -259,7 +327,7 @@ body.light .whiteboard{background:#f0f0f8;}
       <div class="dday-card"><div class="dday-label">수시 원서</div><div class="dday-name">2026 수시</div><div class="dday-num" id="dd2">—</div></div>
       <div class="dday-card"><div class="dday-label">정시 원서</div><div class="dday-name">2027 정시</div><div class="dday-num" id="dd3">—</div></div>
     </div>
-    <div class="news-grid-header" style="margin-bottom:12px;border-top:none;">
+    <div class="news-grid-header" style="border-top:none;margin-bottom:12px;">
       <div class="news-grid-title">🔥 지금 뜨는 키워드</div>
     </div>
     <div class="trending-strip">
@@ -281,14 +349,17 @@ body.light .whiteboard{background:#f0f0f8;}
     <div id="news-feed"></div>
   </div>
 
-  <!-- AI 과외 (칠판 + 채팅) -->
+  <!-- ── AI 과외 ── -->
   <div id="page-tutor">
     <div class="whiteboard hidden" id="whiteboard">
       <div class="wb-label">VERBALIS BOARD</div>
       <div class="wb-content">
         <div class="wb-scene">
           <div class="anim-container" id="anim-container"></div>
-          <div class="wb-question" id="wb-question" style="display:none"></div>
+          <div class="wb-hint" id="wb-question" style="display:none">
+            <div class="wb-hint-label">소크라테스 질문</div>
+            <div id="wb-question-text"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -296,8 +367,8 @@ body.light .whiteboard{background:#f0f0f8;}
       <div class="chat-messages" id="chat-messages">
         <div class="welcome" id="welcome">
           <div class="welcome-icon">📐</div>
-          <div class="welcome-title">AI 과외 선생님</div>
-          <div class="welcome-desc">뭐든 물어봐. AI가 알아서 칠판을 켜거나 채팅으로 답해줄게.</div>
+          <div class="welcome-title">소크라테스 AI 튜터</div>
+          <div class="welcome-desc">답을 알려주는 게 아니라,<br>네가 스스로 발견하게 만들어줄게.</div>
           <div class="welcome-chips">
             <button class="w-chip" data-ask="이차함수 그래프 보여줘">이차함수 그래프</button>
             <button class="w-chip" data-ask="피타고라스 정리 알려줘">피타고라스 정리</button>
@@ -311,6 +382,8 @@ body.light .whiteboard{background:#f0f0f8;}
         <div class="subject-bar">
           <button class="subj-btn active" data-subj="math">수학</button>
           <button class="subj-btn" data-subj="science">과학</button>
+          <button class="subj-btn" data-subj="korean">국어</button>
+          <button class="subj-btn" data-subj="english">영어</button>
         </div>
         <div class="input-wrap">
           <input type="text" id="user-input" placeholder="뭐든 물어봐..."/>
@@ -322,7 +395,9 @@ body.light .whiteboard{background:#f0f0f8;}
 </div>
 
 <script>
-/* API 설정 */
+/* ═══════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════ */
 var PROXY_URL = "https://verbalis.jashfnv.workers.dev";
 var GROQ_KEY = "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";
 
@@ -330,6 +405,8 @@ var currentSubject = 'math';
 var chatHistory = [];
 var isWBMode = false;
 var wrongCount = 0;
+var consecutiveCorrect = 0;
+var studentLevel = 'unknown'; // 'beginner' | 'mid' | 'advanced'
 
 var CURRICULUM = [
   {id:'다항식',name:'다항식',steps:['개념','예제','유형','심화']},
@@ -340,84 +417,183 @@ var CURRICULUM = [
   {id:'집합',name:'집합과 명제',steps:['개념','예제','유형','심화']},
   {id:'함수',name:'함수와 그래프',steps:['개념','예제','유형','심화']}
 ];
-var progress = JSON.parse(localStorage.getItem('vb_prog_v6')||'{}');
-var tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v6')||'[]');
+var progress = JSON.parse(localStorage.getItem('vb_prog_v7')||'{}');
+var tutorHistory = JSON.parse(localStorage.getItem('vb_hist_v7')||'[]');
 
-function saveAll(){localStorage.setItem('vb_prog_v6',JSON.stringify(progress));localStorage.setItem('vb_hist_v6',JSON.stringify(tutorHistory.slice(-40)));}
-function getCurrentStatus(){for(var i=0;i<CURRICULUM.length;i++){var u=CURRICULUM[i];for(var j=0;j<u.steps.length;j++){if(!progress[u.id]||!progress[u.id][u.steps[j]])return{unit:u,step:u.steps[j]};}}return null;}
-function markDone(uid,step){if(!progress[uid])progress[uid]={};if(progress[uid][step])return false;progress[uid][step]=true;saveAll();updateProgressUI();return true;}
+function saveAll(){
+  localStorage.setItem('vb_prog_v7',JSON.stringify(progress));
+  localStorage.setItem('vb_hist_v7',JSON.stringify(tutorHistory.slice(-50)));
+}
+function getCurrentStatus(){
+  for(var i=0;i<CURRICULUM.length;i++){
+    var u=CURRICULUM[i];
+    for(var j=0;j<u.steps.length;j++){
+      if(!progress[u.id]||!progress[u.id][u.steps[j]])return{unit:u,step:u.steps[j]};
+    }
+  }return null;
+}
+function markDone(uid,step){
+  if(!progress[uid])progress[uid]={};
+  if(progress[uid][step])return false;
+  progress[uid][step]=true;saveAll();updateProgressUI();return true;
+}
 function updateProgressUI(){
   var list=document.getElementById('unit-prog-list');if(!list)return;
   var current=getCurrentStatus();var html='';
-  for(var i=0;i<CURRICULUM.length;i++){var u=CURRICULUM[i];var done=u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];}).length;var isDone=done===u.steps.length,isCurrent=current&&current.unit.id===u.id;
-    html+='<div class="unit-prog-item"><div class="unit-prog-name '+(isDone?'done':isCurrent?'current':'')+'">' +u.name+'</div><div class="unit-prog-dot '+(isDone?'done':isCurrent?'current':'')+'"></div></div>';}
+  for(var i=0;i<CURRICULUM.length;i++){
+    var u=CURRICULUM[i];
+    var done=u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];}).length;
+    var isDone=done===u.steps.length,isCurrent=current&&current.unit.id===u.id;
+    html+='<div class="unit-prog-item"><div class="unit-prog-name '+(isDone?'done':isCurrent?'current':'')+'">'
+      +u.name+'</div><div class="unit-prog-dot '+(isDone?'done':isCurrent?'current':'')+'"></div></div>';
+  }
   list.innerHTML=html;
   var td=CURRICULUM.reduce(function(a,u){return a+u.steps.filter(function(s){return progress[u.id]&&progress[u.id][s];}).length;},0);
   var tm=CURRICULUM.reduce(function(a,u){return a+u.steps.length;},0);
   document.getElementById('overall-fill').style.width=(td/tm*100)+'%';
 }
-function updateHeaderSub(){var c=getCurrentStatus();document.getElementById('header-sub').textContent=c?c.unit.name+' — '+c.step+' 단계 진행중':'전 단원 완료!';}
+function updateHeaderSub(){
+  var c=getCurrentStatus();
+  document.getElementById('header-sub').textContent=c?c.unit.name+' — '+c.step+' 단계 진행중':'전 단원 완료 🎉';
+}
 
-/* API 호출 */
+/* ═══════════════════════════════════════════
+   API
+═══════════════════════════════════════════ */
 async function callClaude(messages,system){
-  var res=await fetch(PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:system,messages:messages})});
-  var data=await res.json();if(!res.ok)throw new Error('Proxy error');return data.content[0].text;
+  var res=await fetch(PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:system,messages:messages})});
+  var data=await res.json();if(!res.ok)throw new Error('Proxy error');
+  return data.content[0].text;
 }
 async function callGroq(messages,system){
   var msgs=system?[{role:'system',content:system}].concat(messages):messages;
-  var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:2000,messages:msgs})});
-  var data=await res.json();if(!res.ok)throw new Error('Groq error');return data.choices[0].message.content;
+  var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:2000,messages:msgs})});
+  var data=await res.json();if(!res.ok)throw new Error('Groq error');
+  return data.choices[0].message.content;
 }
-async function callAI(messages,system){try{return await callClaude(messages,system);}catch(e){return await callGroq(messages,system);}}
+async function callAI(messages,system){
+  try{return await callClaude(messages,system);}
+  catch(e){return await callGroq(messages,system);}
+}
 
-/* 모드 판단 */
+/* ═══════════════════════════════════════════
+   MODE DETECT
+═══════════════════════════════════════════ */
 async function detectMode(msg){
-  var system='Decide if this question needs WHITEBOARD (visual animation needed) or CHAT (text only). WHITEBOARD: graphs, shapes, step-by-step visual, science diagrams, animations. CHAT: simple questions, definitions, tips. Reply ONLY: WHITEBOARD or CHAT.';
-  try{var r=await callAI([{role:'user',content:msg}],system);return r.trim().toUpperCase().includes('WHITEBOARD')?'wb':'chat';}catch(e){return 'chat';}
+  var system='Decide if this math/science question needs WHITEBOARD (visual animation: graphs, shapes, step-by-step, diagrams) or CHAT (definitions, simple questions, encouragement). Reply ONLY: WHITEBOARD or CHAT.';
+  try{
+    var r=await callAI([{role:'user',content:msg}],system);
+    return r.trim().toUpperCase().includes('WHITEBOARD')?'wb':'chat';
+  }catch(e){return 'chat';}
 }
 
-/* SVG 생성 */
+/* ═══════════════════════════════════════════
+   IMPROVED SVG GENERATION
+═══════════════════════════════════════════ */
 async function generateSVG(msg,context){
-  var system='You are a math/science SVG generator. Output ONLY raw SVG. No explanation. No markdown. Start with <svg.\n'+
-    'Rules: viewBox="0 0 500 320", light bg (#fafafa), grid stroke="#eee", axes stroke="#ccc" stroke-width="1.5", curves stroke="#7c6fff" stroke-width="2.5" fill="none", points fill="#7c6fff" r="5", labels fill="#444" font-size="12" font-family="sans-serif".\n'+
-    'Include CSS @keyframes animations inside SVG. Center at cx=250 cy=160, scale 35px/unit. Output SVG ONLY.';
+  var system=`You are an elite math/science SVG animator. Output ONLY raw SVG. No markdown, no explanation.
+
+SVG RULES:
+- viewBox="0 0 520 340", width="100%"
+- Background: <rect width="520" height="340" fill="#f8f8fc" rx="12"/>
+- Grid: stroke="#e8e8f0" stroke-width="0.5"
+- Axes: stroke="#9090b8" stroke-width="1.5", arrows at ends
+- Axis labels: fill="#7070a0" font-size="11" font-family="sans-serif"
+- Math curves: stroke="#7c6fff" stroke-width="2.5" fill="none"
+- Secondary curves: stroke="#5eead4" stroke-width="2" fill="none"
+- Key points: fill="#7c6fff" r="5", white center circle r="2.5"
+- Labels on graph: fill="#3a3a6a" font-size="12" font-family="sans-serif" font-weight="500"
+- Title: fill="#1a1a2e" font-size="14" font-weight="600" font-family="sans-serif"
+- Coordinate origin at cx=260 cy=170, scale 40px/unit
+- Add CSS @keyframes: curves draw in with stroke-dasharray/dashoffset animation (1.2s ease-out), points fade in (delay 1s)
+- For geometry: use clean shapes with fill="rgba(124,111,255,0.08)" stroke="#7c6fff"
+- Always include a brief annotation showing the key concept
+
+Output ONLY the <svg> element.`;
+
   try{
-    var raw=await callAI([{role:'user',content:'Draw SVG for: '+msg+'\nContext: '+context.slice(0,150)}],system);
+    var raw=await callAI([{role:'user',content:'Generate animated SVG for: '+msg+'\nContext: '+context.slice(0,200)}],system);
     raw=raw.replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
     var m=raw.match(/<svg[\s\S]*?<\/svg>/i);return m?m[0]:null;
   }catch(e){return null;}
 }
 
-/* 교사 시스템 프롬프트 */
-function buildSystem(){
-  var sn=currentSubject==='math'?'수학':'과학';
-  return '너는 버발리스(Verbalis)의 소크라테스식 AI 비주얼 튜터야. 세계 최고의 '+sn+' 교사. 현우진+정승제+한석원 합친 수준.\n\n'+
-    '## 핵심 철학\n'+
-    '"공식 외우지 마. 왜 되는지 알면 공식은 자연히 나와."\n'+
-    '"정답을 먼저 말하지 마. 학생이 스스로 발견하게 만들어."\n\n'+
-    '## 소크라테스식 대화 규칙\n'+
-    '1. 절대 정답 먼저 말하지 마\n'+
-    '2. 학생이 질문하면 역질문으로 생각 자극\n'+
-    '   예: "그건 왜 그렇게 생각해?", "이렇게 되면 어떻게 될까?"\n'+
-    '3. 학생이 틀리면 "거의 다 왔어! 근데 여기서 하나만 더 생각해봐"\n'+
-    '4. 학생이 맞히면 "오 이거 맞히는 애들 별로 없는데? 감 있다"\n'+
-    '5. 말투: 반말, 친근하게, 짧게, 질문 하나씩만\n\n'+
-    '## 시각화 규칙 (매우 중요)\n'+
-    '모든 개념 설명은 반드시 시각화와 함께해야 해.\n'+
-    '시각화가 필요하면 답변 끝에 반드시 [VISUAL] 태그 추가.\n\n'+
-    '시각화 판단 기준:\n'+
-    '- 그래프, 도형, 함수 → 반드시 [VISUAL]\n'+
-    '- 개념 설명, 단계별 풀이 → 반드시 [VISUAL]\n'+
-    '- 숫자 계산, 단순 질문 → [VISUAL] 선택\n'+
-    '- 단순 대화, 격려 → [VISUAL] 불필요\n\n'+
-    '시각화는 그 순간 대화 맥락에 딱 맞게 즉석에서 생성해.\n'+
-    '정해진 템플릿 쓰지 말고, 지금 이 질문에 가장 적합한 방식으로.\n\n'+
-    '수식: LaTeX \\( \\) 인라인, \\[ \\] 블록\n'+
-    '문제: [PROBLEM:내용] 단계: [STEP:번호:내용] 진도완료: [DONE:단원ID:단계]\n'+
-    '[VISUAL] 태그는 답변 맨 끝에. SVG 코드 직접 생성 절대 금지.';
+/* ═══════════════════════════════════════════
+   UPGRADED SOCRATIC SYSTEM PROMPT
+═══════════════════════════════════════════ */
+function getSubjectName(){
+  var map={math:'수학',science:'과학',korean:'국어',english:'영어'};
+  return map[currentSubject]||'수학';
 }
 
-/* 화면 전환 */
+function buildSystem(){
+  var sn=getSubjectName();
+  var levelHint = studentLevel==='beginner'?'이 학생은 아직 개념이 부족해. 아주 작은 단계로 쪼개서 유도해.'
+    :studentLevel==='advanced'?'이 학생은 이미 기본은 알아. 더 깊은 질문으로 사고를 확장시켜.'
+    :'학생 수준을 파악 중이야. 처음 2-3번은 수준 진단 질문을 섞어봐.';
+
+  return `너는 버발리스(Verbalis)의 소크라테스식 AI 튜터야. ${sn} 전문가.
+철학: "공식을 외우게 하지 말고, 스스로 발견하게 만들어라."
+
+## 학생 수준 파악
+${levelHint}
+대화에서 학생이 맞히면 [LEVEL:advanced], 자주 틀리면 [LEVEL:beginner] 태그를 한 번 출력해.
+
+## 소크라테스식 7단계 대화법
+
+### 1단계 — 현재 생각 꺼내기
+학생이 개념을 물어오면 바로 설명하지 마. 먼저 물어봐:
+"그거 전에 들어본 적 있어? 지금 어떻게 생각하고 있어?"
+"이 상황에서 어떤 게 제일 먼저 떠올라?"
+
+### 2단계 — 모순 만들기 (핵심!)
+학생이 뭔가 말하면 그게 맞아도 일부러 살짝 흔들어봐:
+"근데 그럼 이 경우는 어떻게 되지? [반례 제시]"
+"항상 그게 성립해? 특별한 경우는?"
+
+### 3단계 — 힌트 3레벨 시스템
+틀렸을 때 절대 바로 답 주지 마. 순서대로:
+- 힌트1: 시각적 직관 유도 "이걸 그림으로 그리면 어떻게 생겼을까?"
+- 힌트2: 숫자 예시 "x=2일 때 직접 계산해봐. 뭐가 나와?"
+- 힌트3: 거의 다 알려주기 "이 공식에서 [A]랑 [B] 부분만 채워봐"
+
+### 4단계 — 발견의 순간 극대화
+학생이 스스로 맞히면 무조건 이렇게:
+"오 잠깐, 방금 네가 한 말 다시 읽어봐. 네가 직접 증명한 거야."
+"이거 맞히는 애들 많지 않아. 감 있는데?"
+
+### 5단계 — 연결 짓기
+맞히면 바로 더 어려운 걸로 연결:
+"그럼 이걸 알면 [다음 개념]도 설명할 수 있겠네. 해볼래?"
+
+### 6단계 — 틀렸을 때 감정 케어
+"틀렸어" 절대 금지. 대신:
+"거의 다 왔어! 딱 한 군데만 다시 봐봐."
+"오히려 이렇게 틀리는 게 이해가 더 깊어지는 거야. 다시 가보자."
+
+### 7단계 — 메타인지 유도
+풀고 나서 꼭 물어봐:
+"방금 어디서 막혔었어? 다음에 비슷한 거 나오면 어디부터 볼 것 같아?"
+
+## 말투 & 형식
+- 반말, 친근하게, 짧게
+- 질문은 한 번에 하나만
+- 수식: LaTeX \\( \\) 인라인, \\[ \\] 블록
+- 문제: [PROBLEM:내용]
+- 단계: [STEP:번호:내용]
+- 진도완료: [DONE:단원ID:단계]
+- 시각화 필요시 답변 끝에 [VISUAL] (그래프/도형/단계별 풀이)
+- 소크라테스 유도 질문은 답변 끝에 [HINT:질문내용] 태그로 분리
+
+SVG 코드 직접 쓰지 마. [VISUAL] 태그만.`;
+}
+
+/* ═══════════════════════════════════════════
+   UI
+═══════════════════════════════════════════ */
 function switchToWB(){
   if(isWBMode)return;isWBMode=true;
   document.getElementById('whiteboard').classList.remove('hidden');
@@ -429,17 +605,53 @@ function switchToChat(){
   document.getElementById('chatpanel').classList.add('fullscreen');
 }
 
-/* 렌더링 */
 function escapeHtml(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+
 function renderContent(text){
   if(!text)return'';var ph=[];
-  text=text.replace(/\[DONE:([^:]+):([^\]]+)\]/g,function(_,uid,step){var wasNew=markDone(uid.trim(),step.trim());if(wasNew){var u=CURRICULUM.find(function(u){return u.id===uid.trim();});showToast('✓ '+(u?u.name:uid)+' — '+step+' 완료');updateHeaderSub();}return'';});
+
+  // Level detection
+  text=text.replace(/\[LEVEL:(beginner|mid|advanced)\]/gi,function(_,l){studentLevel=l;return'';});
+
+  // Done tag
+  text=text.replace(/\[DONE:([^:]+):([^\]]+)\]/g,function(_,uid,step){
+    var wasNew=markDone(uid.trim(),step.trim());
+    if(wasNew){var u=CURRICULUM.find(function(u){return u.id===uid.trim();});showToast('✓ '+(u?u.name:uid)+' — '+step+' 완료 🎉');}
+    return'';
+  });
+
   text=text.replace(/\[VISUAL\]/g,'');
-  text=text.replace(/\[PROBLEM:([^\]]+)\]/g,function(_,c){ph.push('<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">'+escapeHtml(c)+'</div></div>');return'\uE000'+(ph.length-1)+'\uE000';});
-  text=text.replace(/\[STEP:(\d+):([^\]]+)\]/g,function(_,n,c){ph.push('<div class="step-card"><div class="step-num">STEP '+n+'</div><div class="step-body">'+escapeHtml(c)+'</div></div>');return'\uE000'+(ph.length-1)+'\uE000';});
-  text=text.replace(/\\\[([\s\S]*?)\\\]/g,function(_,m){try{var s=document.createElement('span');s.className='math-block';katex.render(m.trim(),s,{displayMode:true,throwOnError:false});ph.push(s.outerHTML);}catch(e){ph.push(escapeHtml(m));}return'\uE000'+(ph.length-1)+'\uE000';});
-  text=text.replace(/\\\(([\s\S]*?)\\\)/g,function(_,m){try{var s=document.createElement('span');s.className='math-inline';katex.render(m.trim(),s,{displayMode:false,throwOnError:false});ph.push(s.outerHTML);}catch(e){ph.push(escapeHtml(m));}return'\uE000'+(ph.length-1)+'\uE000';});
-  var out=escapeHtml(text);for(var i=0;i<ph.length;i++)out=out.split('\uE000'+i+'\uE000').join(ph[i]);
+
+  // Hint tag → socratic cue card
+  text=text.replace(/\[HINT:([^\]]+)\]/g,function(_,q){
+    ph.push('<div class="socratic-cue">💭 '+escapeHtml(q)+'</div>');
+    return'\uE000'+(ph.length-1)+'\uE000';
+  });
+
+  // Problem / Step
+  text=text.replace(/\[PROBLEM:([^\]]+)\]/g,function(_,c){
+    ph.push('<div class="problem-card"><div class="problem-label">📝 문제</div><div class="problem-body">'+escapeHtml(c)+'</div></div>');
+    return'\uE000'+(ph.length-1)+'\uE000';
+  });
+  text=text.replace(/\[STEP:(\d+):([^\]]+)\]/g,function(_,n,c){
+    ph.push('<div class="step-card"><div class="step-num">STEP '+n+'</div><div class="step-body">'+escapeHtml(c)+'</div></div>');
+    return'\uE000'+(ph.length-1)+'\uE000';
+  });
+
+  // LaTeX
+  text=text.replace(/\\\[([\s\S]*?)\\\]/g,function(_,m){
+    try{var s=document.createElement('span');s.className='math-block';katex.render(m.trim(),s,{displayMode:true,throwOnError:false});ph.push(s.outerHTML);}
+    catch(e){ph.push(escapeHtml(m));}
+    return'\uE000'+(ph.length-1)+'\uE000';
+  });
+  text=text.replace(/\\\(([\s\S]*?)\\\)/g,function(_,m){
+    try{var s=document.createElement('span');s.className='math-inline';katex.render(m.trim(),s,{displayMode:false,throwOnError:false});ph.push(s.outerHTML);}
+    catch(e){ph.push(escapeHtml(m));}
+    return'\uE000'+(ph.length-1)+'\uE000';
+  });
+
+  var out=escapeHtml(text);
+  for(var i=0;i<ph.length;i++)out=out.split('\uE000'+i+'\uE000').join(ph[i]);
   return out.replace(/\n/g,'<br>');
 }
 
@@ -450,7 +662,9 @@ function appendMsg(role,content,mode){
   if(role==='user'){
     wrap.innerHTML='<div class="msg-sender">나</div><div class="msg-bubble">'+escapeHtml(content)+'</div>';
   }else{
-    var badge=mode==='wb'?'<div class="mode-badge wb"><div class="mbdot"></div>칠판 모드</div>':'<div class="mode-badge chat"><div class="mbdot"></div>채팅 모드</div>';
+    var badge=mode==='wb'
+      ?'<div class="mode-badge wb"><div class="mbdot"></div>칠판 모드</div>'
+      :'<div class="mode-badge chat"><div class="mbdot"></div>채팅 모드</div>';
     wrap.innerHTML='<div class="msg-sender">Verbalis</div>'+badge+'<div class="msg-bubble">'+renderContent(content)+'</div>';
   }
   box.appendChild(wrap);box.scrollTop=box.scrollHeight;
@@ -465,11 +679,13 @@ function showTyping(){
 
 function showToast(msg){
   var t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:80px;right:24px;background:#111;border:1px solid #2a2a2a;border-left:2px solid #fff;padding:10px 16px;border-radius:4px;font-size:11px;color:#888;letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:"Noto Sans KR",sans-serif';
-  t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},2500);
+  t.style.cssText='position:fixed;bottom:80px;right:24px;background:var(--bg3);border:1px solid var(--border2);border-left:2px solid var(--accent);padding:10px 18px;border-radius:8px;font-size:11px;color:var(--text3);letter-spacing:0.5px;animation:fadeUp 0.3s ease;z-index:999;font-family:"Noto Sans KR",sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
+  t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},2800);
 }
 
-/* 전송 */
+/* ═══════════════════════════════════════════
+   SEND
+═══════════════════════════════════════════ */
 async function sendTutor(){
   var input=document.getElementById('user-input');
   var msg=input.value.trim();if(!msg)return;
@@ -477,42 +693,77 @@ async function sendTutor(){
   tutorHistory.push({role:'user',content:msg});
   try{
     var modePromise=detectMode(msg);
-    var reply=await callAI(tutorHistory.slice(-16),buildSystem());
+    var reply=await callAI(tutorHistory.slice(-20),buildSystem());
     tutorHistory.push({role:'assistant',content:reply});saveAll();
     var mode=await modePromise;
     var finalMode=(mode==='wb'||reply.includes('[VISUAL]'))?'wb':'chat';
     var tel=document.getElementById('typing-el');if(tel)tel.remove();
+
+    // Track correctness
+    if(reply.includes('틀')||reply.includes('아쉽')||reply.includes('다시')){
+      wrongCount=Math.min(wrongCount+1,3);consecutiveCorrect=0;
+    }else if(reply.includes('맞아')||reply.includes('정확')||reply.includes('오 잠깐')){
+      wrongCount=0;consecutiveCorrect++;
+    }
+
     if(finalMode==='wb'){
       switchToWB();appendMsg('ai',reply,'wb');
       var svgCode=await generateSVG(msg,reply);
       if(svgCode){
         document.getElementById('anim-container').innerHTML=svgCode;
-        var qMatch=reply.replace(/\[VISUAL\]/g,'').match(/[^.!?]*\?[^.!?]*/);
+        // Extract hint question for whiteboard display
+        var hintMatch=reply.match(/\[HINT:([^\]]+)\]/);
         var wbQ=document.getElementById('wb-question');
-        if(qMatch){wbQ.textContent=qMatch[0].trim();wbQ.style.display='block';}
-        else wbQ.style.display='none';
+        var wbQText=document.getElementById('wb-question-text');
+        if(hintMatch){
+          wbQText.textContent=hintMatch[1].trim();
+          wbQ.style.display='block';
+        }else{
+          var qMatch=reply.replace(/\[VISUAL\]/g,'').match(/[^.!?\n]*\?[^.!?]*/);
+          if(qMatch){wbQText.textContent=qMatch[0].trim();wbQ.style.display='block';}
+          else wbQ.style.display='none';
+        }
       }
     }else{
       switchToChat();appendMsg('ai',reply,'chat');
     }
-    if(reply.includes('틀')||reply.includes('아쉽'))wrongCount=Math.min(wrongCount+1,3);
-    else if(reply.includes('맞아')||reply.includes('정확'))wrongCount=0;
   }catch(e){
     var tel2=document.getElementById('typing-el');if(tel2)tel2.remove();
-    tutorHistory.pop();appendMsg('ai','연결이 끊겼어. 잠깐 후 다시 해봐!','chat');
+    tutorHistory.pop();
+    appendMsg('ai','연결이 끊겼어. 잠깐 후 다시 해봐!','chat');
   }
 }
 
 function quickAsk(t){document.getElementById('user-input').value=t;sendTutor();}
 
-/* 교육 레이더 */
+/* ═══════════════════════════════════════════
+   RADAR
+═══════════════════════════════════════════ */
 var newsData=[
-  {id:1,cat:'수능/입시',tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']],date:'2026.03.20',title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',summary:'교육부가 2028 수능 개편안을 확정 발표.',ai:'사회/과학 → 통합사회, 통합과학\n현재 중3이 첫 적용 대상',impact:'영향도 매우 높음'},
-  {id:2,cat:'수능/입시',tags:[['ct-policy','📋 정책']],date:'2026.03.18',title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',summary:'의대 정원이 3,058명에서 5,058명으로 확대 확정.',ai:'이과 최상위권 의대 쏠림 심화\n서울대 공대 등 커트라인 하락 가능성',impact:'영향도 매우 높음'},
-  {id:3,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.15',title:'고교학점제 전면 시행 — 2025년 입학생부터 적용',summary:'원하는 과목을 선택해 이수하는 고교학점제가 전면 적용됩니다.',ai:'192학점 이수 시 졸업\n원하는 과목 직접 선택',impact:'영향도 높음'},
-  {id:4,cat:'수능/입시',tags:[['ct-tip','💡 분석']],date:'2026.03.12',title:'킬러문항 폐지 2년 후 — 수능 난이도 실제로 어떻게 바뀌었나',summary:'킬러문항 폐지 후 준킬러 여러 개로 대체.',ai:'초고난도 1-2문제 → 준킬러 3-5문제로 대체\n준킬러 대비가 더 중요해졌어요.',impact:'참고'},
-  {id:5,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.10',title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작',summary:'AI 디지털 교과서 전국 도입.',ai:'2026년: 초3-4, 중1, 고1 수학/영어\n2028년: 전 학년 전 과목 확대',impact:'영향도 높음'},
-  {id:6,cat:'팁',tags:[['ct-tip','💡 팁']],date:'2026.03.08',title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심',summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부.',ai:'자기소개서 완전 폐지\n세특 기재 과목당 최대 500자',impact:'영향도 높음'}
+  {id:1,cat:'수능/입시',tags:[['ct-suneung','🔥 화제'],['ct-hot','📝 수능']],date:'2026.03.20',
+    title:'2028 수능 개편안 확정 — 통합사회·과학 신설, 선택과목 축소',
+    summary:'교육부가 2028 수능 개편안을 확정 발표.',
+    ai:'• 사회/과학 → 통합사회, 통합과학으로 통합\n• 현재 중3이 첫 적용 대상\n• 선택과목 축소로 변별력 논란',impact:'영향도 매우 높음'},
+  {id:2,cat:'수능/입시',tags:[['ct-policy','📋 정책']],date:'2026.03.18',
+    title:'의대 정원 2천명 추가 확정 — 입시 판도 어떻게 바뀌나',
+    summary:'의대 정원이 3,058명에서 5,058명으로 확대 확정.',
+    ai:'• 이과 최상위권 의대 쏠림 심화\n• 서울대 공대 등 커트라인 하락 가능성\n• 지방 의대 경쟁률 급등',impact:'영향도 매우 높음'},
+  {id:3,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.15',
+    title:'고교학점제 전면 시행 — 2025년 입학생부터 적용',
+    summary:'원하는 과목을 선택해 이수하는 고교학점제가 전면 적용됩니다.',
+    ai:'• 192학점 이수 시 졸업\n• 원하는 과목 직접 선택\n• 내신 절대평가 연동',impact:'영향도 높음'},
+  {id:4,cat:'수능/입시',tags:[['ct-tip','💡 분석']],date:'2026.03.12',
+    title:'킬러문항 폐지 2년 후 — 수능 난이도 실제로 어떻게 바뀌었나',
+    summary:'킬러문항 폐지 후 준킬러 여러 개로 대체.',
+    ai:'• 초고난도 1-2문제 → 준킬러 3-5문제로 대체\n• 준킬러 대비가 더 중요해졌어요.\n• 전체 평균점수 소폭 상승',impact:'참고'},
+  {id:5,cat:'정책',tags:[['ct-policy','📋 정책']],date:'2026.03.10',
+    title:'AI 교과서 전국 초중고 도입 — 수학·영어부터 시작',
+    summary:'AI 디지털 교과서 전국 도입.',
+    ai:'• 2026년: 초3-4, 중1, 고1 수학/영어\n• 2028년: 전 학년 전 과목 확대\n• 개인별 맞춤 학습 경로 제공',impact:'영향도 높음'},
+  {id:6,cat:'팁',tags:[['ct-tip','💡 팁']],date:'2026.03.08',
+    title:'학생부종합전형 2026 — 자소서 폐지 후 달라진 평가 핵심',
+    summary:'자기소개서 완전 폐지 후 세부능력특기사항이 전부.',
+    ai:'• 자기소개서 완전 폐지\n• 세특 기재 과목당 최대 500자\n• 독서활동 상황 폐지, 자율탐구 강화',impact:'영향도 높음'}
 ];
 
 function renderNews(filter){
@@ -525,52 +776,91 @@ function renderNews(filter){
       '<div class="card-bottom"><div class="card-impact">'+n.impact+'</div><button class="expand-btn" data-id="'+n.id+'">AI 요약 보기 ▾</button></div></div>';
   }).join('');
   document.querySelectorAll('.expand-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){var id=btn.dataset.id;var el=document.getElementById('ais-'+id);var open=el.style.display==='block';el.style.display=open?'none':'block';btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴';});
+    btn.addEventListener('click',function(){
+      var id=btn.dataset.id;var el=document.getElementById('ais-'+id);
+      var open=el.style.display==='block';
+      el.style.display=open?'none':'block';
+      btn.textContent=open?'AI 요약 보기 ▾':'접기 ▴';
+    });
   });
 }
 
 async function radarAsk(){
   var q=document.getElementById('radar-input').value.trim();if(!q)return;
   var box=document.getElementById('ai-box'),body=document.getElementById('ai-box-body');
-  box.style.display='block';body.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  box.style.display='block';
+  body.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  try{var reply=await callAI([{role:'user',content:q}],'너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.');body.textContent=reply;}
-  catch(e){body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.';}
+  try{
+    var reply=await callAI([{role:'user',content:q}],
+      '너는 한국 교육 전문 AI야. 학부모와 수험생이 이해할 수 있게 쉽고 친근하게 한국어로만 설명해줘. 핵심을 bullet point로 정리하고 300자 내외로 간결하게.');
+    body.textContent=reply;
+  }catch(e){body.textContent='잠깐 연결이 끊겼어요. 다시 시도해주세요.';}
 }
 
-function dday(d){var diff=Math.ceil((new Date(d)-new Date())/86400000);return diff>0?'D-'+diff:diff===0?'D-Day':'D+'+Math.abs(diff);}
+function dday(d){
+  var diff=Math.ceil((new Date(d)-new Date())/86400000);
+  return diff>0?'D-'+diff:diff===0?'D-Day':'D+'+Math.abs(diff);
+}
 
-/* 페이지 전환 */
+/* ═══════════════════════════════════════════
+   PAGE SWITCH
+═══════════════════════════════════════════ */
 function showPage(page,btn){
-  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
   document.getElementById('page-radar').style.display=page==='radar'?'block':'none';
   document.getElementById('page-tutor').style.display=page==='tutor'?'flex':'none';
   document.getElementById('progress-section').style.display=page==='tutor'?'block':'none';
-  if(page==='radar'){document.getElementById('header-title').textContent='교육 레이더';document.getElementById('header-sub').textContent='실시간 교육 변화 감지';}
-  else{document.getElementById('header-title').textContent='AI 과외';updateHeaderSub();updateProgressUI();}
+  if(page==='radar'){
+    document.getElementById('header-title').textContent='교육 레이더';
+    document.getElementById('header-sub').textContent='실시간 교육 변화 감지';
+  }else{
+    document.getElementById('header-title').textContent='AI 과외';
+    updateHeaderSub();updateProgressUI();
+  }
 }
 
 function clearTutor(){
   if(!confirm('대화와 진도를 초기화할까요?'))return;
-  tutorHistory=[];progress={};wrongCount=0;
-  localStorage.removeItem('vb_prog_v6');localStorage.removeItem('vb_hist_v6');
-  document.getElementById('chat-messages').innerHTML='<div class="welcome" id="welcome"><div class="welcome-icon">📐</div><div class="welcome-title">AI 과외 선생님</div><div class="welcome-desc">뭐든 물어봐. AI가 알아서 칠판을 켜거나 채팅으로 답해줄게.</div><div class="welcome-chips"><button class="w-chip" data-ask="이차함수 그래프 보여줘">이차함수 그래프</button><button class="w-chip" data-ask="피타고라스 정리 알려줘">피타고라스 정리</button><button class="w-chip" data-ask="인수분해 처음부터 알려줘">인수분해</button><button class="w-chip" data-ask="뉴턴 운동법칙 설명해줘">뉴턴 운동법칙</button></div></div>';
+  tutorHistory=[];progress={};wrongCount=0;consecutiveCorrect=0;studentLevel='unknown';
+  localStorage.removeItem('vb_prog_v7');localStorage.removeItem('vb_hist_v7');
+  document.getElementById('chat-messages').innerHTML=
+    '<div class="welcome" id="welcome">'+
+    '<div class="welcome-icon">📐</div>'+
+    '<div class="welcome-title">소크라테스 AI 튜터</div>'+
+    '<div class="welcome-desc">답을 알려주는 게 아니라,<br>네가 스스로 발견하게 만들어줄게.</div>'+
+    '<div class="welcome-chips">'+
+    '<button class="w-chip" data-ask="이차함수 그래프 보여줘">이차함수 그래프</button>'+
+    '<button class="w-chip" data-ask="피타고라스 정리 알려줘">피타고라스 정리</button>'+
+    '<button class="w-chip" data-ask="인수분해 처음부터 알려줘">인수분해</button>'+
+    '<button class="w-chip" data-ask="뉴턴 운동법칙 설명해줘">뉴턴 운동법칙</button>'+
+    '</div></div>';
   bindWelcomeChips();updateProgressUI();switchToChat();
 }
 
 function bindWelcomeChips(){
-  document.querySelectorAll('.w-chip[data-ask]').forEach(function(el){el.addEventListener('click',function(){quickAsk(el.dataset.ask);});});
+  document.querySelectorAll('.w-chip[data-ask]').forEach(function(el){
+    el.addEventListener('click',function(){quickAsk(el.dataset.ask);});
+  });
 }
 
-/* 테마 */
+/* ═══════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════ */
 var isLight=localStorage.getItem('vb_theme')==='light';
-function applyTheme(){if(isLight){document.body.classList.add('light');document.getElementById('theme-btn').textContent='🌙 다크';}else{document.body.classList.remove('light');document.getElementById('theme-btn').textContent='☀ 라이트';}localStorage.setItem('vb_theme',isLight?'light':'dark');}
-function toggleTheme(){isLight=!isLight;applyTheme();}
+function applyTheme(){
+  if(isLight){document.body.classList.add('light');document.getElementById('theme-btn').textContent='🌙 다크';}
+  else{document.body.classList.remove('light');document.getElementById('theme-btn').textContent='☀ 라이트';}
+  localStorage.setItem('vb_theme',isLight?'light':'dark');
+}
 
-/* 이벤트 */
+/* ═══════════════════════════════════════════
+   EVENTS
+═══════════════════════════════════════════ */
 document.getElementById('nav-radar').addEventListener('click',function(){showPage('radar',this);});
 document.getElementById('nav-tutor').addEventListener('click',function(){showPage('tutor',this);});
-document.getElementById('theme-btn').addEventListener('click',toggleTheme);
+document.getElementById('theme-btn').addEventListener('click',function(){isLight=!isLight;applyTheme();});
 document.getElementById('clear-btn').addEventListener('click',clearTutor);
 document.getElementById('send-btn').addEventListener('click',sendTutor);
 document.getElementById('radar-ask-btn').addEventListener('click',radarAsk);
@@ -583,12 +873,13 @@ document.querySelectorAll('.filter-tab').forEach(function(el){el.addEventListene
 document.querySelectorAll('.subj-btn').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.subj-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');currentSubject=btn.dataset.subj;});});
 bindWelcomeChips();
 
-/* 초기화 */
+/* INIT */
 applyTheme();
 document.getElementById('dd1').textContent=dday('2026-11-19');
 document.getElementById('dd2').textContent=dday('2026-09-05');
 document.getElementById('dd3').textContent=dday('2027-01-03');
-renderNews('전체');updateProgressUI();
+renderNews('전체');
+updateProgressUI();
 </script>
 </body>
 </html>
