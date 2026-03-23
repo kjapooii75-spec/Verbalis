@@ -494,25 +494,37 @@ async function detectMode(msg){
    IMPROVED SVG GENERATION
 ═══════════════════════════════════════════ */
 async function generateSVG(msg,context){
-  var system=`You are an elite math/science SVG animator. Output ONLY raw SVG. No markdown, no explanation.
+  var system=`You are a mathematically precise SVG graph generator. Output ONLY raw SVG. No markdown, no explanation.
 
-SVG RULES:
+MATHEMATICAL ACCURACY IS CRITICAL — compute every point before drawing.
+
+COORDINATE SYSTEM:
 - viewBox="0 0 520 340", width="100%"
-- Background: <rect width="520" height="340" fill="#f8f8fc" rx="12"/>
-- Grid: stroke="#e8e8f0" stroke-width="0.5"
-- Axes: stroke="#9090b8" stroke-width="1.5", arrows at ends
-- Axis labels: fill="#7070a0" font-size="11" font-family="sans-serif"
-- Math curves: stroke="#7c6fff" stroke-width="2.5" fill="none"
-- Secondary curves: stroke="#5eead4" stroke-width="2" fill="none"
-- Key points: fill="#7c6fff" r="5", white center circle r="2.5"
-- Labels on graph: fill="#3a3a6a" font-size="12" font-family="sans-serif" font-weight="500"
-- Title: fill="#1a1a2e" font-size="14" font-weight="600" font-family="sans-serif"
-- Coordinate origin at cx=260 cy=170, scale 40px/unit
-- Add CSS @keyframes: curves draw in with stroke-dasharray/dashoffset animation (1.2s ease-out), points fade in (delay 1s)
-- For geometry: use clean shapes with fill="rgba(124,111,255,0.08)" stroke="#7c6fff"
-- Always include a brief annotation showing the key concept
+- Origin: cx=260, cy=180 (center)
+- Scale: 40px per unit (so x=1 → pixel x=300, y=1 → pixel y=140)
+- Pixel formula: px = 260 + x*40, py = 180 - y*40
 
-Output ONLY the <svg> element.`;
+BEFORE DRAWING ANY CURVE, compute 20+ sample points mathematically:
+- For f(x)=ax²+bx+c: compute vertex at x=-b/(2a), y=c-b²/(4a). Then sample x from -3 to 3 step 0.3, compute exact y, convert to pixels.
+- For trig: sample every 15 degrees, compute exact sin/cos values.
+- For linear: just two endpoints.
+- Connect computed pixel points with SVG polyline or path.
+
+EXAMPLE for f(x)=x²: vertex=(260,180), at x=1 py=180-40=140 → point(300,140), at x=-1 py=140 → point(220,140), at x=2 py=180-160=20 → point(340,20). Connect these.
+
+STYLE:
+- Background: <rect width="520" height="340" fill="#f8f8fc" rx="12"/>
+- Grid lines every 40px: stroke="#e8e8f0" stroke-width="0.5"
+- X axis: horizontal line y=180, stroke="#9090b8" stroke-width="1.5"
+- Y axis: vertical line x=260, stroke="#9090b8" stroke-width="1.5"
+- Axis tick labels: fill="#7070a0" font-size="11" font-family="sans-serif"
+- Curve: stroke="#7c6fff" stroke-width="2.5" fill="none" — use polyline points="px1,py1 px2,py2 ..."
+- Key points (vertex, intercepts): fill="#7c6fff" r="5"
+- Labels: fill="#3a3a6a" font-size="12" font-family="sans-serif" font-weight="500"
+- Title: fill="#1a1a2e" font-size="14" font-weight="600"
+- Animation: <style>@keyframes draw{from{stroke-dashoffset:800}to{stroke-dashoffset:0}}.curve{stroke-dasharray:800;animation:draw 1.2s ease-out forwards;}</style> — add class="curve" to polyline
+
+Output ONLY the <svg> element. Double-check: does the curve look mathematically correct for this function?`;
 
   try{
     var raw=await callAI([{role:'user',content:'Generate animated SVG for: '+msg+'\nContext: '+context.slice(0,200)}],system);
@@ -550,9 +562,14 @@ ${levelHint}
 "이 상황에서 어떤 게 제일 먼저 떠올라?"
 
 ### 2단계 — 모순 만들기 (핵심!)
-학생이 뭔가 말하면 그게 맞아도 일부러 살짝 흔들어봐:
-"근데 그럼 이 경우는 어떻게 되지? [반례 제시]"
-"항상 그게 성립해? 특별한 경우는?"
+학생이 뭔가 말하면 그게 맞아도 일부러 살짝 흔들어봐.
+⚠️ 절대 수식이나 반례를 직접 보여주지 마. 학생이 스스로 찾게 만들어.
+좋은 예:
+"항상 그게 성립해? 그래프를 머릿속에 그려봐. 꼭짓점이 어디 있어?"
+"y절편이랑 최솟값이 같으려면 어떤 조건이 필요할까?"
+"a가 양수일 때 그래프 모양이 어떻게 생겼어? 직접 말해봐."
+나쁜 예 (절대 하지 마):
+"f(x)=x²+2x+1에서 y절편은 1이지만 최솟값은..." ← 수식 직접 제시 금지
 
 ### 3단계 — 힌트 3레벨 시스템
 틀렸을 때 절대 바로 답 주지 마. 순서대로:
