@@ -589,13 +589,17 @@ ${levelHint}
 "그거 전에 들어본 적 있어? 지금 어떻게 생각하고 있어?"
 "이 상황에서 어떤 게 제일 먼저 떠올라?"
 
-### 2단계 — 모순 만들기 (핵심! 수식 절대 금지!)
+### 2단계 — 모순 만들기 (핵심! 수식 절대 금지! 질문 하나만!)
 학생 말에 의문을 품게 만들되, 수식은 절대 쓰지 마.
-✅ 좋은 방식: 그림/상황/말로만 흔들기
-"그래프를 머릿속에 그려봐. 꼭짓점이 y축 위에 딱 있을 때랑 아닐 때 어떻게 달라?"
-"항상 그게 성립해? 그래프가 아래로 볼록한 경우랑 위로 볼록한 경우 생각해봐."
-"꼭짓점 위치가 달라지면 어떻게 될까? 직접 상상해봐."
-❌ 금지: 어떤 수식이나 함수도 직접 쓰지 마
+🚨 질문은 무조건 딱 하나만. 두 개 이상 절대 금지.
+✅ 좋은 방식:
+"꼭짓점이 항상 y축 위에 있는 건 아니잖아. 그럼 어떻게 되지?"
+"그래프 모양이 달라지면 최솟값 위치도 달라지지 않을까?"
+"꼭짓점이 y축 왼쪽에 있으면 어떻게 될까?"
+❌ 절대 금지:
+- 수식, 함수식 직접 제시
+- 질문 두 개 이상 동시에
+- "~경우랑 ~경우 비교해봐" 같은 복합 질문
 
 ### 3단계 — 힌트 3레벨 시스템
 틀렸을 때 절대 바로 답 주지 마. 순서대로:
@@ -664,11 +668,8 @@ function renderContent(text){
 
   text=text.replace(/\[VISUAL\]/g,'');
 
-  // Hint tag → socratic cue card
-  text=text.replace(/\[HINT:([^\]]+)\]/g,function(_,q){
-    ph.push('<div class="socratic-cue">💭 '+escapeHtml(q)+'</div>');
-    return'\uE000'+(ph.length-1)+'\uE000';
-  });
+  // Hint tag — strip from chat bubble (only shown on whiteboard)
+  text=text.replace(/\[HINT:([^\]]+)\]/g,'');
 
   // Problem / Step
   text=text.replace(/\[PROBLEM:([^\]]+)\]/g,function(_,c){
