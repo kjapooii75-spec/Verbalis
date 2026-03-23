@@ -154,10 +154,12 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Helvetic
 #page-tutor{flex:1;display:none;flex-direction:row;overflow:hidden;}
 
 /* Whiteboard */
-.whiteboard{flex:1;background:#f8f8fc;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
-body.light .whiteboard{background:#f0f0f8;}
+.whiteboard{flex:1;background:#07071a;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
+body.light .whiteboard{background:#07071a;}
+
 .whiteboard.hidden{flex:0;width:0;min-width:0;opacity:0;pointer-events:none;}
-.wb-label{position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:#b0b0c8;text-transform:uppercase;font-family:'Space Mono',monospace;}
+.wb-label{position:absolute;top:14px;left:18px;font-size:9px;letter-spacing:3px;color:#4040a0;text-transform:uppercase;font-family:'Space Mono',monospace;}
+
 .wb-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;}
 .wb-scene{width:100%;max-width:560px;}
 .anim-container{width:100%;min-height:280px;display:flex;align-items:center;justify-content:center;}
@@ -167,14 +169,14 @@ body.light .whiteboard{background:#f0f0f8;}
 .wb-hint{
   margin-top:18px;
   padding:14px 20px;
-  background:linear-gradient(135deg,rgba(124,111,255,0.08),rgba(94,234,212,0.06));
-  border:1px solid rgba(124,111,255,0.25);
-  border-radius:12px;
-  font-size:15px;color:#3a3a6a;font-weight:500;text-align:center;line-height:1.6;
-  position:relative;
+  background:rgba(124,111,255,0.06);
+  border:1px solid rgba(124,111,255,0.2);
+  border-radius:10px;
+  font-size:15px;color:#a0a0ff;font-weight:500;text-align:center;line-height:1.6;
+  font-family:'Space Mono',monospace;letter-spacing:0.3px;
 }
-body.light .wb-hint{color:#3a3a6a;}
-.wb-hint-label{font-size:9px;letter-spacing:2px;color:var(--purple2);text-transform:uppercase;margin-bottom:6px;}
+.wb-hint-label{font-size:9px;letter-spacing:3px;color:#6060cc;text-transform:uppercase;margin-bottom:8px;font-family:'Space Mono',monospace;}
+
 
 /* Chat panel */
 .chatpanel{width:380px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid var(--border);background:var(--bg2);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
@@ -483,6 +485,9 @@ async function callAI(messages,system){
    MODE DETECT
 ═══════════════════════════════════════════ */
 async function detectMode(msg){
+  // Force whiteboard for visual requests
+  var visualKeywords=['그려','그래프','보여','그림','시각','칠판','함수','포물선','직선','원','도형'];
+  if(visualKeywords.some(function(k){return msg.includes(k);}))return'wb';
   var system='Decide if this math/science question needs WHITEBOARD (visual animation: graphs, shapes, step-by-step, diagrams) or CHAT (definitions, simple questions, encouragement). Reply ONLY: WHITEBOARD or CHAT.';
   try{
     var r=await callAI([{role:'user',content:msg}],system);
@@ -491,61 +496,76 @@ async function detectMode(msg){
 }
 
 /* ═══════════════════════════════════════════
-   IMPROVED SVG GENERATION
+   SVG GENERATION — FUTURISTIC DARK THEME
 ═══════════════════════════════════════════ */
 async function generateSVG(msg,context){
-  var system=`You are a mathematically precise SVG graph generator. Output ONLY a raw SVG element. No markdown, no explanation, no code blocks.
+  var system=`You are a mathematically precise SVG graph generator with a futuristic dark UI style. Output ONLY a raw SVG element. No markdown, no explanation, no code blocks.
 
 ━━━ COORDINATE SYSTEM ━━━
 - viewBox="0 0 520 340", width="100%"
 - Origin (0,0) is at pixel (260, 180)
 - Scale: 40px per unit
 - PIXEL FORMULA: px = 260 + x*40,  py = 180 - y*40
-- Example: point (2, 3) → pixel (340, 60)
 
-━━━ STEP 1: COMPUTE POINTS FIRST (do this in your head before writing SVG) ━━━
+━━━ STEP 1: COMPUTE POINTS (mandatory before drawing) ━━━
 For f(x)=ax²+bx+c:
-  vertex_x = -b/(2a)
-  vertex_y = a*vertex_x² + b*vertex_x + c
-  Sample x = -4, -3.5, -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4
-  Compute exact y for each x, convert to pixels, list as polyline points.
+  vertex_x = -b/(2a), vertex_y = a*vx²+b*vx+c
+  Sample x = -4,-3.5,-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4
+  Compute exact y for each, convert px=260+x*40, py=180-y*40
+  Clip: skip points where py<5 or py>335 or px<5 or px>515
 
-EXAMPLE — f(x) = x²-2x-3:
-  vertex_x=1, vertex_y=-4 → pixel(300,340) — but py=180-(-4*40)=180+160=340, that's out of range, so clip
-  Actually vertex(1,-4) → px=260+40=300, py=180-(-4*40)=180+160=340 → clip to visible area
-  x-intercepts: x²-2x-3=0 → (x-3)(x+1)=0 → x=3,x=-1
-    x=3 → px=380, py=180; x=-1 → px=220, py=180
-  y-intercept: f(0)=-3 → px=260, py=180-(-120)=300
-  List all computed points as polyline.
+━━━ STEP 2: FUTURISTIC DARK STYLE ━━━
+Background:
+  <rect width="520" height="340" fill="#07071a" rx="14"/>
+  <!-- subtle grid glow -->
+  Grid lines every 40px: stroke="#1a1a3a" stroke-width="0.8"
 
-━━━ STEP 2: AXIS LABELS (REQUIRED) ━━━
-Draw tick marks AND number labels on BOTH axes:
-X-axis ticks at x = -4,-3,-2,-1,1,2,3,4 (skip 0):
-  tick line: from (px, 176) to (px, 184)
-  number label below tick: <text x="px" y="196" text-anchor="middle" fill="#7070a0" font-size="11" font-family="sans-serif">N</text>
-Y-axis ticks at y = -4,-3,-2,-1,1,2,3,4 (skip 0):
-  tick line: from (256, py) to (264, py)
-  number label left of tick: <text x="250" y="py+4" text-anchor="end" fill="#7070a0" font-size="11" font-family="sans-serif">N</text>
-Axis name labels: "x" at end of x-axis, "y" at top of y-axis.
+Axes (glowing):
+  X axis: <line x1="10" y1="180" x2="510" y2="180" stroke="#4040a0" stroke-width="1.5"/>
+  Y axis: <line x1="260" y1="10" x2="260" y2="330" stroke="#4040a0" stroke-width="1.5"/>
+  Arrow tips at ends using small triangles or just extend lines.
 
-━━━ STEP 3: KEY POINTS ━━━
-Mark these with circles + coordinate labels:
-- Vertex: filled circle r=5 fill="#7c6fff", label "(vertex_x, vertex_y)" nearby
-- X-intercepts: circles r=5 fill="#5eead4", label each
-- Y-intercept: circle r=5 fill="#f59e0b", label "(0, c)"
+Axis tick numbers (REQUIRED — all of them):
+  X ticks at x=-4,-3,-2,-1,1,2,3,4: small line + number below
+    <line x1="px" y1="176" x2="px" y2="184" stroke="#4040a0" stroke-width="1"/>
+    <text x="px" y="197" text-anchor="middle" fill="#5555aa" font-size="11" font-family="monospace">N</text>
+  Y ticks at y=-3,-2,-1,1,2,3: small line + number left
+    <line x1="256" y1="py" x2="264" y2="py" stroke="#4040a0" stroke-width="1"/>
+    <text x="252" y="py+4" text-anchor="end" fill="#5555aa" font-size="11" font-family="monospace">N</text>
+  Axis labels:
+    <text x="516" y="184" fill="#6060cc" font-size="12" font-family="monospace">x</text>
+    <text x="264" y="18" fill="#6060cc" font-size="12" font-family="monospace">y</text>
 
-━━━ STEP 4: STYLE ━━━
-- Background: <rect width="520" height="340" fill="#f8f8fc" rx="12"/>
-- Grid lines every 40px: stroke="#e8e8f0" stroke-width="0.5"
-- X axis y=180, Y axis x=260: stroke="#9090b8" stroke-width="1.5"
-- Curve polyline: stroke="#7c6fff" stroke-width="2.5" fill="none" class="curve"
-- Title top-center: fill="#1a1a2e" font-size="13" font-weight="600"
-- Animation: <style>@keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}.curve{stroke-dasharray:1200;animation:draw 1.4s ease-out forwards;}</style>
+Curve (neon glow effect):
+  Draw THREE overlapping polylines for glow:
+  1. Thick blur layer:  stroke="#7c6fff" stroke-width="8"  opacity="0.15" fill="none"
+  2. Mid glow:          stroke="#9d8fff" stroke-width="4"  opacity="0.35" fill="none"
+  3. Sharp core:        stroke="#c4b5fd" stroke-width="2"  opacity="1"    fill="none" class="curve"
+  All three use same computed polyline points.
 
-━━━ CRITICAL RULES ━━━
-1. ALL text must be in Korean or numbers only — no English words except axis names x, y
-2. Clip points where py < 10 or py > 330 or px < 10 or px > 510
-3. Output ONLY the <svg ...>...</svg> element, nothing else`;
+Animation:
+  <style>
+  @keyframes draw{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  .curve{stroke-dasharray:1400;animation:draw 1.6s cubic-bezier(0.4,0,0.2,1) forwards;}
+  .pt{animation:fadein 0.4s ease forwards;}
+  </style>
+
+Key points (glowing dots):
+  Vertex:      outer circle r=7 fill="#7c6fff" opacity=0.3, inner r=4 fill="#c4b5fd" class="pt"
+  X-intercepts: outer r=7 fill="#5eead4" opacity=0.3, inner r=4 fill="#99f6e4" class="pt"
+  Y-intercept:  outer r=7 fill="#fbbf24" opacity=0.3, inner r=4 fill="#fde68a" class="pt"
+
+Point labels (coordinate text, glowing):
+  fill="#e0e0ff" font-size="11" font-family="monospace" — show "(x, y)" next to each key point
+
+Title (top center):
+  <text x="260" y="28" text-anchor="middle" fill="#a0a0ff" font-size="13" font-weight="600" font-family="monospace" letter-spacing="1">함수식</text>
+
+━━━ RULES ━━━
+1. All labels in Korean or numbers only
+2. Output ONLY the <svg>...</svg> element
+3. Make it look like a sci-fi HUD display — dark, glowing, precise`;
 
   try{
     var raw=await callAI([{role:'user',content:'Generate animated SVG for: '+msg+'\nContext: '+context.slice(0,200)}],system);
