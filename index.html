@@ -3,7 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduPulse — 교육 이슈 대시보드</title>
+
+<!-- ══ SEO 핵심 태그 ══ -->
+<title>EduPulse — 교육 이슈 대시보드 | 한국 교육 정책·EdTech 뉴스</title>
+<meta name="description" content="EduPulse는 한국 교육 정책, AI 디지털교과서, 수능 개편, EdTech 동향 등 최신 교육 이슈를 한눈에 보여주는 대시보드입니다.">
+<meta name="keywords" content="EduPulse, 교육 이슈, 교육 대시보드, AI 디지털교과서, 수능 개편, EdTech, 교육 정책, 한국 교육, 학령인구, 고교학점제, 늘봄학교">
+<meta name="author" content="EduPulse">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjapooii75-spec.github.io/Verbalis/">
+
+<!-- ══ Open Graph (카카오톡·페이스북 링크 미리보기) ══ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="EduPulse — 교육 이슈 대시보드">
+<meta property="og:description" content="AI 디지털교과서, 수능 개편, EdTech 동향 등 한국 교육 최신 이슈를 한눈에 확인하세요.">
+<meta property="og:url" content="https://kjapooii75-spec.github.io/Verbalis/">
+<meta property="og:site_name" content="EduPulse">
+<meta property="og:locale" content="ko_KR">
+
+<!-- ══ Twitter Card ══ -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EduPulse — 교육 이슈 대시보드">
+<meta name="twitter:description" content="AI 디지털교과서, 수능 개편, EdTech 동향 등 한국 교육 최신 이슈를 한눈에 확인하세요.">
+
+<!-- ══ 네이버 검색 최적화 ══ -->
+<meta name="naver-site-verification" content=""><!-- 네이버 서치어드바이저에서 발급받은 코드 입력 -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
@@ -33,7 +57,6 @@
     overflow-x: hidden;
   }
 
-  /* NOISE TEXTURE OVERLAY */
   body::before {
     content: '';
     position: fixed;
@@ -45,7 +68,6 @@
 
   .page { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 2rem 4rem; }
 
-  /* ── HEADER ── */
   header {
     display: flex;
     align-items: center;
@@ -57,11 +79,7 @@
     gap: 1rem;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .logo { display: flex; align-items: center; gap: 12px; }
 
   .logo-mark {
     width: 36px; height: 36px;
@@ -82,18 +100,9 @@
     color: var(--text);
   }
 
-  .logo-sub {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 1px;
-    letter-spacing: 0.05em;
-  }
+  .logo-sub { font-size: 11px; color: var(--text3); margin-top: 1px; letter-spacing: 0.05em; }
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .header-right { display: flex; align-items: center; gap: 10px; }
 
   .live-badge {
     display: flex;
@@ -120,12 +129,8 @@
     50% { opacity: 0.4; transform: scale(0.8); }
   }
 
-  .date-text {
-    font-size: 12px;
-    color: var(--text3);
-  }
+  .date-text { font-size: 12px; color: var(--text3); }
 
-  /* ── NAV TABS ── */
   .nav-tabs {
     display: flex;
     gap: 4px;
@@ -153,7 +158,6 @@
   .tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
   .tab.active { background: var(--bg3); color: var(--text); border: 1px solid var(--border2); }
 
-  /* ── STAT CARDS ── */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -183,7 +187,6 @@
   .stat-card:nth-child(2)::after { background: var(--accent2); }
   .stat-card:nth-child(3)::after { background: var(--accent3); }
   .stat-card:nth-child(4)::after { background: var(--accent4); }
-
   .stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 
   .stat-label { font-size: 11px; color: var(--text3); margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -192,7 +195,6 @@
   .up { color: var(--accent); }
   .down { color: var(--accent3); }
 
-  /* ── MAIN GRID ── */
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 380px;
@@ -200,7 +202,6 @@
     margin-bottom: 16px;
   }
 
-  /* ── CARD BASE ── */
   .card {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -229,10 +230,7 @@
     gap: 8px;
   }
 
-  .card-title-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-  }
+  .card-title-dot { width: 6px; height: 6px; border-radius: 50%; }
 
   .card-more {
     font-size: 11px;
@@ -248,20 +246,17 @@
 
   .card-more:hover { border-color: var(--border2); color: var(--text2); }
 
-  /* ── NEWS LIST ── */
   .news-list { display: flex; flex-direction: column; gap: 0; }
 
   .news-item {
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    padding: 14px 0;
+    padding: 14px 8px;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     transition: background 0.15s;
     border-radius: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
     margin: 0 -8px;
   }
 
@@ -296,48 +291,21 @@
   .tag-data { background: rgba(196,166,255,0.12); color: var(--accent4); }
   .tag-global { background: rgba(245,200,66,0.12); color: var(--yellow); }
 
-  .news-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.5;
-    margin-bottom: 4px;
-  }
+  .news-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; margin-bottom: 4px; }
 
-  .news-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
+  .news-meta { display: flex; align-items: center; gap: 10px; }
   .news-time { font-size: 11px; color: var(--text3); }
   .news-source { font-size: 11px; color: var(--text3); }
   .news-sep { font-size: 9px; color: var(--text3); }
 
-  .news-arrow {
-    color: var(--text3);
-    font-size: 14px;
-    transition: transform 0.2s, color 0.2s;
-    align-self: center;
-  }
-
+  .news-arrow { color: var(--text3); font-size: 14px; transition: transform 0.2s, color 0.2s; align-self: center; }
   .news-item:hover .news-arrow { transform: translateX(3px); color: var(--text2); }
 
-  /* ── TREND BARS ── */
   .trend-list { display: flex; flex-direction: column; gap: 12px; }
 
-  .trend-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .trend-row { display: flex; align-items: center; gap: 12px; }
 
-  .trend-name {
-    font-size: 12px;
-    color: var(--text2);
-    width: 88px;
-    flex-shrink: 0;
-  }
+  .trend-name { font-size: 12px; color: var(--text2); width: 88px; flex-shrink: 0; }
 
   .trend-bar-bg {
     flex: 1;
@@ -347,23 +315,10 @@
     overflow: hidden;
   }
 
-  .trend-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    width: 0;
-    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
-  }
+  .trend-bar-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
 
-  .trend-pct {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text2);
-    width: 34px;
-    text-align: right;
-  }
+  .trend-pct { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--text2); width: 34px; text-align: right; }
 
-  /* ── POLICY STATUS ── */
   .policy-list { display: flex; flex-direction: column; gap: 8px; }
 
   .policy-item {
@@ -393,43 +348,16 @@
   .policy-name { font-size: 13px; font-weight: 500; color: var(--text); }
   .policy-status { font-size: 11px; color: var(--text3); margin-top: 1px; }
 
-  .policy-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-
+  .policy-dot { width: 7px; height: 7px; border-radius: 50%; margin-left: auto; flex-shrink: 0; }
   .dot-active { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
   .dot-review { background: var(--yellow); }
   .dot-pending { background: var(--text3); }
 
-  /* ── HEATMAP ── */
-  .heatmap-wrap { }
-
-  .heatmap-labels {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 3px;
-    margin-bottom: 4px;
-  }
-
+  .heatmap-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 4px; }
   .hm-label { font-size: 9px; color: var(--text3); text-align: center; }
+  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
 
-  .heatmap-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 3px;
-  }
-
-  .hm-cell {
-    aspect-ratio: 1;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: transform 0.15s, filter 0.15s;
-    position: relative;
-  }
-
+  .hm-cell { aspect-ratio: 1; border-radius: 3px; cursor: pointer; transition: transform 0.15s, filter 0.15s; }
   .hm-cell:hover { transform: scale(1.3); filter: brightness(1.3); z-index: 2; }
 
   .hm-0 { background: rgba(255,255,255,0.04); }
@@ -438,23 +366,11 @@
   .hm-3 { background: rgba(0,229,160,0.7); }
   .hm-4 { background: var(--accent); }
 
-  .hm-legend {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 10px;
-  }
-
+  .hm-legend { display: flex; align-items: center; gap: 5px; margin-top: 10px; }
   .hm-leg-label { font-size: 10px; color: var(--text3); }
   .hm-leg-box { width: 10px; height: 10px; border-radius: 2px; }
 
-  /* ── KEYWORD CLOUD ── */
-  .keyword-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-  }
+  .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
   .kw {
     border: 1px solid var(--border2);
@@ -471,19 +387,10 @@
   .kw.md { font-size: 12px; padding: 5px 13px; }
   .kw.sm { font-size: 11px; padding: 4px 11px; color: var(--text3); }
 
-  /* ── BOTTOM GRID ── */
-  .bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 
-  /* ── MINI SPARK ── */
-  .spark-wrap { margin-top: 12px; }
-  canvas.spark { width: 100%; height: 60px; display: block; }
+  .chart-area { margin-top: 8px; }
 
-  /* ── QUICK ASK ── */
   .quick-ask {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -492,20 +399,9 @@
     margin-bottom: 16px;
   }
 
-  .quick-ask-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text3);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+  .quick-ask-title { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
 
-  .quick-ask-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
+  .quick-ask-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
   .qa-btn {
     background: var(--bg3);
@@ -522,13 +418,8 @@
   }
 
   .qa-btn:hover { border-color: var(--accent); color: var(--text); background: rgba(0,229,160,0.05); }
-
   .qa-icon { font-size: 16px; display: block; margin-bottom: 5px; }
 
-  /* ── CHART SVG ── */
-  .chart-area { margin-top: 8px; }
-
-  /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
     padding-top: 1.5rem;
@@ -541,16 +432,12 @@
 
   footer p { font-size: 11px; color: var(--text3); }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .fade-up {
-    animation: fadeUp 0.5s ease both;
-  }
-
+  .fade-up { animation: fadeUp 0.5s ease both; }
   .delay-1 { animation-delay: 0.05s; }
   .delay-2 { animation-delay: 0.1s; }
   .delay-3 { animation-delay: 0.15s; }
@@ -558,12 +445,10 @@
   .delay-5 { animation-delay: 0.25s; }
   .delay-6 { animation-delay: 0.3s; }
 
-  /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .main-grid { grid-template-columns: 1fr; }
@@ -582,7 +467,6 @@
 <body>
 <div class="page">
 
-  <!-- HEADER -->
   <header class="fade-up">
     <div class="logo">
       <div class="logo-mark">
@@ -607,7 +491,6 @@
     </div>
   </header>
 
-  <!-- NAV TABS -->
   <div class="nav-tabs fade-up delay-1">
     <button class="tab active" onclick="setTab(this,'all')">전체</button>
     <button class="tab" onclick="setTab(this,'policy')">정책</button>
@@ -616,7 +499,6 @@
     <button class="tab" onclick="setTab(this,'data')">데이터</button>
   </div>
 
-  <!-- STATS -->
   <div class="stats-grid fade-up delay-2">
     <div class="stat-card">
       <div class="stat-label">오늘의 뉴스</div>
@@ -640,10 +522,7 @@
     </div>
   </div>
 
-  <!-- MAIN GRID -->
   <div class="main-grid fade-up delay-3">
-
-    <!-- NEWS -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">
@@ -655,10 +534,7 @@
       <div class="news-list" id="newsList"></div>
     </div>
 
-    <!-- SIDEBAR -->
     <div style="display:flex;flex-direction:column;gap:14px;">
-
-      <!-- TREND BARS -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">
@@ -669,7 +545,6 @@
         <div class="trend-list" id="trendList"></div>
       </div>
 
-      <!-- HEATMAP -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">
@@ -699,14 +574,10 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- BOTTOM GRID -->
   <div class="bottom-grid fade-up delay-4">
-
-    <!-- POLICY STATUS -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">
@@ -758,7 +629,6 @@
       </div>
     </div>
 
-    <!-- WEEKLY CHART -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">
@@ -771,7 +641,6 @@
       </div>
     </div>
 
-    <!-- KEYWORD CLOUD -->
     <div class="card">
       <div class="card-header">
         <div class="card-title">
@@ -797,41 +666,32 @@
         <span class="kw sm">학교폭력</span>
       </div>
     </div>
-
   </div>
 
-  <!-- QUICK ASK -->
   <div class="quick-ask fade-up delay-5">
     <div class="quick-ask-title">🔍 더 알아보기</div>
     <div class="quick-ask-grid">
       <button class="qa-btn" onclick="openSearch('AI 디지털교과서 도입 현황과 교사 반응')">
-        <span class="qa-icon">🤖</span>
-        AI 디지털교과서<br>현황 & 논쟁
+        <span class="qa-icon">🤖</span>AI 디지털교과서<br>현황 & 논쟁
       </button>
       <button class="qa-btn" onclick="openSearch('2028 수능 개편 주요 내용')">
-        <span class="qa-icon">📝</span>
-        수능 개편<br>핵심 쟁점
+        <span class="qa-icon">📝</span>수능 개편<br>핵심 쟁점
       </button>
       <button class="qa-btn" onclick="openSearch('학령인구 감소 교육 정책 영향')">
-        <span class="qa-icon">📉</span>
-        학령인구 감소<br>교육 구조 변화
+        <span class="qa-icon">📉</span>학령인구 감소<br>교육 구조 변화
       </button>
       <button class="qa-btn" onclick="openSearch('한국 EdTech 스타트업 투자 동향 2026')">
-        <span class="qa-icon">💡</span>
-        EdTech 스타트업<br>투자 트렌드
+        <span class="qa-icon">💡</span>EdTech 스타트업<br>투자 트렌드
       </button>
       <button class="qa-btn" onclick="openSearch('핀란드 에스토니아 AI 교육 정책 사례')">
-        <span class="qa-icon">🌍</span>
-        글로벌 교육<br>AI 도입 사례
+        <span class="qa-icon">🌍</span>글로벌 교육<br>AI 도입 사례
       </button>
       <button class="qa-btn" onclick="openSearch('한국 사교육비 통계 최신')">
-        <span class="qa-icon">📊</span>
-        사교육비<br>최신 통계
+        <span class="qa-icon">📊</span>사교육비<br>최신 통계
       </button>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="fade-up delay-6">
     <p>© 2026 EduPulse · 교육부, 한국교육개발원, 뉴스 API 데이터 기반</p>
     <p>마지막 업데이트: <span id="updateTime"></span></p>
@@ -840,14 +700,11 @@
 </div>
 
 <script>
-  // DATE
   const now = new Date();
-  const opts = { year:'numeric', month:'long', day:'numeric', weekday:'short' };
-  document.getElementById('dateText').textContent = now.toLocaleDateString('ko-KR', opts);
+  document.getElementById('dateText').textContent = now.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'short' });
   document.getElementById('updateTime').textContent = now.toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'});
 
-  // COUNTER ANIMATION
-  function animateCount(id, target, decimals=0, suffix='') {
+  function animateCount(id, target, decimals=0) {
     const el = document.getElementById(id);
     let start = 0;
     const duration = 1200;
@@ -856,7 +713,7 @@
       const progress = Math.min((timestamp - start) / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
       const val = ease * target;
-      el.textContent = decimals ? val.toFixed(decimals) + suffix : Math.round(val) + suffix;
+      el.textContent = decimals ? val.toFixed(decimals) : Math.round(val);
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -873,7 +730,6 @@
     document.getElementById('sc4').textContent = '▲ 0.6 상승';
   }, 300);
 
-  // NEWS DATA
   const allNews = [
     { tag:'policy', label:'정책', title:'AI 디지털교과서 2학기 전면 도입 — 현장 교사 찬반 논란 고조', time:'32분 전', source:'교육부' },
     { tag:'issue', label:'이슈', title:'학령인구 급감 — 지방 소규모 학교 통폐합 2026년 최대치', time:'1시간 전', source:'한국교육개발원' },
@@ -907,14 +763,12 @@
 
   renderNews();
 
-  // TAB
   function setTab(el, filter) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
     renderNews(filter);
   }
 
-  // TRENDS
   const trends = [
     { name: 'AI·디지털교육', pct: 92, color: 'var(--accent)' },
     { name: '입시·수능', pct: 78, color: 'var(--accent2)' },
@@ -924,29 +778,23 @@
     { name: '기초학력', pct: 39, color: '#aaa' },
   ];
 
-  const trendList = document.getElementById('trendList');
-  trendList.innerHTML = trends.map((t,i) => `
+  document.getElementById('trendList').innerHTML = trends.map((t,i) => `
     <div class="trend-row">
       <div class="trend-name">${t.name}</div>
       <div class="trend-bar-bg">
-        <div class="trend-bar-fill" id="tb${i}" style="background:${t.color}; width:0%"></div>
+        <div class="trend-bar-fill" id="tb${i}" style="background:${t.color}"></div>
       </div>
       <div class="trend-pct">${t.pct}%</div>
     </div>
   `).join('');
 
   setTimeout(() => {
-    trends.forEach((t,i) => {
-      document.getElementById('tb'+i).style.width = t.pct + '%';
-    });
+    trends.forEach((t,i) => { document.getElementById('tb'+i).style.width = t.pct + '%'; });
   }, 600);
 
-  // HEATMAP
   const heatData = [0,0,1,2,1,3,2, 1,2,3,4,2,1,0, 2,3,2,1,3,2,1, 3,4,3,2,1,0,0, 0,2,3,4];
-  const grid = document.getElementById('heatmapGrid');
-  grid.innerHTML = heatData.map(v => `<div class="hm-cell hm-${v}" title="이슈 ${v*3}건"></div>`).join('');
+  document.getElementById('heatmapGrid').innerHTML = heatData.map(v => `<div class="hm-cell hm-${v}" title="이슈 ${v*3}건"></div>`).join('');
 
-  // BAR CHART
   const barData = [
     { label:'2/24', val: 142 },
     { label:'3/3',  val: 189 },
@@ -975,7 +823,6 @@
   });
   svg.innerHTML = svgHTML;
 
-  // Animate bars
   setTimeout(() => {
     barData.forEach((d, i) => {
       const bar = document.getElementById('bar'+i);
@@ -983,16 +830,14 @@
       const y = chartY + chartH - h;
       bar.setAttribute('y', y);
       bar.setAttribute('height', h);
-      bar.style.transition = `height 0.8s cubic-bezier(0.4,0,0.2,1) ${i*0.1}s, y 0.8s cubic-bezier(0.4,0,0.2,1) ${i*0.1}s`;
+      bar.style.transition = `height 0.8s cubic-bezier(0.4,0,0.2,1) ${i*0.1}s`;
     });
   }, 500);
 
-  // OPEN SEARCH
   function openSearch(query) {
     window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
   }
 
-  // KEYWORD CLICK
   document.querySelectorAll('.kw').forEach(kw => {
     kw.addEventListener('click', () => openSearch(kw.textContent.trim() + ' 교육 이슈 2026'));
   });
