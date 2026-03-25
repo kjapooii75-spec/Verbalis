@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPulse — 입시 전략 판단 도구</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   VARIABLES
+═══════════════════════════════════════════════════ */
+:root {
+  --bg:      #080a0e;
+  --bg2:     #0e1118;
+  --bg3:     #141820;
+  --bg4:     #1a1f2a;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --border3: rgba(255,255,255,0.18);
+  --text:    #eef0f4;
+  --text2:   #8892a4;
+  --text3:   #4a5568;
+
+  --green:  #00e5a0;
+  --green2: rgba(0,229,160,0.12);
+  --blue:   #38bdf8;
+  --blue2:  rgba(56,189,248,0.12);
+  --red:    #f87171;
+  --red2:   rgba(248,113,113,0.12);
+  --yellow: #fbbf24;
+  --yellow2:rgba(251,191,36,0.12);
+  --purple: #a78bfa;
+
+  --r-card: 14px;
+  --r-sm:   8px;
+  --r-xs:   5px;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 배경 그리드 */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,229,160,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,160,0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+/* 좌상단 glow */
+body::after {
+  content: '';
+  position: fixed; top: -200px; left: -200px;
+  width: 600px; height: 600px; z-index: 0; pointer-events: none;
+  background: radial-gradient(circle, rgba(0,229,160,0.04) 0%, transparent 70%);
+}
+
+.page {
+  position: relative; z-index: 1;
+  max-width: 1320px; margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════ */
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; gap: 1rem;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 20px rgba(0,229,160,0.3);
+  flex-shrink: 0;
+}
+.logo-mark svg { width: 20px; height: 20px; }
+.logo-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: -0.5px;
+}
+.logo-sub { font-size: 10px; color: var(--text3); margin-top: 1px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+.live-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2);
+  border-radius: 20px; padding: 5px 12px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600; color: var(--green);
+  letter-spacing: 0.06em;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  animation: pulse 2s infinite;
+}
+.date-chip {
+  font-size: 11px; color: var(--text3);
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 10px;
+}
+
+/* ═══════════════════════════════════════════════════
+   PERSONA FILTER  — 핵심 상단 기능
+═══════════════════════════════════════════════════ */
+.persona-bar {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-card);
+  padding: 1rem 1.4rem;
+  margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+}
+.persona-label {
+  font-size: 11px; color: var(--text3); letter-spacing: 0.06em;
+  text-transform: uppercase; font-weight: 600; margin-right: 20px;
+  white-space: nowrap;
+}
+.persona-groups { display: flex; gap: 20px; flex-wrap: wrap; flex: 1; }
+.persona-group { display: flex; align-items: center; gap: 6px; }
+.persona-group-label {
+  font-size: 10px; color: var(--text3); letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 600; white-space: nowrap;
+}
+.pchip {
+  padding: 5px 13px; border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: transparent; color: var(--text2);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+.pchip:hover { border-color: var(--green); color: var(--green); }
+.pchip.active {
+  background: rgba(0,229,160,0.12); border-color: var(--green);
+  color: var(--green); font-weight: 700;
+}
+.persona-reset {
+  margin-left: auto; font-size: 11px; color: var(--text3);
+  background: none; border: none; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif; padding: 4px 8px;
+  transition: color 0.15s;
+}
+.persona-reset:hover { color: var(--text2); }
+
+/* ═══════════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════════ */
+.tabs-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.2rem; gap: 12px; flex-wrap: wrap;
+}
+.nav-tabs {
+  display: flex; gap: 4px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 3px;
+}
+.tab {
+  padding: 6px 16px; border-radius: 7px;
+  font-size: 12px; color: var(--text2); cursor: pointer;
+  transition: all 0.15s; border: none; background: transparent;
+  font-family: 'Noto Sans KR', sans-serif; font-weight: 500;
+}
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--bg4); color: var(--text); border: 1px solid var(--border2); font-weight: 700; }
+
+.imp-legend {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; color: var(--text3);
+}
+.imp-legend-item { display: flex; align-items: center; gap: 4px; }
+.imp-legend-bar { width: 3px; height: 14px; border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT GRID
+═══════════════════════════════════════════════════ */
+.layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+
+/* ═══════════════════════════════════════════════════
+   CARD BASE
+═══════════════════════════════════════════════════ */
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r-card); padding: 1.2rem 1.4rem;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.card-hd-title {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700; color: var(--text2);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.card-hd-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* ═══════════════════════════════════════════════════
+   NEWS CARDS — 핵심 컴포넌트
+═══════════════════════════════════════════════════ */
+.news-stack { display: flex; flex-direction: column; gap: 10px; }
+
+.ncard {
+  border-radius: var(--r-card); border: 1px solid var(--border);
+  overflow: hidden; cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  background: var(--bg2);
+}
+.ncard:hover {
+  border-color: var(--border3); transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* 왼쪽 중요도 바 */
+.ncard-bar {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+
+.ncard-inner { padding: 14px 16px 14px 20px; }
+
+/* 상단 메타 행 */
+.ncard-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.ncard-meta-left { display: flex; align-items: center; gap: 7px; }
+.ntag {
+  font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ntag-policy { background: rgba(0,229,160,0.12); color: var(--green); }
+.ntag-data   { background: rgba(56,189,248,0.12); color: var(--blue); }
+.ntag-tech   { background: rgba(167,139,250,0.12); color: var(--purple); }
+.ntag-issue  { background: rgba(248,113,113,0.12); color: var(--red); }
+.ntag-global { background: rgba(251,191,36,0.12); color: var(--yellow); }
+
+.ncard-time { font-size: 10px; color: var(--text3); }
+.ncard-src  { font-size: 10px; color: var(--text3); }
+
+/* 중요도 점수 */
+.imp-score { display: flex; align-items: center; gap: 4px; }
+.imp-pip { width: 6px; height: 6px; border-radius: 50%; }
+
+/* 한줄 요약 — 가장 크게, 핵심 */
+.ncard-headline {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  line-height: 1.45; margin-bottom: 7px;
+  letter-spacing: -0.2px;
+}
+
+/* 핵심 포인트 */
+.ncard-points { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
+.ncard-point {
+  font-size: 12px; color: var(--text2); line-height: 1.5;
+  display: flex; gap: 6px; align-items: flex-start;
+}
+.ncard-point::before { content: '→'; color: var(--text3); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+
+/* 학생 영향 블록 */
+.ncard-impact {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 9px 11px; margin-bottom: 10px;
+}
+.ncard-impact-hd {
+  font-size: 9px; font-weight: 700; color: var(--text3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px;
+}
+.impact-rows { display: flex; flex-direction: column; gap: 4px; }
+.impact-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 3px 6px; border-radius: 5px; transition: background 0.1s;
+}
+.impact-row.hl { background: rgba(0,229,160,0.07); border: 1px solid rgba(0,229,160,0.15); }
+.ig {
+  font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px;
+  flex-shrink: 0; margin-top: 1px; white-space: nowrap;
+}
+.ig-3 { background: rgba(248,113,113,0.15); color: var(--red); }
+.ig-2 { background: rgba(56,189,248,0.15); color: var(--blue); }
+.ig-1 { background: rgba(167,139,250,0.15); color: var(--purple); }
+.impact-desc { font-size: 12px; color: var(--text2); line-height: 1.45; flex: 1; }
+.impact-row.hl .impact-desc { color: var(--text); }
+
+/* 지금 행동 — 가장 중요한 요소 */
+.ncard-action {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(0,229,160,0.07), rgba(0,229,160,0.03));
+  border: 1px solid rgba(0,229,160,0.2); border-radius: var(--r-sm);
+  padding: 9px 12px; gap: 10px;
+}
+.action-bolt { font-size: 13px; flex-shrink: 0; }
+.action-body { flex: 1; }
+.action-label { font-size: 9px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+.action-text { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.action-ai {
+  font-size: 10px; color: var(--text3); border: 1px solid var(--border2);
+  background: var(--bg3); border-radius: 5px; padding: 3px 8px;
+  cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+  flex-shrink: 0; transition: all 0.15s; white-space: nowrap;
+}
+.action-ai:hover { color: var(--green); border-color: rgba(0,229,160,0.3); }
+
+/* 중요도별 테마 */
+.ncard.imp-5 .ncard-bar { background: linear-gradient(180deg, var(--red), rgba(248,113,113,0.4)); }
+.ncard.imp-5 { background: linear-gradient(135deg, rgba(248,113,113,0.02), var(--bg2)); }
+.ncard.imp-5:hover .ncard-bar { box-shadow: 2px 0 12px rgba(248,113,113,0.4); }
+
+.ncard.imp-4 .ncard-bar { background: var(--yellow); }
+.ncard.imp-3 .ncard-bar { background: var(--yellow); opacity: 0.6; }
+.ncard.imp-2 .ncard-bar { background: var(--text3); }
+.ncard.imp-1 .ncard-bar { background: var(--border); }
+
+/* 빈 상태 */
+.empty { text-align: center; padding: 48px; color: var(--text3); font-size: 13px; }
+
+/* ═══════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════ */
+.sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+/* 정책 현황 */
+.policy-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: var(--r-sm);
+  background: var(--bg3); border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.15s;
+}
+.policy-item:hover { border-color: var(--border2); transform: translateX(2px); }
+.policy-icon { font-size: 15px; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.policy-info { flex: 1; min-width: 0; }
+.policy-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.policy-status { font-size: 10px; color: var(--text3); margin-top: 1px; }
+.policy-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-on  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.dot-wip { background: var(--yellow); }
+.dot-off { background: var(--text3); }
+
+/* 트렌드 */
+.trend-row { display: flex; align-items: center; gap: 10px; }
+.trend-name { font-size: 11px; color: var(--text2); width: 86px; flex-shrink: 0; }
+.trend-bar-bg { flex: 1; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.trend-bar-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+.trend-pct { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; color: var(--text3); width: 32px; text-align: right; }
+
+/* 키워드 */
+.kw-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.kw {
+  border: 1px solid var(--border2); border-radius: 20px;
+  cursor: pointer; transition: all 0.15s;
+  font-family: 'Noto Sans KR', sans-serif; color: var(--text2);
+}
+.kw:hover { border-color: var(--green); color: var(--green); background: rgba(0,229,160,0.05); }
+.kw.xl { font-size: 15px; font-weight: 700; padding: 7px 18px; color: var(--text); }
+.kw.lg { font-size: 13px; font-weight: 500; padding: 6px 14px; }
+.kw.md { font-size: 11px; padding: 5px 12px; }
+.kw.sm { font-size: 10px; padding: 4px 10px; color: var(--text3); }
+
+/* 퀵 AI 버튼 */
+.qa-grid { display: flex; flex-direction: column; gap: 6px; }
+.qa-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 9px 12px;
+  cursor: pointer; text-align: left; transition: all 0.15s;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.qa-btn:hover { border-color: var(--border2); background: var(--bg4); transform: translateX(2px); }
+.qa-icon { font-size: 15px; flex-shrink: 0; }
+.qa-text { flex: 1; }
+.qa-title { font-size: 12px; font-weight: 600; color: var(--text); }
+.qa-sub   { font-size: 10px; color: var(--text3); margin-top: 1px; }
+.qa-arrow { font-size: 11px; color: var(--text3); }
+
+/* ═══════════════════════════════════════════════════
+   AI 분석 패널
+═══════════════════════════════════════════════════ */
+.ai-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  backdrop-filter: blur(2px);
+}
+.ai-overlay.open { opacity: 1; pointer-events: all; }
+
+.ai-panel {
+  position: fixed; top: 0; right: -520px; width: 500px; height: 100vh;
+  background: var(--bg2); border-left: 1px solid var(--border2);
+  z-index: 999; transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.ai-panel.open { right: 0; }
+
+.ai-panel-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.ai-panel-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.ai-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  background: rgba(0,229,160,0.12); color: var(--green);
+  border: 1px solid rgba(0,229,160,0.25); border-radius: 4px; padding: 2px 7px;
+}
+.ai-close {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.ai-close:hover { border-color: var(--border2); color: var(--text); }
+
+.ai-topic-bar {
+  padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.ai-topic-lbl { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.ai-topic-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; }
+
+.ai-body { flex: 1; overflow-y: auto; padding: 1.4rem; }
+.ai-body::-webkit-scrollbar { width: 4px; }
+.ai-body::-webkit-scrollbar-track { background: transparent; }
+.ai-body::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* AI 결과 컴포넌트 */
+.ai-oneline-box {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: var(--r-card); padding: 14px 16px; margin-bottom: 14px;
+}
+.ai-oneline { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1.35; letter-spacing: -0.3px; }
+.ai-imp-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.ai-imp-pips { display: flex; gap: 3px; }
+.ai-pip { width: 8px; height: 8px; border-radius: 50%; }
+.ai-imp-label { font-size: 11px; font-weight: 700; }
+
+.ai-sec { margin-bottom: 16px; }
+.ai-sec-lbl {
+  font-size: 9px; font-weight: 700; color: var(--text3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.ai-sec-lbl::before { content: ''; width: 3px; height: 11px; border-radius: 2px; background: var(--green); }
+.ai-text { font-size: 13px; color: var(--text2); line-height: 1.8; }
+
+.ai-grade-rows { display: flex; flex-direction: column; gap: 8px; }
+.ai-grade-row { display: flex; gap: 10px; align-items: flex-start; }
+.ai-grade-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+}
+.aig3 { background: rgba(248,113,113,0.15); color: var(--red); }
+.aig2 { background: rgba(56,189,248,0.15);  color: var(--blue); }
+.aig1 { background: rgba(167,139,250,0.15); color: var(--purple); }
+.ai-grade-text { font-size: 13px; color: var(--text2); line-height: 1.5; flex: 1; }
+
+.ai-action-card {
+  background: linear-gradient(135deg, rgba(0,229,160,0.08), rgba(0,229,160,0.03));
+  border: 1px solid rgba(0,229,160,0.25); border-radius: var(--r-card);
+  padding: 14px 16px; margin-bottom: 16px;
+}
+.ai-action-lbl { font-size: 10px; font-weight: 700; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.ai-action-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.5; }
+
+.ai-points { display: flex; flex-direction: column; gap: 6px; }
+.ai-point {
+  font-size: 13px; color: var(--text2); line-height: 1.6;
+  display: flex; gap: 8px;
+}
+.ai-point::before { content: '→'; color: var(--green); font-size: 12px; flex-shrink: 0; padding-top: 2px; }
+
+.ai-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px; gap: 14px; }
+.ai-spin { width: 34px; height: 34px; border: 2px solid var(--border2); border-top-color: var(--green); border-radius: 50%; animation: spin 0.8s linear infinite; }
+.ai-loading-text { font-size: 12px; color: var(--text3); }
+
+.ai-error { padding: 1rem; background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.2); border-radius: var(--r-sm); font-size: 13px; color: var(--red); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border); padding-top: 1.4rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+}
+footer p { font-size: 11px; color: var(--text3); }
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════ */
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+@keyframes spin   { to{transform:rotate(360deg)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+.fu  { animation: fadeUp 0.5s ease both; }
+.d1  { animation-delay: 0.05s; }
+.d2  { animation-delay: 0.1s; }
+.d3  { animation-delay: 0.15s; }
+.d4  { animation-delay: 0.2s; }
+.d5  { animation-delay: 0.25s; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+@media (max-width: 680px) {
+  .page { padding: 0 1rem 4rem; }
+  .persona-groups { gap: 10px; }
+  .ai-panel { width: 100%; right: -100%; }
+  .ncard-headline { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ══ HEADER ══ -->
+<header class="fu">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 20 20" fill="none">
+        <rect x="2" y="10" width="3" height="8" rx="1.5" fill="#080a0e"/>
+        <rect x="7" y="6"  width="3" height="12" rx="1.5" fill="#080a0e"/>
+        <rect x="12" y="2" width="3" height="16" rx="1.5" fill="#080a0e"/>
+        <circle cx="17" cy="4" r="2.2" fill="#080a0e"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-name">EduPulse</div>
+      <div class="logo-sub">입시 전략 판단 도구</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
+    <div class="date-chip" id="dateChip">—</div>
+  </div>
+</header>
+
+<!-- ══ PERSONA FILTER ══ -->
+<div class="persona-bar fu d1" id="personaBar">
+  <div class="persona-label">내 상황</div>
+  <div class="persona-groups">
+    <div class="persona-group">
+      <div class="persona-group-label">학년</div>
+      <button class="pchip" data-g="grade3">고3</button>
+      <button class="pchip" data-g="grade2">고2</button>
+      <button class="pchip" data-g="grade1">고1</button>
+    </div>
+    <div class="persona-group">
+      <div class="persona-group-label">계열</div>
+      <button class="pchip" data-t="liberal">문과</button>
+      <button class="pchip" data-t="science">이과</button>
+    </div>
+    <div class="persona-group">
+      <div class="persona-group-label">전형</div>
+      <button class="pchip" data-a="sutime">수시</button>
+      <button class="pchip" data-a="jeongsi">정시</button>
+    </div>
+  </div>
+  <button class="persona-reset" id="resetBtn">초기화</button>
+</div>
+
+<!-- ══ TABS + LEGEND ══ -->
+<div class="tabs-row fu d2">
+  <div class="nav-tabs">
+    <button class="tab active" data-tab="all">전체</button>
+    <button class="tab" data-tab="policy">정책</button>
+    <button class="tab" data-tab="data">입시</button>
+    <button class="tab" data-tab="tech">EdTech</button>
+    <button class="tab" data-tab="global">글로벌</button>
+  </div>
+  <div class="imp-legend">
+    <div class="imp-legend-item"><div class="imp-legend-bar" style="background:var(--red)"></div>입시 직접</div>
+    <div class="imp-legend-item"><div class="imp-legend-bar" style="background:var(--yellow)"></div>참고</div>
+    <div class="imp-legend-item"><div class="imp-legend-bar" style="background:var(--text3)"></div>낮음</div>
+  </div>
+</div>
+
+<!-- ══ MAIN LAYOUT ══ -->
+<div class="layout fu d3">
+
+  <!-- 뉴스 카드 -->
+  <div>
+    <div class="news-stack" id="newsStack"></div>
+  </div>
+
+  <!-- 사이드바 -->
+  <div class="sidebar">
+
+    <!-- 정책 현황 -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-title"><div class="card-hd-dot" style="background:var(--green)"></div>정책 추진 현황</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div class="policy-item" onclick="openPanel('AI 디지털교과서 도입 입시 영향 분석')">
+          <div class="policy-icon" style="background:rgba(0,229,160,0.1)">📚</div>
+          <div class="policy-info"><div class="policy-name">AI 디지털교과서</div><div class="policy-status">2학기 전면 시행 예정</div></div>
+          <div class="policy-dot dot-on"></div>
+        </div>
+        <div class="policy-item" onclick="openPanel('2028 수능 개편안 고등학생 영향 분석')">
+          <div class="policy-icon" style="background:rgba(251,191,36,0.1)">📊</div>
+          <div class="policy-info"><div class="policy-name">2028 수능 개편</div><div class="policy-status">공청회 진행중</div></div>
+          <div class="policy-dot dot-wip"></div>
+        </div>
+        <div class="policy-item" onclick="openPanel('고교학점제 수시 정시 전략 변화')">
+          <div class="policy-icon" style="background:rgba(167,139,250,0.1)">🎓</div>
+          <div class="policy-info"><div class="policy-name">고교학점제</div><div class="policy-status">시행 중 · 보완 논의</div></div>
+          <div class="policy-dot dot-on"></div>
+        </div>
+        <div class="policy-item" onclick="openPanel('교원양성 개편 사범대 입시 경쟁률 변화')">
+          <div class="policy-icon" style="background:rgba(248,113,113,0.1)">👩‍🏫</div>
+          <div class="policy-info"><div class="policy-name">교원양성 개편</div><div class="policy-status">입법예고 단계</div></div>
+          <div class="policy-dot dot-wip"></div>
+        </div>
+        <div class="policy-item" onclick="openPanel('늘봄학교 확대 입시 영향')">
+          <div class="policy-icon" style="background:rgba(56,189,248,0.1)">🏫</div>
+          <div class="policy-info"><div class="policy-name">늘봄학교 확대</div><div class="policy-status">전국 확산 검토중</div></div>
+          <div class="policy-dot dot-wip"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이슈 관심도 -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-title"><div class="card-hd-dot" style="background:var(--blue)"></div>이슈 관심도</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;" id="trendList"></div>
+    </div>
+
+    <!-- 키워드 -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-title"><div class="card-hd-dot" style="background:var(--yellow)"></div>주요 키워드</div>
+      </div>
+      <div class="kw-cloud">
+        <span class="kw xl">수능개편</span>
+        <span class="kw lg">AI교육</span>
+        <span class="kw lg">고교학점제</span>
+        <span class="kw md">디지털교과서</span>
+        <span class="kw md">사교육</span>
+        <span class="kw md">기초학력</span>
+        <span class="kw sm">교원정책</span>
+        <span class="kw sm">EdTech</span>
+        <span class="kw md">입시전략</span>
+        <span class="kw sm">학령인구</span>
+        <span class="kw sm">교육격차</span>
+      </div>
+    </div>
+
+    <!-- AI 질문 -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-title"><div class="card-hd-dot" style="background:var(--purple)"></div>AI에게 바로 묻기</div>
+      </div>
+      <div class="qa-grid">
+        <button class="qa-btn" data-q="2028 수능 개편 내 학년 선택과목 전략">
+          <span class="qa-icon">📝</span>
+          <div class="qa-text"><div class="qa-title">수능 개편, 나한테 영향?</div><div class="qa-sub">학년별 선택과목 전략</div></div>
+          <span class="qa-arrow">→</span>
+        </button>
+        <button class="qa-btn" data-q="AI 디지털교과서 도입 수능 공부 방법 변화">
+          <span class="qa-icon">🤖</span>
+          <div class="qa-text"><div class="qa-title">AI 교과서 도입 대응법</div><div class="qa-sub">공부법 바꿔야 하나?</div></div>
+          <span class="qa-arrow">→</span>
+        </button>
+        <button class="qa-btn" data-q="수시 정시 비율 2026 2027 입시 전망">
+          <span class="qa-icon">⚖️</span>
+          <div class="qa-text"><div class="qa-title">수시 vs 정시 비율 전망</div><div class="qa-sub">어느 쪽에 집중해야?</div></div>
+          <span class="qa-arrow">→</span>
+        </button>
+        <button class="qa-btn" data-q="고교학점제 내신 관리 수시 전략">
+          <span class="qa-icon">🎓</span>
+          <div class="qa-text"><div class="qa-title">고교학점제 수시 전략</div><div class="qa-sub">내신 관리 어떻게?</div></div>
+          <span class="qa-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer class="fu d5">
+  <p>© 2026 EduPulse · 교육부, 한국교육개발원, 뉴스 API 데이터 기반</p>
+  <p>업데이트: <span id="updateTime">—</span></p>
+</footer>
+
+</div><!-- /page -->
+
+<!-- ══ AI PANEL ══ -->
+<div class="ai-overlay" id="aiOverlay"></div>
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-hd">
+    <div class="ai-panel-title"><span class="ai-badge">AI 분석</span>입시 영향 분석</div>
+    <button class="ai-close" id="aiClose">✕</button>
+  </div>
+  <div class="ai-topic-bar">
+    <div class="ai-topic-lbl">분석 주제</div>
+    <div class="ai-topic-title" id="aiTopicTitle">—</div>
+  </div>
+  <div class="ai-body" id="aiBody"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════ */
+const NEWS = [
+  {
+    id:1, tag:'policy', label:'정책', time:'32분 전', src:'교육부', imp:5,
+    headline: 'AI 교과서 2학기 도입 확정 — 교사 40% 반대, 정책 변경 가능성 존재',
+    points: ['2학기 수학·영어·정보 과목 우선 도입', '교사 단체 40% 반대 성명 발표', '교육부 "예정대로 추진" 입장 고수'],
+    impact: {
+      grade3: '영향 없음 — 수능 준비에만 집중하면 됨',
+      grade2: '일부 과목 수업 방식 변화 주시 필요',
+      grade1: '수학·영어 수업 방식 달라질 수 있음'
+    },
+    action: '수능 공부 유지 — 교과서 형식보다 개념 이해가 핵심이라 변화 없음',
+  },
+  {
+    id:2, tag:'data', label:'입시', time:'4시간 전', src:'한국교육과정평가원', imp:5,
+    headline: '2028 수능 통합사회·과학 분리 검토 — 고1부터 직격탄',
+    points: ['통합사회·통합과학 → 과목 분리 방안 논의', '고1 현재 학생부터 적용 예정', '최종 확정 2026년 하반기 예고'],
+    impact: {
+      grade3: '해당 없음 — 현행 수능 체제 그대로 응시',
+      grade2: '불확실 — 확정 후 방향 재검토 필요',
+      grade1: '직접 영향 — 과목 선택 전략 바뀔 수 있음'
+    },
+    action: '고1은 공청회 결과 주시 — 확정 나오면 선택과목 전략 바로 재설계',
+  },
+  {
+    id:3, tag:'tech', label:'EdTech', time:'8시간 전', src:'서울시교육청', imp:3,
+    headline: 'AI 맞춤 학습 플랫폼 서울 공립고 300개교 2학기 도입 MOU',
+    points: ['2학기부터 서울 공립고 300개교 시범 도입', '수행평가·형성평가 AI 기반 전환 가능성', '사교육 일부 대체 효과 기대'],
+    impact: {
+      grade3: '낮음 — 수능 중심 학습, 플랫폼 변화 무관',
+      grade2: '보통 — 내신 수행평가 방식 바뀔 수 있음',
+      grade1: '높음 — 수행평가 방식 달라질 수 있음'
+    },
+    action: '서울 공립고 재학 중이면 2학기 수행평가 방식 학교 공지 확인',
+  },
+  {
+    id:4, tag:'policy', label:'정책', time:'2시간 전', src:'교육부', imp:3,
+    headline: '교원양성 개편 입법예고 — 사범대 정원 20% 감축 예고',
+    points: ['2028년부터 사범대 정원 단계적 감축', '교육대학원 통폐합 논의 병행', '사범대 경쟁률 장기적 상승 전망'],
+    impact: {
+      grade3: '낮음 — 현재 입시에 영향 없음',
+      grade2: '낮음 — 사범대 지망자는 입결 변화 체크',
+      grade1: '보통 — 사범대 목표라면 경쟁률 변화 모니터링'
+    },
+    action: '사범대 목표 아니면 무시 — 목표라면 내년 입결 동향 주시',
+  },
+  {
+    id:5, tag:'issue', label:'이슈', time:'6시간 전', src:'교육부', imp:3,
+    headline: '기초학력 미달 3년 연속 증가 — 수능 난이도 조정 검토 시작',
+    points: ['고2 기초학력 미달 비율 역대 최고 수준', '국·영·수 기초학력 지원 예산 2배 증액', '수능 변별력 조정 논의 시작'],
+    impact: {
+      grade3: '보통 — 수능 난이도 변화 가능성 주시',
+      grade2: '보통 — 기초 탄탄히 하면 상대적으로 유리',
+      grade1: '낮음 — 장기 추세 파악 수준'
+    },
+    action: '기초 개념 점검 — 변별력 낮아지면 실수가 당락 가름',
+  },
+  {
+    id:6, tag:'tech', label:'EdTech', time:'3시간 전', src:'스타트업얼라이언스', imp:2,
+    headline: 'EdTech 스타트업 1분기 투자 전년 대비 40% 급증',
+    points: ['AI 개인화 학습 분야 투자 집중', '무료 베타 서비스 출시 확대 예상', '학원 앱 고도화로 학습 효율 향상 가능'],
+    impact: {
+      grade3: '낮음 — 새 도구 익힐 시간 없음',
+      grade2: '보통 — 우수 무료 앱 활용 검토 가치 있음',
+      grade1: '보통 — 좋은 AI 학습 도구 미리 파악해두면 유리'
+    },
+    action: '지금 당장 행동 불필요 — 좋은 무료 앱 출시되면 써볼 것',
+  },
+  {
+    id:7, tag:'global', label:'글로벌', time:'5시간 전', src:'연합뉴스', imp:1,
+    headline: 'EU 학교 AI 사용 가이드라인 확정 — 한국 정책 벤치마크 주목',
+    points: ['EU 18세 미만 AI 학습 도구 사용 규제 강화', '한국 교육부 "참고하겠다" 입장', '단기 국내 입시 영향 없음'],
+    impact: {
+      grade3: '없음',
+      grade2: '없음',
+      grade1: '없음 — 먼 미래 이야기'
+    },
+    action: '무시해도 됨 — 현재 입시에 영향 없음',
+  },
+];
+
+const TRENDS = [
+  { name:'AI·디지털교육', pct:92, color:'var(--green)' },
+  { name:'입시·수능',     pct:78, color:'var(--blue)' },
+  { name:'학령인구 감소', pct:71, color:'var(--red)' },
+  { name:'교원 정책',     pct:55, color:'var(--purple)' },
+  { name:'사교육·학원',  pct:48, color:'var(--yellow)' },
+  { name:'기초학력',      pct:39, color:'var(--text3)' },
+];
+
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+let state = { tab:'all', grade:'', track:'', admission:'' };
+
+/* ═══════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════ */
+(function init() {
+  // 날짜
+  const now = new Date();
+  document.getElementById('dateChip').textContent =
+    now.toLocaleDateString('ko-KR', { month:'long', day:'numeric', weekday:'short' });
+  document.getElementById('updateTime').textContent =
+    now.toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
+
+  // 필터
+  document.querySelectorAll('.pchip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const g = btn.dataset.g, t = btn.dataset.t, a = btn.dataset.a;
+      if (g) {
+        document.querySelectorAll('[data-g]').forEach(b => b.classList.remove('active'));
+        state.grade = state.grade === g ? '' : g;
+        if (state.grade) btn.classList.add('active');
+      }
+      if (t) {
+        document.querySelectorAll('[data-t]').forEach(b => b.classList.remove('active'));
+        state.track = state.track === t ? '' : t;
+        if (state.track) btn.classList.add('active');
+      }
+      if (a) {
+        document.querySelectorAll('[data-a]').forEach(b => b.classList.remove('active'));
+        state.admission = state.admission === a ? '' : a;
+        if (state.admission) btn.classList.add('active');
+      }
+      renderNews();
+    });
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    state.grade = ''; state.track = ''; state.admission = '';
+    document.querySelectorAll('.pchip').forEach(b => b.classList.remove('active'));
+    renderNews();
+  });
+
+  // 탭
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      state.tab = tab.dataset.tab;
+      renderNews();
+    });
+  });
+
+  // AI 패널 닫기
+  document.getElementById('aiClose').addEventListener('click', closePanel);
+  document.getElementById('aiOverlay').addEventListener('click', closePanel);
+
+  // 키워드
+  document.querySelectorAll('.kw').forEach(kw => {
+    kw.addEventListener('click', () => openPanel(kw.textContent.trim() + ' 입시 영향 분석'));
+  });
+
+  // QA 버튼
+  document.querySelectorAll('.qa-btn[data-q]').forEach(btn => {
+    btn.addEventListener('click', () => openPanel(btn.dataset.q));
+  });
+
+  // 트렌드
+  renderTrends();
+
+  // 뉴스
+  renderNews();
+})();
+
+/* ═══════════════════════════════════════════════════
+   RENDER NEWS
+═══════════════════════════════════════════════════ */
+function renderNews() {
+  let items = [...NEWS];
+
+  // 탭 필터
+  if (state.tab !== 'all') items = items.filter(n => n.tag === state.tab);
+
+  // 학년 필터 → 영향 있는 것 우선 + 중요도 정렬
+  if (state.grade) {
+    items.sort((a, b) => {
+      const aLow = isLowImpact(a.impact[state.grade]);
+      const bLow = isLowImpact(b.impact[state.grade]);
+      if (aLow !== bLow) return aLow - bLow;
+      return b.imp - a.imp;
+    });
+  } else {
+    items.sort((a, b) => b.imp - a.imp);
+  }
+
+  const stack = document.getElementById('newsStack');
+  if (!items.length) { stack.innerHTML = '<div class="empty">해당 조건의 이슈가 없습니다</div>'; return; }
+
+  stack.innerHTML = items.map(n => buildCard(n)).join('');
+
+  // 이벤트 바인딩
+  stack.querySelectorAll('.ncard').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.classList.contains('action-ai')) return;
+      openPanel(card.dataset.title);
+    });
+  });
+  stack.querySelectorAll('.action-ai').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); openPanel(btn.dataset.title); });
+  });
+}
+
+function isLowImpact(text) {
+  if (!text) return true;
+  return /없음|낮음|무관|해당 없음/.test(text);
+}
+
+function buildCard(n) {
+  const impColors = { 5:'#f87171', 4:'#fb923c', 3:'#fbbf24', 2:'#6b7280', 1:'#374151' };
+  const impLabels = { 5:'입시 직접', 4:'주요', 3:'참고', 2:'낮음', 1:'무관' };
+  const c = impColors[n.imp] || '#6b7280';
+  const lbl = impLabels[n.imp] || '';
+
+  const pips = [1,2,3,4,5].map(i =>
+    `<span class="imp-pip" style="background:${i<=n.imp ? c : 'rgba(255,255,255,0.08)'}"></span>`
+  ).join('');
+
+  const impactRows = [
+    { key:'grade3', label:'고3', cls:'ig-3' },
+    { key:'grade2', label:'고2', cls:'ig-2' },
+    { key:'grade1', label:'고1', cls:'ig-1' },
+  ].map(g => {
+    const isHL = state.grade === g.key;
+    return `<div class="impact-row${isHL ? ' hl' : ''}">
+      <span class="ig ${g.cls}">${g.label}</span>
+      <span class="impact-desc">${n.impact[g.key]}</span>
+    </div>`;
+  }).join('');
+
+  return `<div class="ncard imp-${n.imp}" data-title="${n.headline}">
+    <div class="ncard-bar"></div>
+    <div class="ncard-inner">
+      <div class="ncard-meta">
+        <div class="ncard-meta-left">
+          <span class="ntag ntag-${n.tag}">${n.label}</span>
+          <span class="ncard-time">${n.time}</span>
+          <span style="color:var(--text3);font-size:10px">·</span>
+          <span class="ncard-src">${n.src}</span>
+        </div>
+        <div class="imp-score" style="color:${c}">
+          ${pips}
+          <span style="font-size:10px;font-weight:700;margin-left:4px">${lbl}</span>
+        </div>
+      </div>
+
+      <div class="ncard-headline">${n.headline}</div>
+
+      <div class="ncard-points">
+        ${n.points.map(p => `<div class="ncard-point">${p}</div>`).join('')}
+      </div>
+
+      <div class="ncard-impact">
+        <div class="ncard-impact-hd">학생 영향</div>
+        <div class="impact-rows">${impactRows}</div>
+      </div>
+
+      <div class="ncard-action">
+        <span class="action-bolt">⚡</span>
+        <div class="action-body">
+          <div class="action-label">지금 할 행동</div>
+          <div class="action-text">${n.action}</div>
+        </div>
+        <button class="action-ai" data-title="${n.headline}">AI 분석 →</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER TRENDS
+═══════════════════════════════════════════════════ */
+function renderTrends() {
+  const list = document.getElementById('trendList');
+  list.innerHTML = TRENDS.map((t, i) => `
+    <div class="trend-row">
+      <div class="trend-name">${t.name}</div>
+      <div class="trend-bar-bg">
+        <div class="trend-bar-fill" id="tb${i}" style="background:${t.color}"></div>
+      </div>
+      <div class="trend-pct">${t.pct}%</div>
+    </div>
+  `).join('');
+  setTimeout(() => {
+    TRENDS.forEach((t, i) => { document.getElementById('tb'+i).style.width = t.pct + '%'; });
+  }, 500);
+}
+
+/* ═══════════════════════════════════════════════════
+   AI PANEL
+═══════════════════════════════════════════════════ */
+function openPanel(topic) {
+  document.getElementById('aiTopicTitle').textContent = topic;
+  document.getElementById('aiPanel').classList.add('open');
+  document.getElementById('aiOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  fetchAI(topic);
+}
+
+function closePanel() {
+  document.getElementById('aiPanel').classList.remove('open');
+  document.getElementById('aiOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function fetchAI(topic) {
+  const body = document.getElementById('aiBody');
+  body.innerHTML = `<div class="ai-loading"><div class="ai-spin"></div><div class="ai-loading-text">입시 영향 분석 중…</div></div>`;
+
+  const prompt = `당신은 한국 고등학생을 위한 입시 전략 전문가입니다.
+다음 교육 이슈를 고등학생 입장에서 분석하고 아래 JSON 형식으로만 응답하세요. 마크다운이나 코드블록 없이 순수 JSON만 반환하세요.
+
+이슈: "${topic}"
+
+{
+  "oneline": "핵심 결론 한 줄 (어렵지 않게, 20자 이내)",
+  "summary": "고등학생 눈높이 2문장 요약",
+  "impact_grade3": "고3에게 실질적 영향 한 줄",
+  "impact_grade2": "고2에게 실질적 영향 한 줄",
+  "impact_grade1": "고1에게 실질적 영향 한 줄",
+  "action": "지금 당장 해야 할 단 하나의 구체적 행동",
+  "importance": 4,
+  "points": ["핵심 사실 1", "핵심 사실 2", "핵심 사실 3"],
+  "outlook": "3~6개월 이내 전망 한 줄"
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role:'user', content: prompt }],
+      }),
+    });
+    const data = await res.json();
+    const raw  = data.content.map(b => b.text||'').join('');
+    const d    = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    renderAI(d);
+  } catch(err) {
+    body.innerHTML = `<div class="ai-error">분석 중 오류가 발생했습니다.<br><small style="opacity:.5;margin-top:6px;display:block">${err.message}</small></div>`;
+  }
+}
+
+function renderAI(d) {
+  const impColors = { 5:'#f87171', 4:'#fb923c', 3:'#fbbf24', 2:'#8892a4', 1:'#4a5568' };
+  const impLabels = { 5:'입시 직접 영향', 4:'주요 이슈', 3:'참고 수준', 2:'낮음', 1:'무관' };
+  const c   = impColors[d.importance] || '#8892a4';
+  const lbl = impLabels[d.importance] || '';
+  const pips = [1,2,3,4,5].map(i =>
+    `<span class="ai-pip" style="background:${i<=d.importance ? c : 'rgba(255,255,255,0.1)'}"></span>`
+  ).join('');
+
+  document.getElementById('aiBody').innerHTML = `
+    <div class="ai-oneline-box">
+      <div class="ai-oneline">${d.oneline}</div>
+      <div class="ai-imp-row">
+        <div class="ai-imp-pips">${pips}</div>
+        <span class="ai-imp-label" style="color:${c}">${lbl}</span>
+      </div>
+    </div>
+
+    <div class="ai-action-card">
+      <div class="ai-action-lbl">⚡ 지금 할 행동</div>
+      <div class="ai-action-text">${d.action}</div>
+    </div>
+
+    <div class="ai-sec">
+      <div class="ai-sec-lbl">요약</div>
+      <div class="ai-text">${d.summary}</div>
+    </div>
+
+    <div class="ai-sec">
+      <div class="ai-sec-lbl">학년별 영향</div>
+      <div class="ai-grade-rows">
+        <div class="ai-grade-row"><span class="ai-grade-badge aig3">고3</span><span class="ai-grade-text">${d.impact_grade3}</span></div>
+        <div class="ai-grade-row"><span class="ai-grade-badge aig2">고2</span><span class="ai-grade-text">${d.impact_grade2}</span></div>
+        <div class="ai-grade-row"><span class="ai-grade-badge aig1">고1</span><span class="ai-grade-text">${d.impact_grade1}</span></div>
+      </div>
+    </div>
+
+    <div class="ai-sec">
+      <div class="ai-sec-lbl">핵심 사실</div>
+      <div class="ai-points">
+        ${d.points.map(p => `<div class="ai-point">${p}</div>`).join('')}
+      </div>
+    </div>
+
+    <div class="ai-sec">
+      <div class="ai-sec-lbl">전망</div>
+      <div class="ai-text">${d.outlook}</div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
